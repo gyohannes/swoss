@@ -1,0 +1,5 @@
+<%= simple_fields_for :surgical_service, @surgical_service do |f| %>
+    <% if @outcome == Constants::DEAD %>
+      <%= f.input :reason_for_death, collection: Constants::DEATH_REASONS %>
+    <% end %>
+<% end %>

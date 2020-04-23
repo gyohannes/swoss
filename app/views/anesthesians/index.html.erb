@@ -1,0 +1,33 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Anesthesians</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Hospital</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @anesthesians.each do |anesthesian| %>
+      <tr>
+        <td><%= anesthesian.name %></td>
+        <td><%= anesthesian.hospital %></td>
+        <td><%= link_to 'Edit', edit_anesthesian_path(anesthesian) %> |
+          <%= link_to 'Remove', anesthesian, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Anesthesian', new_anesthesian_path, class: 'btn btn-primary' %>
+  </div>
+</div>

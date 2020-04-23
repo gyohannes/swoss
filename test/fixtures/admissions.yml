@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  patient: one
+  admission_type: MyString
+  diagnosis: one
+  procedure: one
+  priority: false
+  physician: one
+  department: one
+  listing_status: MyString
+  appointment_date: MyString
+  admission_date: MyString
+  ward: one
+  payment_type: one
+
+two:
+  user: two
+  patient: two
+  admission_type: MyString
+  diagnosis: two
+  procedure: two
+  priority: false
+  physician: two
+  department: two
+  listing_status: MyString
+  appointment_date: MyString
+  admission_date: MyString
+  ward: two
+  payment_type: two

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @or_table.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @or_table.code %>
+</p>
+
+<p>
+  <strong>Hospital:</strong>
+  <%= @or_table.hospital %>
+</p>
+
+<%= link_to 'Edit', edit_or_table_path(@or_table) %> |
+<%= link_to 'Back', or_tables_path %>

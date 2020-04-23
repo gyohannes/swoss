@@ -1,0 +1,158 @@
+<div class="card shadow mb-4">
+  <!-- Card Body -->
+  <div class="card-body">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" id="registration-tab" data-toggle="tab" href="#registration" role="tab" aria-controls="registration" aria-selected="true">Basic Details</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" id="admissions-tab" data-toggle="tab" href="#admissions" role="tab" aria-controls="admissions" aria-selected="true">Appointments</a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" id="phone_calls-tab" data-toggle="tab" href="#phone_calls" role="tab" aria-controls="phone_calls" aria-selected="true">Appointment Updates</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" id="surgical-tab" data-toggle="tab" href="#surgical" role="tab" aria-controls="surgical" aria-selected="true">Surgical</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <br/>
+      <div class="float-right row">
+        <%= link_to 'Edit Registraion', edit_patient_path(@patient), class: 'btn btn-primary' %>&nbsp;
+        <%= link_to 'Admission', admission_admission_path(@patient.latest_admission), class: 'btn btn-primary' if @patient.latest_admission and @patient.latest_admission.status == Constants::ON_WAITING_LIST %>&nbsp;
+        <%= link_to 'Register New Appointment', new_admission_path(patient: @patient.id), class: 'btn btn-primary' %> &nbsp;
+      </div>
+      <br/><br/>
+      <div class="tab-pane active" id="registration" role="tabpanel" aria-labelledby="registration-tab">
+        <br/>
+            <table class="table table-responsive table-striped table-condensed">
+            <tr>
+              <th>MRN:</th>
+              <td><%= @patient.mrn %></td>
+            </tr>
+
+            <tr>
+              <th>Full name:</th>
+              <td><%= @patient.full_name %></td>
+            </tr>
+
+            <tr>
+              <th>Date of birth:</th>
+              <td><%= @patient.date_of_birth %></td>
+            </tr>
+
+              <tr>
+                <th>Age:</th>
+                <td><%= @patient.age %></td>
+            </tr>
+
+              <tr>
+                <th>Sex:</th>
+                <td><%= @patient.sex %></td>
+            </tr>
+
+              <tr>
+                <th>Region:</th>
+                <td><%= @patient.region %></td>
+            </tr>
+              <tr>
+                <th>Zone:</th>
+                <td><%= @patient.zone %></td>
+            </tr>
+              <tr>
+                <th>Woreda:</th>
+                <td><%= @patient.woreda %></td>
+            </tr>
+              <tr>
+                <th>Kebele:</th>
+                <td><%= @patient.kebele %></td>
+            </tr>
+              <tr>
+                <th>House number:</th>
+                <td><%= @patient.house_number %></td>
+            </tr>
+              <tr>
+                <th>Primary telephone number:</th>
+                <td><%= @patient.primary_telephone_number %></td>
+            </tr>
+              <tr>
+                <th>Name of contact person:</th>
+                <td><%= @patient.name_of_contact_person %></td>
+            </tr>
+              <tr>
+                <th>Contact person telephone number:</th>
+                <td><%= @patient.contact_person_telephone_number %></td>
+            </tr>
+            </table>
+      </div>
+      <div class="tab-pane" id="admissions" role="tabpanel" aria-labelledby="admissions-tab">
+        <% unless @patient.admissions.blank? %>
+            <table class="table table-responsive table-striped">
+              <tr>
+                <th>Admission Type</th>
+                <th>Date of registration</th>
+                <th>Diagnosis</th>
+                <th>Procedure</th>
+                <th>Priority</th>
+                <th>Admitting Department:</th>
+                <th>Listing Status:</th>
+                <th>Admission Date:</th>
+                <th>Reason for admission</th>
+                <th>Admitting Ward:</th>
+                <th>Appointment Date:</th>
+                <th>Status</th>
+              </tr>
+              <% @patient.admissions.each do |a| %>
+              <tr>
+                <td><%= a.admission_type %></td>
+                <td><%= a.date_of_registration %></td>
+                <td><%= a.diagnosis %></td>
+                <td><%= a.procedure %></td>
+                <td><%= a.priority_status %></td>
+                <td><%= a.department %></td>
+                <td><%= a.listing_status %></td>
+                <td><%= a.admission_date %></td>
+                <td><%= a.reason_for_admission %></td>
+                <td><%= a.ward %></td>
+                <td><%= a.appointment_date %></td>
+                <td><%= a.status %></td>
+              </tr>
+              <% end %>
+            </table>
+        <% end %>
+      </div>
+      <div class="tab-pane" id="phone_calls" role="tabpanel" aria-labelledby="phone_calls-tab">
+        <% unless @patient.latest_admission.blank? %>
+        <table class="table table-responsive table-striped">
+          <tr>
+            <th>Appointment Date</th>
+            <th>Call Date</th>
+            <th>Patient Reponse</th>
+            <th>Information</th>
+            <th>Action</th>
+            <th>New Appointment</th>
+          </tr>
+          <% @patient.latest_admission.phone_calls.each do |pc| %>
+          <tr>
+            <td><%= pc.admission.appointment_date %></td>
+            <td><%= pc.created_at.to_date %></td>
+            <td><%= pc.patient_response %></td>
+            <td><%= pc.information %></td>
+            <td><%= pc.action %></td>
+            <td><%= pc.new_appointment %></td>
+          </tr>
+          <% end %>
+        </table>
+        <% end %>
+      </div>
+      <div class="tab-pane" id="surgical" role="tabpanel" aria-labelledby="surgical-tab">
+
+        #TODO
+      </div>
+    </div>
+  </div>
+</div>

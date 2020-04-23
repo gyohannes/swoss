@@ -1,0 +1,63 @@
+<h4>Reporting Period: <%= 'From ' << @from unless @from.blank? %> <%= 'To ' << @to unless @to.blank? %></h4><br/>
+<div class="row">
+<div class="col-lg-6 col-md-12">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+    <caption>OR Table Efficiency</caption>
+    <table class="table table-bordered" width="100%">
+      <thead>
+      <tr>
+        <th>Month</th>
+        <th>Surgery/OR table/day</th>
+      </tr>
+      </thead>
+      <% total_table_eff = 0 %>
+      <% unless @date_range.blank? %>
+      <% @date_range.each do |m| %>
+              <% eth_date = fromGregorianToEthiopic(m.year, m.month, m.end_of_month.day).split('-') %>
+          <tr>
+            <td><%= AmharicMonths[eth_date[1]] + ' ' + eth_date[0] %></td>
+            <td><%= te = SurgicalService.or_table_efficiency(m) %> <% total_table_eff += te || 0 %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <th>Overall</th>
+        <td><%= total_table_eff/@date_range.count %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  </div>
+</div>
+
+  <div class="col-lg-6 col-md-12">
+    <div class="card shadow mb-4">
+      <div class="card-body">
+    <caption>Surgical Efficiency</caption>
+    <table class="table table-bordered" width="100%">
+      <thead>
+      <tr>
+        <th>Admitting Department</th>
+        <th>Surgery/Surgeon/Day</th>
+        <th>Average Procedure Duration</th>
+      </tr>
+      </thead>
+      <% total_surgeon_eff = 0 %>
+      <% total_ave_duration = 0 %>
+      <% Department.all.each do |d| %>
+          <tr>
+            <td><%= d %></td>
+            <td><%= se = d.surgeon_efficiency(@from_gr, @to_gr) %> <% total_surgeon_eff += se || 0 %></td>
+            <td><%= ap = d.average_procedure_duration(@from_gr, @to_gr) %> <% total_ave_duration += ap || 0 %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <th>Overall</th>
+        <td><%= total_surgeon_eff/Department.count %></td>
+        <td><%= total_ave_duration/Department.count %></td>
+      </tr>
+    </table>
+  </div>
+    </div>
+</div>
+</div>

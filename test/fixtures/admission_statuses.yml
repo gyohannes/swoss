@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admission: one
+  status: MyString
+  status_date: 2020-04-16
+
+two:
+  admission: two
+  status: MyString
+  status_date: 2020-04-16

@@ -1,0 +1,36 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Procedure Categories</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Max appointment days</th>
+      <th>Max postponment days</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @procedure_categories.each do |procedure_category| %>
+      <tr>
+        <td><%= procedure_category.code %></td>
+        <td><%= procedure_category.max_appointment_days %></td>
+        <td><%= procedure_category.max_postponment_days %></td>
+        <td>
+          <%= link_to 'Edit', edit_procedure_category_path(procedure_category) %> |
+          <%= link_to 'Delete', procedure_category, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Procedure Category', new_procedure_category_path, class: 'btn btn-primary' %>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  MRN: 1
+  first_name: MyString
+  father_name: MyString
+  grand_father_name: MyString
+  date_of_birth: 2020-03-31
+  age: 1
+  sex: MyString
+  date_of_registration: 2020-03-31
+  region: one
+  zone: MyString
+  woreda: MyString
+  kebele: MyString
+  house_number: MyString
+  primary_telephone_number: 1
+  name_of_contact_person: MyString
+  contact_person_telephone_number: MyString
+  admission_type: MyString
+  diagnosis: one
+  procedure: one
+  priority: false
+  physician: one
+  department: one
+  listing_status: MyString
+  appointment_date: 2020-03-31
+  admission_date: 2020-03-31
+  ward: one
+  payment_type: one
+
+two:
+  MRN: 1
+  first_name: MyString
+  father_name: MyString
+  grand_father_name: MyString
+  date_of_birth: 2020-03-31
+  age: 1
+  sex: MyString
+  date_of_registration: 2020-03-31
+  region: two
+  zone: MyString
+  woreda: MyString
+  kebele: MyString
+  house_number: MyString
+  primary_telephone_number: 1
+  name_of_contact_person: MyString
+  contact_person_telephone_number: MyString
+  admission_type: MyString
+  diagnosis: two
+  procedure: two
+  priority: false
+  physician: two
+  department: two
+  listing_status: MyString
+  appointment_date: 2020-03-31
+  admission_date: 2020-03-31
+  ward: two
+  payment_type: two

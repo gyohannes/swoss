@@ -1,0 +1,48 @@
+     <div class="card shadow mb-4">
+      <!-- Card Body -->
+      <div class="card-body">
+          <%= simple_form_for :search, remote: true, html: { novalidate: true } do |f| %>
+              <%=  f.input :mrn, label: 'MRN' %>
+          <% end %>
+          <div id="patients_list">
+          </div>
+        </div>
+      </div>
+
+    <div class="card shadow mb-4">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h4>Schedules</h4>
+      </div>
+      <div class="card-body">
+    <table class="table table-responsive table-striped dataTable">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Procedure type</th>
+        <th>Surgeon in charge</th>
+        <th>Anesthesia in charge</th>
+        <th>Scrub nurse</th>
+        <th>Circulating nurse</th>
+        <th>Scheduled date</th>
+        <th>Scheduled time</th>
+        <th>Scheduled order</th>
+        <th></th>
+      </tr>
+      </thead>
+      <% @or_schedules.each do |os| %>
+        <tr>
+          <td><%= os.admission %></td>
+          <td><%= os.procedure_type %></td>
+          <td><%= os.surgeon %></td>
+          <td><%= os.anesthesian %></td>
+          <td><%= os.scrub_nurse %></td>
+          <td><%= os.circulating_nurse %></td>
+          <td><%= os.scheduled_date %></td>
+          <td><%= os.scheduled_time.strftime("%H:%M %p") rescue nil %></td>
+          <td><%= os.schedule_order %></td>
+          <td><%= link_to 'Edit', edit_or_schedule_path(os), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+    </table>
+      </div>
+    </div>

@@ -1,0 +1,31 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require sbadmin2/all
+ *= require sbadmin2/sb-admin-2.min
+ *= require sbadmin2/dataTables.bootstrap4.min
+ *= require new_style.css
+ *= require jquery/jquery.calendars.picker
+ *= require jquery/redmond.calendars.picker
+ *= require mdtimepicker
+ */
+
+.bg-login-image{
+  background:image-url('undraw_authentication_fsn5.svg');
+  background-position:center;
+  background-size:cover
+}
+.bg-password-image{
+  background:image-url('undraw_forgot_password_gi2d.svg');
+  background-position:center;
+  background-size:cover
+}

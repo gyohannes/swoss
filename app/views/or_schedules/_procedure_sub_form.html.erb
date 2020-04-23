@@ -1,0 +1,10 @@
+<%= simple_fields_for :or_schedule, @or_schedule do |f| %>
+    <% if @procedure_type == Constants::ELECTIVE %>
+      <%= f.input :scheduled_date, input_html: {class: 'ethiopian_date_picker'} %>
+      <%= f.input :scheduled_time, as: :string, input_html:
+        { value: @or_schedule.blank? ? '' : f.object.scheduled_time.strftime("%H:%M %P"), class: 'time_picker'} %>
+      <%= f.input :schedule_order_id, collection: ScheduleOrder.all %>
+    <% end %>
+<% end %>
+
+<%= javascript_include_tag 'global' %>

@@ -1,0 +1,2 @@
+module ProcedureCategoriesHelper
+end

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Admission:</strong>
+  <%= @phone_call.admission %>
+</p>
+
+<p>
+  <strong>Patient response:</strong>
+  <%= @phone_call.patient_response %>
+</p>
+
+<p>
+  <strong>Information:</strong>
+  <%= @phone_call.information %>
+</p>
+
+<p>
+  <strong>Action:</strong>
+  <%= @phone_call.action %>
+</p>
+
+<p>
+  <strong>New appointment:</strong>
+  <%= @phone_call.new_appointment %>
+</p>
+
+<%= link_to 'Edit', edit_phone_call_path(@phone_call) %> |
+<%= link_to 'Back', phone_calls_path %>

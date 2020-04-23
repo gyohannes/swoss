@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>FMOH - SWOSS</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <%= link_to root_path, class: 'sidebar-brand d-flex align-items-center justify-content-center' do  %>
+      <div class="sidebar-brand-icon">
+        <h2>FMOH</h2>
+      </div>
+      <div class="sidebar-brand-text mx-3">SWOSS</div>
+    <% end %>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+    <%= render 'menus/admin'  %>
+    <%= render 'menus/liaison_officer'  %>
+    <%= render 'menus/or_manager'  %>
+    <%= render 'menus/or_user'  %>
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-fw fa-suitcase"></i>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Professionals</span>
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <%= link_to surgeons_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Surgeons
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to anesthesians_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Anesthesians
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to physicians_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Physicians
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to scrub_nurses_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Scrub Nurses
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to circulating_nurses_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Circulating Nurses
+              <% end %>
+            </div>
+          </li>
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-fw fa-cog"></i>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Settings</span>
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <%= link_to regions_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-map-marker fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Regions
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to @hospital || new_hospital_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-hospital-symbol fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Hospital Details
+              <% end %>
+
+              <div class="dropdown-divider"></div>
+              <%= link_to payment_types_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-dollar-sign fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Payment Types
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to departments_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Departments
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to wards_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Wards
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to or_tables_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-tablet-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  OR Tables
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to diagnoses_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Diagnoses
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to procedure_categories_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Procedure Categories
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to procedures_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Procedures
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to schedule_orders_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Schedule Orders
+              <% end %>
+            </div>
+          </li>
+
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= current_user.user_name rescue nil %></span>
+              <i class="fas fa-fw fa-user-alt"></i>
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Change Password
+              <% end %>
+
+              <div class="dropdown-divider"></div>
+              <%= link_to destroy_user_session_path, class: 'dropdown-item' do %>
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+              <% end %>
+            </div>
+          </li>
+
+        </ul>
+
+      </nav>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+
+          <%= yield :header %>
+
+        <div class="row">
+
+          <!-- Area Chart -->
+          <div class="col-xl-12 col-lg-12">
+                <%= yield %>
+          </div>
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Ethiopian Ministry of Health 2020</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</body>
+
+</html>
+

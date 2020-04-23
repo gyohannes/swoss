@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  max_appointment_days: 1
+  max_postponment_days: 1
+
+two:
+  code: 1
+  max_appointment_days: 1
+  max_postponment_days: 1

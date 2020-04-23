@@ -1,0 +1,16 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h4>Appointment List</h4>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+
+    <h4><strong>Next <% [3, 7, 15, 30].each do |d| %>
+          <button class="btn btn-primary days"><%= d %></button>
+      <% end %> Days</strong></h4>
+    <br/>
+    <div id="appointment_list">
+      <%= render partial: '/patients/appointment_list' %>
+    </div>
+  </div>
+</div>

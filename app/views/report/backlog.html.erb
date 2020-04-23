@@ -1,0 +1,25 @@
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+    <table class="table table-striped" width="100%">
+      <thead>
+      <tr>
+        <th>Admitting Departments</th>
+        <th></th>
+      </tr>
+      </thead>
+      <% total = 0 %>
+      <% Department.all.map do |d| %>
+          <tr>
+            <th><%= d %></th>
+            <th><%= dt = d.missing_total %></th>
+            <% total += dt %>
+          </tr>
+      <% end %>
+      <tr>
+        <th class="text-center">Total</th>
+        <th><%= total %></th>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+
+<%= simple_form_for(@or_schedule, html: { autocomplete: "off" }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :user, as: :hidden %>
+    <%= f.association :admission, as: :hidden %>
+    <div class="form-group row">
+    <label class="col-sm-3">Patient</label>
+    <div class="col-sm-9">
+      <span class="form-control"><%= @or_schedule.admission.patient.name_and_mrn rescue nil %></div>
+      </span>
+    </div>
+    <%= f.input :procedure_type, collection: Constants::PROCEDURE_TYPES %>
+    <%= f.association :surgeon %>
+    <%= f.association :anesthesian %>
+    <%= f.association :scrub_nurse %>
+    <%= f.association :circulating_nurse %>
+    <div id="procedure_sub_form_display">
+      <%= render partial: 'procedure_sub_form' %>
+    </div>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

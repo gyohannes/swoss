@@ -1,0 +1,47 @@
+<p>
+  <strong>Patient:</strong>
+  <%= @or_schedule.admission.patient %>
+</p>
+
+<p>
+  <strong>Procedure type:</strong>
+  <%= @or_schedule.procedure_type %>
+</p>
+
+<p>
+  <strong>Surgeon:</strong>
+  <%= @or_schedule.surgeon %>
+</p>
+
+<p>
+  <strong>Anesthesian:</strong>
+  <%= @or_schedule.anesthesian %>
+</p>
+
+<p>
+  <strong>Scrub nurse:</strong>
+  <%= @or_schedule.scrub_nurse %>
+</p>
+
+<p>
+  <strong>Circulating nurse:</strong>
+  <%= @or_schedule.circulating_nurse %>
+</p>
+
+<p>
+  <strong>Scheduled date:</strong>
+  <%= @or_schedule.scheduled_date %>
+</p>
+
+<p>
+  <strong>Scheduled time:</strong>
+  <%= @or_schedule.scheduled_time.strftime("%I:%M %p") rescue nil %>
+</p>
+
+<p>
+  <strong>Schedule order:</strong>
+  <%= @or_schedule.schedule_order %>
+</p>
+
+<%= link_to 'Edit', edit_or_schedule_path(@or_schedule) %> |
+<%= link_to 'Back', or_schedules_path %>

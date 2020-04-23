@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admission.user %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @admission.patient %>
+</p>
+
+<p>
+  <strong>Admission type:</strong>
+  <%= @admission.admission_type %>
+</p>
+
+<p>
+  <strong>Diagnosis:</strong>
+  <%= @admission.diagnosis %>
+</p>
+
+<p>
+  <strong>Procedure:</strong>
+  <%= @admission.procedure %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @admission.priority %>
+</p>
+
+<p>
+  <strong>Physician:</strong>
+  <%= @admission.physician %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @admission.department %>
+</p>
+
+<p>
+  <strong>Listing status:</strong>
+  <%= @admission.listing_status %>
+</p>
+
+<p>
+  <strong>Appointment date:</strong>
+  <%= @admission.appointment_date %>
+</p>
+
+<p>
+  <strong>Admission date:</strong>
+  <%= @admission.admission_date %>
+</p>
+
+<p>
+  <strong>Ward:</strong>
+  <%= @admission.ward %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @admission.payment_type %>
+</p>
+
+<%= link_to 'Edit', edit_admission_path(@admission) %> |
+<%= link_to 'Back', admissions_path %>

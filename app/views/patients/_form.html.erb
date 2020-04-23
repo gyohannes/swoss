@@ -1,0 +1,34 @@
+
+<%= simple_form_for(@patient, html: { autocomplete: "off" }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.association :hospital, as: :hidden %>
+      <%= f.input :mrn, label: 'MRN', disabled: f.object.persisted? %>
+      <%= f.input :first_name, disabled: f.object.persisted? %>
+      <%= f.input :father_name, disabled: f.object.persisted? %>
+      <%= f.input :grand_father_name, disabled: f.object.persisted? %>
+      <%= f.input :date_of_birth, disabled: f.object.persisted? %>
+      <div id="age_form">
+        <%= render partial: 'age', locals: {f: f} %>
+      </div>
+      <%= f.input :sex, collection: ['Female', 'Male'], disabled: f.object.persisted? %>
+    </div>
+    <div class="col-lg-6 left_form">
+      <%= f.association :region %>
+      <%= f.input :zone %>
+      <%= f.input :woreda %>
+      <%= f.input :kebele %>
+      <%= f.input :house_number %>
+      <%= f.input :primary_telephone_number %>
+      <%= f.input :name_of_contact_person %>
+      <%= f.input :contact_person_telephone_number %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Save and Continue', class: 'btn btn-primary' %>
+  </div>
+<% end %>

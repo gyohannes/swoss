@@ -1,0 +1,151 @@
+.sidebar .nav-item .collapse, .sidebar .nav-item .collapsing {
+    min-width: 100%;
+    width: max-content;
+    background: skyblue;
+}
+.form-control[readonly] {
+    background: none;
+}
+.form-control{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid silver;
+    background-image: none;
+}
+
+section.content {
+    margin: 120px 15px 0 314px;
+}
+.sidebar .menu .list a span{
+    border-radius: 6px;
+}
+.sidebar .menu .list a span.badge.btn-info{
+    display: initial;
+    border-radius: 50%;
+}
+fieldset.sub_form{
+    padding: 5px 20px;
+    border: 1px solid #d4d3f2;
+    margin: 20px 5px;
+}
+.sub_form legend{
+    border: none;
+    width: auto;
+}
+.login-page {
+    min-width: 800px;
+}
+[type="radio"]:not(:checked) + label, [type="radio"]:checked + label,[type="checkbox"]:not(:checked) + label, [type="checkbox"]:checked + label {
+    font-size: inherit;
+    font-weight: bold;
+    text-align: left;
+}
+.theme-cyan .navbar{
+    background-color: #a6c4e2;
+}
+.navbar{
+    background: white;
+}
+.label-count{
+    background: red;
+}
+.sidebar .menu .list a span{
+    border-bottom: 1px solid skyblue;
+}
+
+.form-check{
+    padding-left: inherit;
+    margin-right: 10px;
+    float: left;
+    width: 33%;
+    font-weight: bold;
+}
+.single_columned_list .form-check {
+    float: left;
+    width: 100%;
+}
+.nav-tabs li a{
+    border: 1px solid red;
+}
+@media screen and (min-width: 600px) {
+    form label, .card-body strong{
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .card-body strong{
+        text-align: center;
+    }
+}
+
+.fc-title{
+    white-space: initial;
+}
+.transparent_label{
+    color: transparent;
+}
+.invalid-feedback{
+    color: red;
+}
+
+.left_form{
+    border-left: 1px solid skyblue;
+}
+@media screen and (min-width: 1200px) {
+    .form-group .form-control {
+        width: 75%;
+    }
+}
+
+.form-actions{
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+form > label{
+    font-size: 12px;
+}
+.card{
+    min-height: inherit;
+}
+.login-page{
+    background-repeat: no-repeat;
+}
+
+.details-label{
+    font-weight: bold;
+}
+.help-block{
+    color: red;
+}
+
+/*flash*/
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+}
+
+.alert-alert {
+    background-color: darksalmon;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+}
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+}
+
+.alert-notice {
+    background-color: darkcyan;
+    border-color: #00b0e4;
+    color: #468847;
+    text-align: left;
+}

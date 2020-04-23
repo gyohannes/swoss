@@ -1,0 +1,2 @@
+json.extract! patient, :id, :MRN, :first_name, :father_name, :grand_father_name, :date_of_birth, :age, :sex, :date_of_registration, :region_id, :zone, :woreda, :kebele, :house_number, :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number, :admission_type, :diagnosis_id, :procedure_id, :priority, :physician_id, :department_id, :listing_status, :appointment_date, :admission_date, :ward_id, :payment_type_id, :created_at, :updated_at
+json.url patient_url(patient, format: :json)

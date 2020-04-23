@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  or_schedule: one
+  post_schedule_status: MyString
+  reason_for_cancellation: MyString
+  or_table: one
+  anesthesia_time: 2020-04-13 13:36:59
+  incision_time: 2020-04-13 13:36:59
+  surgery_end_time: 2020-04-13 13:36:59
+  surgical_safety_checklist_completed: false
+  immediate_postoperative_outcome: MyString
+  reason_for_death: MyString
+
+two:
+  user: two
+  or_schedule: two
+  post_schedule_status: MyString
+  reason_for_cancellation: MyString
+  or_table: two
+  anesthesia_time: 2020-04-13 13:36:59
+  incision_time: 2020-04-13 13:36:59
+  surgery_end_time: 2020-04-13 13:36:59
+  surgical_safety_checklist_completed: false
+  immediate_postoperative_outcome: MyString
+  reason_for_death: MyString

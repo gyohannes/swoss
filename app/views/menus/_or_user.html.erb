@@ -1,0 +1,51 @@
+<% if current_user.is_role(User::OR_USER) %>
+<!-- Nav Item - Dashboard -->
+<li class="nav-item active">
+  <%= link_to root_path, class: 'nav-link' do %>
+    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <span>Dashboard</span>
+  <% end %>
+</li>
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#schedules" aria-expanded="true" aria-controls="schedules">
+        <i class="fas fa-fw fa-calendar"></i>
+        <span>OR Scheduling</span>
+      </a>
+      <div id="schedules" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <%= link_to "Today's Schedule", today_or_schedules_path, class: 'collapse-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Schedules', or_schedules_path, class: 'collapse-item' %>
+        </div>
+      </div>
+    </li>
+
+<li class="nav-item active">
+  <%= link_to surgical_services_path, class: 'nav-link' do %>
+      <i class="fas fa-fw fa-suitcase"></i>
+      <span>Surgical Services</span>
+  <% end %>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reports" aria-expanded="true" aria-controls="reports">
+    <i class="fas fa-fw fa-chart-bar"></i>
+    <span>Reports</span>
+  </a>
+  <div id="reports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <%= link_to 'Backlog Report', report_backlog_path, class: 'collapse-item' %>
+      <div class="dropdown-divider"></div>
+      <%= link_to 'Active Waitlist Report', report_waitlist_path, class: 'collapse-item' %>
+      <div class="dropdown-divider"></div>
+      <%= link_to 'Surgical Service Report', report_surgical_service_path, class: 'collapse-item' %>
+      <div class="dropdown-divider"></div>
+      <%= link_to 'Surgical Service Efficiency Report', report_surgical_service_efficiency_path, class: 'collapse-item' %>
+    </div>
+  </div>
+</li>
+<% end %>

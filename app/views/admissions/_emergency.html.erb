@@ -1,0 +1,9 @@
+<% if @admission_type == Constants::EMERGENCY_NEW || @admission_type == Constants::EMERGENCY_REOPERATION %>
+<%= simple_fields_for :admission, @admission do |f| %>
+    <%= f.input :department_id, collection: Department.all, label: 'Admitting Department', disabled: @admission.blank? ? false : f.object.persisted? %>
+    <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: @admission.blank? ? false : f.object.persisted? %>
+    <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: @admission.blank? ? false : f.object.persisted? %>
+<% end %>
+<% end %>
+
+<%= javascript_include_tag 'global' %>

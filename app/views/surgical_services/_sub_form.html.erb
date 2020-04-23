@@ -1,0 +1,18 @@
+<%= simple_fields_for :surgical_service, @surgical_service do |f| %>
+    <% if @status == Constants::CANCELLED %>
+        <%= f.input :reason_for_cancellation, collection: Constants::OPERATION_CANCELLATION_REASONS %>
+    <% elsif @status == Constants::OPERATED %>
+      <%= f.input :or_table_id, collection: OrTable.all, label: 'OR Table' %>
+      <%= f.input :anesthesia_time, as: :string, input_html:
+          { value: @surgical_service.blank? ? '' : (f.object.anesthesia_time.blank? ? '' : f.object.anesthesia_time.strftime("%H:%M %P")), class: 'time_picker'} %>
+      <%= f.input :incision_time, as: :string, input_html:
+          { value: @surgical_service.blank? ? '' : (f.object.incision_time.blank? ? '' : f.object.incision_time.strftime("%H:%M %P")), class: 'time_picker'} %>
+      <%= f.input :surgery_end_time, as: :string, input_html:
+          { value: @surgical_service.blank? ? '' : (f.object.surgery_end_time.blank? ? '' : f.object.surgery_end_time.strftime("%H:%M %P")), class: 'time_picker'} %>
+      <%= f.input :surgical_safety_checklist_completed %>
+      <%= f.input :immediate_postoperative_outcome, collection: Constants::POSTOPERATIVE_OUTCOME %>
+        <div id="death_reason_display">
+          <%= render partial: 'death_reason' %>
+        </div>
+    <% end %>
+<% end %>

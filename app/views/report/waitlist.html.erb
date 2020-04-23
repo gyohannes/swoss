@@ -1,0 +1,20 @@
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+    <table class="table table-bordered" width="100%">
+      <tr>
+        <th colspan="2">Total on Waitlist</th>
+        <th><%= Admission.waiting_total(Constants::ON_WAITING_LIST) %></th>
+      </tr>
+          <tr>
+            <th rowspan="<%= ProcedureCategory.count + 1 %>">Procedure Category</th>
+          </tr>
+          <% ProcedureCategory.all.map do |pc| %>
+              <tr>
+                <th><%= pc %></th>
+                <th><%= pc.waitlist %></th>
+              </tr>
+          <% end %>
+    </table>
+  </div>
+</div>

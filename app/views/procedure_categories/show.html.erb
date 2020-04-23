@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @procedure_category.code %>
+</p>
+
+<p>
+  <strong>Max appointment days:</strong>
+  <%= @procedure_category.max_appointment_days %>
+</p>
+
+<p>
+  <strong>Max postponment days:</strong>
+  <%= @procedure_category.max_postponment_days %>
+</p>
+
+<%= link_to 'Edit', edit_procedure_category_path(@procedure_category) %> |
+<%= link_to 'Back', procedure_categories_path %>

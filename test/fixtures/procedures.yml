@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category: 1
+  max_appointment_days: 1
+  max_postponment_days: 1
+
+two:
+  name: MyString
+  category: 1
+  max_appointment_days: 1
+  max_postponment_days: 1

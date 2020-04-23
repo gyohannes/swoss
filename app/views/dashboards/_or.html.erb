@@ -1,0 +1,65 @@
+<div class="row">
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+    <table class="table-responsive" width="100%">
+      <tr>
+        <td>
+          <table class="table table-responsive">
+            <% Constants::POST_SCHEDULE_STATUS.each do |s| %>
+                <tr>
+                  <th>
+                    <center>
+                      <%= SurgicalService.surgeries_total(s) %><br/>
+                      Total <%= s == Constants::OPERATED ? 'Surgeries' : 'Cancellation' %>
+                    </center>
+                  </th>
+                </tr>
+            <% end %>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Department</th>
+              <% Constants::POST_SCHEDULE_STATUS.each do |s| %>
+                  <th><%= s == Constants::OPERATED ? 'Surgeries' : 'Cancellation' %></th>
+              <% end %>
+            </tr>
+            </thead>
+            <% Department.all.each do |d| %>
+                <tr>
+                  <td><%= d %></td>
+                  <% Constants::POST_SCHEDULE_STATUS.each do |s| %>
+                      <th><%= d.surgeries_total(s) %></th>
+                  <% end %>
+                </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+    <%= line_chart surgeries_by_status_by_month_surgical_services_path, title: 'Surgeries over the last 12 months', label: true, defer: true, colors: ["#008000", "#FF0000"] %>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+    <%= column_chart surgical_service_efficiency_by_month_surgical_services_path, title: 'Surgical efficiency over the last 12 months', label: true, defer: true %>
+  </div>
+</div>
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+    <%= line_chart average_procedure_duration_by_month_surgical_services_path, title: 'Average procedure duration (minutes) over the last 12 months', label: true, defer: true %>
+  </div>
+</div>
+</div>

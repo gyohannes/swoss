@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @surgical_service.user %>
+</p>
+
+<p>
+  <strong>Or schedule:</strong>
+  <%= @surgical_service.or_schedule %>
+</p>
+
+<p>
+  <strong>Post schedule status:</strong>
+  <%= @surgical_service.post_schedule_status %>
+</p>
+
+<p>
+  <strong>Reason for cancellation:</strong>
+  <%= @surgical_service.reason_for_cancellation %>
+</p>
+
+<p>
+  <strong>Or table:</strong>
+  <%= @surgical_service.or_table %>
+</p>
+
+<p>
+  <strong>Anesthesia time:</strong>
+  <%= @surgical_service.anesthesia_time %>
+</p>
+
+<p>
+  <strong>Incision time:</strong>
+  <%= @surgical_service.incision_time %>
+</p>
+
+<p>
+  <strong>Surgery end time:</strong>
+  <%= @surgical_service.surgery_end_time %>
+</p>
+
+<p>
+  <strong>Surgical safety checklist completed:</strong>
+  <%= @surgical_service.surgical_safety_checklist_completed %>
+</p>
+
+<p>
+  <strong>Immediate postoperative outcome:</strong>
+  <%= @surgical_service.immediate_postoperative_outcome %>
+</p>
+
+<p>
+  <strong>Reason for death:</strong>
+  <%= @surgical_service.reason_for_death %>
+</p>
+
+<%= link_to 'Edit', edit_surgical_service_path(@surgical_service) %> |
+<%= link_to 'Back', surgical_services_path %>

@@ -1,0 +1,44 @@
+<div class="card shadow mb-4 col-lg-6 col-md-12">
+  <!-- Card Body -->
+  <div class="card-body">
+<table class="table-responsive" width="100%">
+  <tr>
+    <td>
+      <table class="table table-responsive">
+        <% Constants::PATIENT_STATUS.each do |s| %>
+          <tr>
+            <th>
+              <center>
+              <%= Admission.waiting_total(s) %><br/>
+                Total <%= s %>
+              </center>
+            </th>
+          </tr>
+        <% end %>
+      </table>
+    </td>
+    <td>
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Department</th>
+          <% Constants::PATIENT_STATUS.each do |s| %>
+              <th><%= s %></th>
+          <% end %>
+        </tr>
+        </thead>
+        <% Department.all.each do |d| %>
+            <tr>
+              <td><%= d %></td>
+              <% Constants::PATIENT_STATUS.each do |s| %>
+                <th><%= d.waiting_total(s) %></th>
+              <% end %>
+            </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+</table>
+  </div>
+</div>
+  <%= line_chart patients_by_status_by_month_admissions_path, defer: true, title: 'Surgical Waitlist over the last 12 months', colors: ["#0000FF", "#008000", "#FF0000"] %>

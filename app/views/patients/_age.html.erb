@@ -1,0 +1,3 @@
+<%= simple_fields_for :patient, @patient do |f| %>
+  <%= f.input :age, readonly: true, input_html: {value: f.object.try(:age) || @age} %>
+<% end %>

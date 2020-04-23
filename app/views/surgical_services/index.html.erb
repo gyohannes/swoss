@@ -1,0 +1,36 @@
+    <div class="card shadow mb-4">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h4>Surgical Services</h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-responsive table-striped table-condensed dataTable">
+          <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Post schedule status</th>
+            <th>Anesthesia time</th>
+            <th>Incision time</th>
+            <th>Surgery end time</th>
+            <th>Surgical safety checklist completed</th>
+            <th>Immediate postoperative outcome</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <% @surgical_services.each do |surgical_service| %>
+              <tr>
+                <td><%= surgical_service.or_schedule.admission %></td>
+                <td><%= surgical_service.post_schedule_status %></td>
+                <td><%= surgical_service.anesthesia_time.strftime("%H:%M %p") rescue nil %></td>
+                <td><%= surgical_service.incision_time.strftime("%H:%M %p") rescue nil %></td>
+                <td><%= surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>
+                <td><%= surgical_service.surgical_safety_checklist_completed %></td>
+                <td><%= surgical_service.immediate_postoperative_outcome %></td>
+                <td>
+                  <%= link_to 'Edit', edit_surgical_service_path(surgical_service) %>
+                </td>
+              </tr>
+          <% end %>
+        </table>
+      </div>
+</div>

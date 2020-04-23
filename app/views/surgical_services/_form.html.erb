@@ -1,0 +1,19 @@
+
+<%= simple_form_for(@surgical_service) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :user, as: :hidden %>
+    <%= f.association :or_schedule, as: :hidden %>
+    <%= f.input :post_schedule_status, collection: Constants::POST_SCHEDULE_STATUS %>
+    <div id="surgical_service_sub_form_display">
+      <%= render partial: 'sub_form' %>
+    </div>
+    
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

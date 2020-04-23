@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Patient</th>
+      <th>Admission type</th>
+      <th>Diagnosis</th>
+      <th>Procedure</th>
+      <th>Priority</th>
+      <th>Physician</th>
+      <th>Department</th>
+      <th>Listing status</th>
+      <th>Appointment date</th>
+      <th>Admission date</th>
+      <th>Ward</th>
+      <th>Payment type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admissions.each do |admission| %>
+      <tr>
+        <td><%= admission.user %></td>
+        <td><%= admission.patient %></td>
+        <td><%= admission.admission_type %></td>
+        <td><%= admission.diagnosis %></td>
+        <td><%= admission.procedure %></td>
+        <td><%= admission.priority %></td>
+        <td><%= admission.physician %></td>
+        <td><%= admission.department %></td>
+        <td><%= admission.listing_status %></td>
+        <td><%= admission.appointment_date %></td>
+        <td><%= admission.admission_date %></td>
+        <td><%= admission.ward %></td>
+        <td><%= admission.payment_type %></td>
+        <td><%= link_to 'Show', admission %></td>
+        <td><%= link_to 'Edit', edit_admission_path(admission) %></td>
+        <td><%= link_to 'Destroy', admission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admission', new_admission_path %>

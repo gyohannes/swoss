@@ -1,0 +1,18 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h4>Admission</h4>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <%= simple_form_for(@admission, html: { autocomplete: "off" }) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+        <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: f.object.persisted? %>
+        <%= f.input :reason_for_admission, collection: Constants::REASON_FOR_ADMISSION, disabled: f.object.persisted? %>
+        <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: f.object.persisted? %>
+        <div class="form-actions">
+          <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+  </div>
+</div>

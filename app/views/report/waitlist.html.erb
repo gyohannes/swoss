@@ -1,20 +1,31 @@
-<div class="card shadow mb-4 col-lg-6 col-md-12">
+<div class="card shadow mb-4">
+<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h4>Active Waiting List</h4>
+  </div>
   <!-- Card Body -->
   <div class="card-body">
-    <table class="table table-bordered" width="100%">
-      <tr>
-        <th colspan="2">Total on Waitlist</th>
-        <th><%= Admission.waiting_total(Constants::ON_WAITING_LIST) %></th>
-      </tr>
-          <tr>
-            <th rowspan="<%= ProcedureCategory.count + 1 %>">Procedure Category</th>
-          </tr>
-          <% ProcedureCategory.all.map do |pc| %>
-              <tr>
-                <th><%= pc %></th>
-                <th><%= pc.waitlist %></th>
+           <table class="table table-bordered" width="100%">
+            <thead>
+            <tr>
+              <th>Procedure Category</th>
+              <th>Department</th>
+              <th><%= Constants::ON_WAITING_LIST %></th>
+            </tr>
+            </thead>
+            <% ProcedureCategory.all.each do |pc| %>
+                <tr>
+                <td rowspan="<%= Department.count %>"><%= pc %></td>
+              <% Department.all.each do |d| %>
+              <% dw = d.category_waiting_total(Constants::ON_WAITING_LIST, pc.id) %>
+                  <td><%= d %></td>
+                  <th><%= dw %></th>
               </tr>
-          <% end %>
-    </table>
+            <% end %>
+            <% end %>
+            <tr>
+                <th colspan='2'>Total</th>
+                <th><%= Admission.waiting_total(Constants::ON_WAITING_LIST) %></th>
+            </tr>
+          </table>
   </div>
 </div>

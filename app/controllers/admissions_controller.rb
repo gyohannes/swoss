@@ -9,17 +9,41 @@ class AdmissionsController < ApplicationController
 
   def load_sub_form
     @admission_type = params[:admission_type]
-    if @admission_type == Constants::ELECTIVE
-      render partial: 'elective'
-    elsif @admission_type == Constants::EMERGENCY_NEW || @admission_type == Constants::EMERGENCY_REOPERATION
-      render partial: 'emergency'
+    render partial: 'sub_form'
+  end
+
+  def load_category
+    procedure = Procedure.find(params[:procedure])
+    @category = procedure.procedure_category
+    render partial: 'category'
+  end
+
+  def load_priority
+    procedure = Procedure.find(params[:procedure])
+    @category = procedure.procedure_category
+    render partial: 'priority'
+  end
+
+  def load_submit
+    cat_1 = ProcedureCategory.find_by(code: 1)
+    procedure = Procedure.find(params[:procedure])
+    priority = params[:priority]
+    listing_status = params[:listing_status]
+    appointment_date = params[:appointment_date]
+    appointment_date_gr = Services::EthioGregorianDates.set_gregorian(appointment_date, '/')
+    appointment_length_days = priority == "true" ? cat_1.max_appointment_days : procedure.procedure_category.max_appointment_days
+    if appointment_date_gr > Date.today + appointment_length_days.days
+      @message = 'You have selected a date range that is longer than what is allowed for the selected procedure category and listing status. Would you like to continue?'
     end
+    render partial: 'submit'
   end
 
   def load_information
     procedure = Procedure.find_by(id: params[:procedure])
-    @information = params[:listing_status].blank? ? '' : ( params[:listing_status] == Constants::READY ? "For this patient the Maximum appointment period should not exceed #{procedure.procedure_category.max_appointment_days} days" :
-                       "For this patient the Maximum appointment period should not exceed #{procedure.procedure_category.max_appointment_days} days and the Maximum postponment days should not exceed #{procedure.procedure_category.max_postponment_days} days ")
+    priority = params[:priority]
+    category = priority == 'true' ? ProcedureCategory.find_by(code: 1) : procedure.procedure_category
+    @information = params[:listing_status].blank? ? '' : ( params[:listing_status] == Constants::READY ? "For this patient the Maximum appointment period should not exceed #{category.max_appointment_days} days" :
+                       "For this patient the Maximum appointment period should not exceed #{category.max_appointment_days} days and the Maximum postponment days should not exceed #{category.max_postponment_days} days ")
 
     render partial: 'information'
   end

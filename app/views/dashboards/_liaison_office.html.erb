@@ -1,10 +1,9 @@
-<div class="card shadow mb-4 col-lg-6 col-md-12">
-  <!-- Card Body -->
+<div class="card shadow mb-4">
   <div class="card-body">
 <table class="table-responsive" width="100%">
   <tr>
     <td>
-      <table class="table table-responsive">
+      <table class="table table-responsive table-bordered" width="100%">
         <% Constants::PATIENT_STATUS.each do |s| %>
           <tr>
             <th>
@@ -18,22 +17,26 @@
       </table>
     </td>
     <td>
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered" width="100%">
         <thead>
         <tr>
+          <th>Category</th>
           <th>Department</th>
           <% Constants::PATIENT_STATUS.each do |s| %>
               <th><%= s %></th>
           <% end %>
         </tr>
         </thead>
-        <% Department.all.each do |d| %>
+        <% ProcedureCategory.all.each do |pc| %>
             <tr>
+            <td rowspan="<%= Department.count %>"><%= pc %></td>
+          <% Department.all.each do |d| %>
               <td><%= d %></td>
               <% Constants::PATIENT_STATUS.each do |s| %>
-                <th><%= d.waiting_total(s) %></th>
+                <th><%= d.category_waiting_total(s, pc.id) %></th>
               <% end %>
             </tr>
+        <% end %>
         <% end %>
       </table>
     </td>

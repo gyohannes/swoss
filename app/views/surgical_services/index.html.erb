@@ -24,7 +24,7 @@
                 <td><%= surgical_service.anesthesia_time.strftime("%H:%M %p") rescue nil %></td>
                 <td><%= surgical_service.incision_time.strftime("%H:%M %p") rescue nil %></td>
                 <td><%= surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>
-                <td><%= surgical_service.surgical_safety_checklist_completed %></td>
+                <td><%= boolean_to_text(surgical_service.surgical_safety_checklist_completed) %></td>
                 <td><%= surgical_service.immediate_postoperative_outcome %></td>
                 <td>
                   <%= link_to 'Edit', edit_surgical_service_path(surgical_service) %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @administration_unit.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @administration_unit.category %>
+</p>
+
+<p>
+  <strong>Parent administration unit:</strong>
+  <%= @administration_unit.parent_administration_unit_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @administration_unit.status %>
+</p>
+
+<%= link_to 'Edit', edit_administration_unit_path(@administration_unit) %> |
+<%= link_to 'Back', administration_units_path %>

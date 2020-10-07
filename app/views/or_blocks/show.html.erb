@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @or_block.name %>
+</p>
+
+<p>
+  <strong>Hospital:</strong>
+  <%= @or_block.hospital %>
+</p>
+
+<%= link_to 'Edit', edit_or_block_path(@or_block) %> |
+<%= link_to 'Back', or_blocks_path %>

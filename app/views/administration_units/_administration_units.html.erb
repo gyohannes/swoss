@@ -1,0 +1,27 @@
+<table class="table dataTable">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Parent administration unit</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @administration_units.each do |administration_unit| %>
+      <tr>
+        <td><%= administration_unit.name %></td>
+        <td><%= administration_unit.category %></td>
+        <td><%= administration_unit.parent %></td>
+        <td><%= administration_unit.current_status %></td>
+        <td><%= link_to 'Edit', edit_administration_unit_path(administration_unit, parent: administration_unit.parent_administration_unit_id ), class: 'btn btn-primary' %>
+          <%= link_to 'Delete', administration_unit, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Add Administration Unit', new_administration_unit_path(parent: @parent.try(:id)),class: 'btn btn-primary' unless @parent.blank? %>

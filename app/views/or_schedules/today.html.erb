@@ -5,9 +5,10 @@
 <% end %>
 <div class="card shadow mb-4">
   <div class="card-body">
-    <table class="table table-striped dataTable" style="width:100%">
+    <table class="table table-bordered">
       <thead>
       <tr>
+        <th>OR Table</th>
         <th>Name</th>
         <th>Procedure type</th>
         <th>Surgeon in charge</th>
@@ -21,7 +22,13 @@
       </tr>
       </thead>
       <tbody>
-      <% @or_schedules.each do |os| %>
+      <% @or_schedules.each do |table, schedules| %>
+        <tr>
+            <th rowspan= "<%= schedules.count + 1 %> ">
+                <div class = 'rotate15' ><%= table.or_block %><br/><%= table %></div>
+            </th>
+        </tr>
+        <% schedules.each do |os| %>
           <tr>
             <td><%= link_to os.admission.patient.to_s, os.admission.patient %></td>
             <td><%= os.procedure_type %></td>
@@ -32,7 +39,15 @@
             <td><%= os.scheduled_date %></td>
             <td><%= os.scheduled_time.strftime("%H:%M %p") rescue nil %></td>
             <td><%= os.schedule_order %></td>
-            <td><%= link_to 'Register Procedure', new_surgical_service_path(schedule: os.id), class: 'btn btn-primary' if os.surgical_service.blank? %></td>
+            <th>
+            <% if os.surgical_service.blank? %>
+                <%= link_to 'Record Surgical Service Data', new_surgical_service_path(schedule: os.id), class: 'btn btn-primary' if os.surgical_service.blank? %>
+            <% else %>
+                <%= os.surgical_service.post_schedule_status %>
+            <% end %>
+            </th>
+
+            <% end %>
           </tr>
       <% end %>
       </tbody>

@@ -6,6 +6,10 @@ class Department < ApplicationRecord
     admissions.where('status = ?', status).count
   end
 
+  def category_waiting_total(status, category)
+    admissions.where('status = ? and procedure_category_id = ?', status, category).count
+  end
+
   def surgeries_total(status)
     SurgicalService.joins(:or_schedule=>:admission).where('admissions.department_id = ? and post_schedule_status = ?', self.id, status).count
   end
@@ -26,6 +30,7 @@ class Department < ApplicationRecord
     SurgicalService.joins(:or_schedule=>:admission).where('admissions.department_id = ? and post_schedule_status = ? and scheduled_date_gr >= ? and scheduled_date_gr <= ?',
                                                           self.id, Constants::OPERATED, from, to)
   end
+
   def missing_total
     admissions.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST).count
   end

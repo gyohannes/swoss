@@ -97,7 +97,7 @@ class SurgicalServicesController < ApplicationController
     @outcome = @surgical_service.immediate_postoperative_outcome
     respond_to do |format|
       if @surgical_service.save
-        format.html { redirect_to @surgical_service, notice: 'Surgical service was successfully created.' }
+        format.html { redirect_to surgical_services_path, notice: 'Surgical service was successfully created.' }
         format.json { render :show, status: :created, location: @surgical_service }
       else
         format.html { render :new }
@@ -113,7 +113,7 @@ class SurgicalServicesController < ApplicationController
     @outcome = surgical_service_params[:immediate_postoperative_outcome]
     respond_to do |format|
       if @surgical_service.update(surgical_service_params)
-        format.html { redirect_to @surgical_service, notice: 'Surgical service was successfully updated.' }
+        format.html { redirect_to surgical_services_path, notice: 'Surgical service was successfully updated.' }
         format.json { render :show, status: :ok, location: @surgical_service }
       else
         format.html { render :edit }
@@ -140,6 +140,6 @@ class SurgicalServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def surgical_service_params
-      params.require(:surgical_service).permit(:user_id, :or_schedule_id, :post_schedule_status, :reason_for_cancellation, :or_table_id, :anesthesia_time, :incision_time, :surgery_end_time, :surgical_safety_checklist_completed, :immediate_postoperative_outcome, :reason_for_death)
+      params.require(:surgical_service).permit(:user_id, :or_schedule_id, :post_schedule_status, :adverse_event, :reason_for_cancellation, :or_table_id, :anesthesia_time, :incision_time, :surgery_end_time, :surgical_safety_checklist_completed, :immediate_postoperative_outcome, :reason_for_death)
     end
 end

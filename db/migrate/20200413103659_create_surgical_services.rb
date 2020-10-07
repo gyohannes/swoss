@@ -5,7 +5,7 @@ class CreateSurgicalServices < ActiveRecord::Migration[5.2]
       t.references :or_schedule, type: :uuid, foreign_key: true
       t.string :post_schedule_status
       t.string :reason_for_cancellation
-      t.references :or_table, type: :uuid, foreign_key: true
+      t.text :adverse_event
       t.time :anesthesia_time
       t.time :incision_time
       t.time :surgery_end_time

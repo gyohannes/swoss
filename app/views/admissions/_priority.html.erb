@@ -1,0 +1,5 @@
+<% if [2,3].include?(@category.try(:code)) %>
+    <%= simple_fields_for :admission, @admission do |f| %>
+        <%= f.input :priority, as: :boolean,  disabled: @admission.blank? ? false : f.object.persisted? %>
+    <% end %>
+<% end %>

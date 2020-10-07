@@ -14,6 +14,18 @@
     </div>
     <%= f.input :procedure_type, collection: Constants::PROCEDURE_TYPES %>
     <%= f.association :surgeon %>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-3">Assisstant Surgeons</label>
+      <div class="col-sm-9">
+        <span id="assisstant_surgeons"><%= f.input :assisstant_surgeons, label: false, as: :array %></span>
+        <br/>
+        <a id="add-assisstant-button" class="btn btn-primary" style="color: white">Add Assisstant Surgeon</a>
+        <br/>
+      </div>
+    </div>
+    <%= f.input :blood_units_required %>
+    <%= f.association :or_block, label: 'OR Block' %>
+    <%= f.association :or_table, label: 'OR Table' %>
     <%= f.association :anesthesian %>
     <%= f.association :scrub_nurse %>
     <%= f.association :circulating_nurse %>

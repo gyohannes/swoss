@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  before_action :set_hospital
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json { head :forbidden }
@@ -11,7 +13,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_hospital
-    @hospital = current_user.hospital
+    @hospital = current_user.hospital rescue nil
   end
 
 end

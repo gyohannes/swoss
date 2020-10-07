@@ -1,47 +1,80 @@
-<p>
-  <strong>Patient:</strong>
-  <%= @or_schedule.admission.patient %>
-</p>
+<div class="card shadow mb-4">
+  <!-- Card Body -->
+  <div class="card-body row">
+    <table class="table col-sm-6">
+      <tr>
+        <th>Patient</th>
+        <td><%= @or_schedule.admission.patient %></td>
+      </tr>
 
-<p>
-  <strong>Procedure type:</strong>
-  <%= @or_schedule.procedure_type %>
-</p>
+      <tr>
+        <th>Procedure type</th>
+        <td><%= @or_schedule.procedure_type %></td>
+      </tr>
 
-<p>
-  <strong>Surgeon:</strong>
-  <%= @or_schedule.surgeon %>
-</p>
+      <tr>
+        <th>Surgeon</th>
+        <td><%= @or_schedule.surgeon %></td>
+      </tr>
 
-<p>
-  <strong>Anesthesian:</strong>
-  <%= @or_schedule.anesthesian %>
-</p>
+      <tr>
+        <th>Assisstant Surgeons</th>
+        <td>
+          <% @or_schedule.assisstant_surgeons.each do |as| %>
+              <li><%= as %></li>
+          <% end %>
+        </td>
+      </tr>
 
-<p>
-  <strong>Scrub nurse:</strong>
-  <%= @or_schedule.scrub_nurse %>
-</p>
+      <tr>
+        <th>Blood units required</th>
+        <td><%= @or_schedule.blood_units_required %></td>
+      </tr>
 
-<p>
-  <strong>Circulating nurse:</strong>
-  <%= @or_schedule.circulating_nurse %>
-</p>
+      <tr>
+        <th>OR Block</th>
+        <td><%= @or_schedule.or_block %></td>
+      </tr>
 
-<p>
-  <strong>Scheduled date:</strong>
-  <%= @or_schedule.scheduled_date %>
-</p>
+      <tr>
+        <th>OR Table</th>
+        <td><%= @or_schedule.or_table %></td>
+      </tr>
+    </table>
+    <table class="table col-sm-6">
 
-<p>
-  <strong>Scheduled time:</strong>
-  <%= @or_schedule.scheduled_time.strftime("%I:%M %p") rescue nil %>
-</p>
+      <tr>
+        <th>Anesthesian:</th>
+        <td><%= @or_schedule.anesthesian %></td>
+      </tr>
 
-<p>
-  <strong>Schedule order:</strong>
-  <%= @or_schedule.schedule_order %>
-</p>
+      <tr>
+        <th>Scrub nurse:</th>
+        <td><%= @or_schedule.scrub_nurse %></td>
+      </tr>
 
+      <tr>
+        <th>Circulating nurse:</th>
+        <td><%= @or_schedule.circulating_nurse %></td>
+      </tr>
+
+      <tr>
+        <th>Scheduled date:</th>
+        <td><%= @or_schedule.scheduled_date %></td>
+      </tr>
+
+      <tr>
+        <th>Scheduled time:</th>
+        <td><%= @or_schedule.scheduled_time.strftime("%I:%M %p") rescue nil %></td>
+      </tr>
+
+      <tr>
+        <th>Schedule order:</th>
+        <td><%= @or_schedule.schedule_order %></td>
+      </tr>
+    </table>
+    <hr/>
 <%= link_to 'Edit', edit_or_schedule_path(@or_schedule) %> |
 <%= link_to 'Back', or_schedules_path %>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<table class="table table-striped table-responsive buttons-dataTable">
+  <thead>
+  <tr>
+    <th>MRN</th>
+    <th>Age</th>
+    <th>Sex</th>
+    <th>Registration date</th>
+    <th>Referring Facility</th>
+    <th>Admission type</th>
+    <th>Diagnosis</th>
+    <th>Procedure</th>
+    <th>Procedure category</th>
+    <th>Admitting Department</th>
+    <th>Admitting physician name</th>
+    <th>Admission date</th>
+    <th>Admitting ward</th>
+    <th>Payment type</th>
+    <th>Schedule date</th>
+    <th>Schedule order</th>
+    <th>Procedure type</th>
+    <th>Anesthesia time</th>
+    <th>Incision time</th>
+    <th>Surgery end time</th>
+    <th>Post-schedule status </th>
+    <th>Cancellation reason</th>
+    <th>Surgical Safety Checklist completed</th>
+    <th>Immediate postoperative outcome</th>
+    <th>Reason for death</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @admissions.each do |admission| %>
+      <tr>
+        <td><%= admission.patient.mrn %></td>
+        <td><%= admission.patient.age %></td>
+        <td><%= admission.patient.sex %></td>
+        <td><%= admission.date_of_registration %></td>
+        <td><%= admission.referring_facility %></td>
+        <td><%= admission.admission_type %></td>
+        <td><%= admission.diagnosis %></td>
+        <td><%= admission.procedure %></td>
+        <td><%= admission.procedure.procedure_category %></td>
+        <td><%= admission.department %></td>
+        <td><%= admission.physician %></td>
+        <td><%= admission.admission_date %></td>
+        <td><%= admission.ward %></td>
+        <td><%= admission.payment_type %></td>
+        <td><%= admission.or_schedule.try(:scheduled_date) %></td>
+        <td><%= admission.or_schedule.try(:schedule_order) %></td>
+        <td><%= admission.or_schedule.try(:procedure_type) %></td>
+        <td><%= admission.or_schedule.surgical_service.anesthesia_time.strftime("%H:%M %p") rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.incision_time.strftime("%H:%M %p") rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.post_schedule_status rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.cancellation_reason rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.surgical_safety_checklist_completed rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.immediate_postoperative_outcome rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.reason_for_death rescue nil %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= javascript_include_tag 'global' %>

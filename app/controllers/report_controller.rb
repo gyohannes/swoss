@@ -32,4 +32,15 @@ class ReportController < ApplicationController
 
   def surgical_efficiency
   end
+
+  def custom_report
+    @admissions = []
+  end
+
+  def load_admissions
+    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(params[:from]) + 5.days
+    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(params[:to])
+    @admissions = Admission.admissions(from_gr, to_gr)
+    render partial: 'custom_report'
+  end
 end

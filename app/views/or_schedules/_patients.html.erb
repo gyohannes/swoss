@@ -5,14 +5,12 @@
     <th>Name</th>
     <th>Sex</th>
     <th>Age</th>
-    <th>Address</th>
-    <th>Contact Name and Address</th>
     <th>Diagnosis</th>
     <th>Procedure</th>
     <th>Priority</th>
     <th>Admitting Physician</th>
     <th>Admitting Department</th>
-    <th>Addmission Date</th>
+    <th>Admission Date</th>
     <th></th>
   </tr>
   </thead>
@@ -24,8 +22,6 @@
         <td><%= a.patient.full_name %></td>
         <td><%= a.patient.sex %></td>
         <td><%= a.patient.age %></td>
-        <td><%= a.patient.address %></td>
-        <td><%= a.patient.contact_name_and_address %></td>
         <td><%= a.diagnosis %></td>
         <td><%= a.procedure %></td>
         <td><%= a.priority_status %></td>
@@ -33,11 +29,11 @@
         <td><%= a.department %></td>
         <td><%= a.admission_date %></td>
         <td>
-          <% unless a.or_schedule %>
-            <%= link_to 'Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
-          <% else %>
-            <button class="btn btn-success">Scheduled</button>
-          <% end %>
+            <% if a.or_schedules.blank? %>
+                <%= link_to 'Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
+            <% else %>
+                <%= link_to 'Re Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
+            <% end %>
         </td>
       </tr>
   <% end %>

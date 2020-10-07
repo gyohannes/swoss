@@ -1,0 +1,7 @@
+<%= simple_fields_for :phone_call, @phone_call do |f| %>
+    <% if @action == Constants::APPOINTED_WITH_GOOD_REASON %>
+        <%= f.input :new_appointment, input_html: {class: 'ethiopian_date_picker'} %>
+    <% end %>
+<% end %>
+
+<%= javascript_include_tag 'global'  %>

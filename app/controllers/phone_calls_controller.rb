@@ -21,6 +21,11 @@ class PhoneCallsController < ApplicationController
     render partial: 'sub_form'
   end
 
+  def load_appointment_date
+    @action = params[:action_value]
+    render partial: 'appointment_date'
+  end
+
   # GET /phone_calls/1
   # GET /phone_calls/1.json
   def show

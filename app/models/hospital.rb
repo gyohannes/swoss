@@ -1,5 +1,5 @@
 class Hospital < ApplicationRecord
-  belongs_to :region, optional: true
+  belongs_to :administration_unit
   has_many :patients
 
   def to_s

@@ -14,10 +14,16 @@
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap/bootstrap.bundle.min
+//= require data-confirm-modal
+//= require bootstrap-treeview
 //= require jquery_nested_form
 //= require jquery/jquery.easing.min
 //= require sbadmin2/sb-admin-2.min
 //= require jquery/jquery.dataTables.min
+//= require jquery/dataTables.responsive.min
+//= require jquery/dataTables.buttons.min
+//= require jquery/buttons.colVis.min
+//= require jquery/buttons.html5.min
 //= require sbadmin2/dataTables.bootstrap4.min
 //= require jquery/calendar/jquery.calendars
 //= require jquery/calendar/jquery.calendars.plus
@@ -34,4 +40,7 @@
 //= require phone_calls
 //= require or_schedules
 //= require surgical_services
+//= require report
+//= require administration_units
+//= require hospitals
 //= require global

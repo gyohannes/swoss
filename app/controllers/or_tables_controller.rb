@@ -69,6 +69,6 @@ class OrTablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def or_table_params
-      params.require(:or_table).permit(:name, :code, :hospital_id)
+      params.require(:or_table).permit(:name, :code, :or_block_id)
     end
 end

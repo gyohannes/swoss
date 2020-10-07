@@ -1,0 +1,4 @@
+<%= simple_fields_for :admission, @admission do |f| %>
+      <%= f.button :submit, 'Save', @message.blank? ? nil :
+                                        :data=> { confirm: @message, title: 'Confirm Save', cancel: 'No', commit: 'Yes' }, class: 'btn btn-primary' %>
+<% end %>

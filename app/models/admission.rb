@@ -8,10 +8,9 @@ class Admission < ApplicationRecord
   belongs_to :ward, optional: true
   belongs_to :payment_type, optional: true
   has_many :phone_calls
-  has_many :admission_statuses
-  has_one :or_schedule
+  has_many :admission_statuses, dependent: :destroy
+  has_many :or_schedules
   before_save :set_gregorian_dates
-
   validates :date_of_registration, :admission_type, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective
   validates :department_id, :admission_date, :ward_id, presence: true, if: :emergency
@@ -55,6 +54,10 @@ class Admission < ApplicationRecord
 
   def days_between_reg_and_admission
     (admission_date_gr - registration_date_gr).to_i rescue nil
+  end
+
+  def self.admissions(from, to)
+    where('date_of_registration_gr >= ? and date_of_registration_gr <= ?', from, to)
   end
 
   def priority_status

@@ -10,4 +10,16 @@ $(function () {
             }
         });
     });
+
+    $("#phone_call_action").change(function(){
+        var action = $(this).val();
+        $.ajax({
+            url: '/phone_calls/load_appointment_date',
+            data: {action_value: action},
+            success: function(response){
+                $('#date_display').html(response);
+            }
+        });
+    });
+
 });

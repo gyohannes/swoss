@@ -1,22 +1,29 @@
 class Patient < ApplicationRecord
-  belongs_to :region
+  belongs_to :administration_unit
   has_many :admissions
   belongs_to :hospital
 
   validates :mrn, :first_name, :father_name, :grand_father_name, :date_of_birth, :age, :sex,
-            :region, :zone, :woreda, :kebele, :house_number, :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number, presence: true
+            :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number, presence: true
+
+  validates :mrn, uniqueness: { message: "already registered, please go to the patient details and proceed with appointment/admission" }
+
   before_save :set_gregorian_dates
   after_find :set_current_age
 
   scope :list_by_hospital, -> (hospital) { hospital.patients unless hospital.blank? }
-  scope :list_by_mrn, -> (mrn, hospital) { list_by_hospital(hospital).where('mrn = ?', mrn) unless mrn.blank? }
-  scope :list_by_first_name, -> (first_name, hospital) { list_by_hospital(hospital).where('first_name = ?', first_name) unless first_name.blank? }
-  scope :list_by_father_name, -> (father_name, hospital) { list_by_hospital(hospital).where('father_name = ?', father_name) unless father_name.blank? }
+  scope :list_by_mrn, -> (mrn) { where('mrn = ?', mrn) unless mrn.blank? }
+  scope :list_by_first_name, -> (first_name) { where("lower(first_name) LIKE ?", "#{first_name.downcase}%") unless first_name.blank? }
+  scope :list_by_father_name, -> (father_name) { where("lower(father_name) LIKE ?", "#{father_name.downcase}%") unless father_name.blank? }
+  scope :list_by_grand_father_name, -> (grand_father_name) { where("lower(grand_father_name) LIKE ?", "#{grand_father_name.downcase}%") unless grand_father_name.blank? }
+  scope :list_by_phone, -> (phone) { where("primary_telephone_number LIKE ?", "#{phone}%") unless phone.blank?}
+  scope :list_by_sex, -> (sex) { where("sex LIKE ?", "#{sex}%") unless sex.blank?}
 
-  def self.search(hospital=nil, mrn=nil, first_name=nil, father_name=nil)
+  def self.search(mrn=nil, first_name=nil, father_name=nil, grand_father_name=nil, phone=nil, sex=nil)
     patients = []
-    available_filters = {hospital => list_by_hospital(hospital), mrn => list_by_mrn(mrn, hospital), first_name => list_by_first_name(first_name, hospital),
-                         father_name => list_by_father_name(father_name, hospital) }.select{|k,v| !k.blank?}
+    available_filters = {mrn => list_by_mrn(mrn), first_name => list_by_first_name(first_name), father_name => list_by_father_name(father_name),
+                         grand_father_name => list_by_grand_father_name(grand_father_name),
+                          phone => list_by_phone(phone), sex => list_by_sex(sex)}.select{|k,v| !k.blank?}
     counter = 0
     available_filters.each do |k,v|
       patients = counter == 0 ? v : patients.merge(v)
@@ -52,6 +59,10 @@ class Patient < ApplicationRecord
 
   def full_name
     [first_name, father_name, grand_father_name].join(' ')
+  end
+
+  def woreda
+    [administration_unit.parent.parent, administration_unit.parent, administration_unit].join(' - ')
   end
 
   def to_s

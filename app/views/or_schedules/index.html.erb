@@ -14,10 +14,12 @@
         <h4>Schedules</h4>
       </div>
       <div class="card-body">
-    <table class="table table-responsive table-striped dataTable">
+    <table class="table table-bordered">
       <thead>
       <tr>
+        <th>OR Table </th>
         <th>Name</th>
+        <th>Sex</th>
         <th>Procedure type</th>
         <th>Surgeon in charge</th>
         <th>Anesthesia in charge</th>
@@ -29,9 +31,16 @@
         <th></th>
       </tr>
       </thead>
-      <% @or_schedules.each do |os| %>
+      <% @or_schedules.each do |table, schedules| %>
         <tr>
+          <th rowspan= "<%= schedules.count + 1 %> ">
+          <div class = 'rotate15' ><%= table.or_block %><br/><%= table %></div>
+          </th>
+         </tr>
+          <% schedules.each do |os| %>
+          <tr>
           <td><%= os.admission %></td>
+          <td><%= os.admission.patient.sex %></td>
           <td><%= os.procedure_type %></td>
           <td><%= os.surgeon %></td>
           <td><%= os.anesthesian %></td>
@@ -42,6 +51,7 @@
           <td><%= os.schedule_order %></td>
           <td><%= link_to 'Edit', edit_or_schedule_path(os), class: 'btn btn-primary' %></td>
         </tr>
+        <% end %>
       <% end %>
     </table>
       </div>

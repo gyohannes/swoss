@@ -9,4 +9,10 @@ $(function () {
             }
         });
     });
+
+    $('#add-assisstant-button').click(function () {
+        var newAssisstantField = $('input[name="or_schedule[assisstant_surgeons][]"]:last').clone()
+        newAssisstantField.val("")
+        $('#assisstant_surgeons').append(newAssisstantField);
+    })
 });

@@ -11,18 +11,23 @@
             <span class="form-control"><%= @admission.patient.name_and_mrn rescue nil %></div>
           </span>
         </div>
+        <%= f.input :referring_facility, disabled: f.object.persisted? %>
         <%= f.input :date_of_registration, disabled: f.object.persisted?, input_html: {class: 'ethiopian_date_picker'} %>
         <%= f.input :admission_type, collection: Constants::ADMISSION_TYPES, disabled: f.object.persisted? %>
         <%= f.association :procedure, disabled: f.object.persisted? %>
+        <div id="procedure_category_display">
+
+        </div>
         <%= f.association :diagnosis, disabled: f.object.persisted? %>
         <%= f.association :physician, label: 'Admitting Physician Name', disabled: f.object.persisted? %>
       </div>
-      <div class="col-lg-6 left_form" id="sub_admission_form">
-        <%= render partial: 'emergency' %>
-        <%= render partial: 'elective' %>
+      <div class="col-lg-6" id="sub_admission_form">
+        <%= render partial: 'sub_form' %>
       </div>
     </div>
   <div class="form-actions">
-    <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
+    <div id="submit_display">
+      <%= render partial: 'submit' %>
+    </div>
   </div>
 <% end %>

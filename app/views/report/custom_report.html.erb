@@ -1,0 +1,22 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h4>Custom Report</h4>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <%= simple_form_for :custom_report, autocomplate: 'off' do |f| %>
+        <div class="row">
+          <div class="col-lg-3">
+            <%= f.input :from, input_html: {class: 'report_ethiopian_date_picker'} %>
+          </div>
+          <div class="col-lg-3">
+            <%= f.input :to, input_html: {class: 'report_ethiopian_date_picker'} %>
+          </div>
+        </div>
+    <% end %>
+    <br/>
+    <div id="custom_report">
+      <%= render partial: '/report/custom_report' %>
+    </div>
+  </div>
+</div>

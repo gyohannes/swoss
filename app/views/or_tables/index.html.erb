@@ -9,7 +9,7 @@
     <tr>
       <th>Name</th>
       <th>Code</th>
-      <th>Hospital</th>
+      <th>OR Block</th>
       <th></th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
       <tr>
         <td><%= or_table.name %></td>
         <td><%= or_table.code %></td>
-        <td><%= or_table.hospital %></td>
+        <td><%= or_table.or_block %></td>
         <td>
           <%= link_to 'Edit', edit_or_table_path(or_table) %> |
           <%= link_to 'Remove', or_table, method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -52,7 +52,7 @@ class SurgicalService < ApplicationRecord
   end
 
   def self.or_table_efficiency(month)
-    surgeries_month_total(Constants::OPERATED, month)/(OrTable.count * 30)
+    OrTable.count == 0 ? 0 : surgeries_month_total(Constants::OPERATED, month)/(OrTable.count * 30)
   end
 
   def surgery_time_in_minutes
@@ -74,7 +74,7 @@ class SurgicalService < ApplicationRecord
   end
 
   def self.month_average_procedure_duration(month)
-    (total_surgery_minutes(month) == 0 and surgeries(month).blank?) ? 0 : total_surgery_minutes(month)/surgeries(month).count
+    surgeries(month).blank? ? 0 : total_surgery_minutes(month)/surgeries(month).count
   end
 
   def self.total_surgery_minutes(month)

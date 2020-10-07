@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :administration_units do
+    collection do
+      get 'load_tree'
+      get 'load_sub_units'
+    end
+  end
+  resources :or_blocks
   resources :procedure_categories
   get 'report/backlog'
   get 'report/waitlist'
@@ -7,6 +14,8 @@ Rails.application.routes.draw do
   get 'report/surgical_efficiency'
   get 'report/load_surgical_service'
   get 'report/load_surgical_service_efficiency'
+  get 'report/custom_report'
+  get 'report/load_admissions'
   resources :surgical_services do
     collection do
       get 'surgeries_by_status_by_month'
@@ -26,6 +35,7 @@ Rails.application.routes.draw do
   resources :phone_calls do
     collection do
       get 'load_sub_form'
+      get 'load_appointment_date'
     end
   end
   resources :admissions do
@@ -36,6 +46,9 @@ Rails.application.routes.draw do
       get 'patients_by_status_by_month'
       get 'load_sub_form'
       get 'load_information'
+      get 'load_category'
+      get 'load_priority'
+      get 'load_submit'
     end
   end
   resources :patients do
@@ -43,6 +56,8 @@ Rails.application.routes.draw do
       get 'appointment_list'
       get 'load_appointments'
       get 'load_age'
+      get 'load_patients'
+      post 'create_from_search'
     end
   end
   resources :anesthesians

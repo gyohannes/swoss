@@ -5,9 +5,18 @@ class OrSchedule < ApplicationRecord
   belongs_to :anesthesian
   belongs_to :scrub_nurse
   belongs_to :circulating_nurse
-  belongs_to :schedule_order
+  belongs_to :schedule_order, optional: true
+  belongs_to :or_block
+  belongs_to :or_table
   has_one :surgical_service
+
   before_save :set_gregorian_dates
+
+  before_save :remove_blank_assisstant_surgeons
+
+  def remove_blank_assisstant_surgeons
+    assisstant_surgeons.reject!(&:blank?)
+  end
 
   def set_gregorian_dates
     self[:scheduled_date_gr] = Services::EthioGregorianDates.set_gregorian(self.scheduled_date, '/')

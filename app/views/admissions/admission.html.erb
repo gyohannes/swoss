@@ -6,10 +6,10 @@
   <div class="card-body">
     <%= simple_form_for(@admission, html: { autocomplete: "off" }) do |f| %>
         <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: f.object.persisted? %>
-        <%= f.input :reason_for_admission, collection: Constants::REASON_FOR_ADMISSION, disabled: f.object.persisted? %>
-        <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: f.object.persisted? %>
+        <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: !f.object.admission_date.blank? %>
+        <%= f.input :reason_for_admission, collection: Constants::REASON_FOR_ADMISSION, disabled: !f.object.reason_for_admission.blank? %>
+        <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: !f.object.ward_id.blank? %>
+        <%= f.input :bed_number, disabled: !f.object.ward_id.blank? %>
         <div class="form-actions">
           <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
         </div>

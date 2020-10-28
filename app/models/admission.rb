@@ -9,7 +9,7 @@ class Admission < ApplicationRecord
   belongs_to :payment_type, optional: true
   has_many :phone_calls
   has_many :admission_statuses, dependent: :destroy
-  has_many :or_schedules
+  has_one :or_schedule
   before_save :set_gregorian_dates
   validates :date_of_registration, :admission_type, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective

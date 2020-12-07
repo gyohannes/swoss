@@ -4,27 +4,26 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @regions.each do |region| %>
+    <table class="table dataTable">
+      <thead>
       <tr>
-        <td><%= region.name %></td>
-        <td>
-          <%= link_to 'Edit', edit_region_path(region) %> |
-          <%= link_to 'Delete', region, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <th>Name</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<%= link_to 'Add Region', new_region_path, class: 'btn btn-primary' %>
+      <tbody>
+      <% @regions.each do |region| %>
+          <tr>
+            <td><%= region.name %></td>
+            <td><%= link_to 'Edit', edit_region_path(region), class: 'btn btn-primary' %>
+              <%= link_to 'Delete', region, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'Add Region', new_region_path,class: 'btn btn-primary' %>
   </div>
 </div>

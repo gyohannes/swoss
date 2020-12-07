@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  resources :administration_units do
-    collection do
-      get 'load_tree'
-      get 'load_sub_units'
-    end
-  end
+  resources :regions
   resources :or_blocks
   resources :procedure_categories
   get 'report/backlog'
@@ -73,7 +68,6 @@ Rails.application.routes.draw do
   resources :diagnoses
   resources :wards
   resources :hospitals
-  resources :regions
   devise_for :users, controllers: {
       sessions: 'users/sessions',
       registrations: 'users/registrations',

@@ -1,1 +1,1 @@
-json.partial! "regions/region", region: @region
+json.partial! "administration_units/administration_unit", administration_unit: @administration_unit

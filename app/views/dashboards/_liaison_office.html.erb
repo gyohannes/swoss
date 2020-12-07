@@ -1,5 +1,6 @@
-<div class="card shadow mb-4">
-  <div class="card-body">
+<div class="row">
+<div class="card shadow mb-4 col-sm-6">
+  <div class="card-body row">
 <table class="table-responsive" width="100%">
   <tr>
     <td>
@@ -20,14 +21,14 @@
       <table class="table table-bordered" width="100%">
         <thead>
         <tr>
-          <th>Category</th>
+          <th>Procedure Category</th>
           <th>Department</th>
           <% Constants::PATIENT_STATUS.each do |s| %>
               <th><%= s %></th>
           <% end %>
         </tr>
         </thead>
-        <% ProcedureCategory.all.each do |pc| %>
+        <% @procedure_categories.each do |pc| %>
             <tr>
             <td rowspan="<%= Department.count %>"><%= pc %></td>
           <% Department.all.each do |d| %>
@@ -43,5 +44,31 @@
   </tr>
 </table>
   </div>
+</div>
+<div class="card shadow mb-4 col-sm-6">
+  <div class="card-body">
+    <legend>Backlog</legend>
+    <table class="table table-striped" width="100%">
+      <thead>
+      <tr>
+        <th>Department</th>
+        <th>Backlog</th>
+      </tr>
+      </thead>
+      <% total = 0 %>
+      <% Department.all.map do |d| %>
+          <tr>
+            <th><%= d %></th>
+            <th><%= dt = d.missing_total %></th>
+            <% total += dt %>
+          </tr>
+      <% end %>
+      <tr>
+        <th class="text-center">Total</th>
+        <th><%= total %></th>
+      </tr>
+    </table>
+  </div>
+</div>
 </div>
   <%= line_chart patients_by_status_by_month_admissions_path, defer: true, title: 'Surgical Waitlist over the last 12 months', colors: ["#0000FF", "#008000", "#FF0000"] %>

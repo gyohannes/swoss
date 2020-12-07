@@ -1,5 +1,5 @@
 class Patient < ApplicationRecord
-  belongs_to :administration_unit
+  belongs_to :region
   has_many :admissions
   belongs_to :hospital
 
@@ -59,10 +59,6 @@ class Patient < ApplicationRecord
 
   def full_name
     [first_name, father_name, grand_father_name].join(' ')
-  end
-
-  def woreda
-    [administration_unit.parent.parent, administration_unit.parent, administration_unit].join(' - ')
   end
 
   def to_s

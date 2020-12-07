@@ -4,7 +4,7 @@ class SurgicalService < ApplicationRecord
   belongs_to :or_table, optional: true
 
   def self.surgeries_total(status)
-    return Department.all.collect{|d| d.surgeries_total(status)}.sum
+    joins(:or_schedule=>:admission).where('post_schedule_status = ?',status).count
   end
 
   def self.surgeries_month_total(status, month)

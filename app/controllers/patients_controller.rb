@@ -107,12 +107,12 @@ class PatientsController < ApplicationController
     end
 
   def set_woredas
-    @woredas = AdministrationUnit.where(category: 'Woreda')
+    @woredas = Region.where(category: 'Woreda')
   end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
       params.require(:patient).permit(:mrn, :hospital_id, :first_name, :father_name, :grand_father_name, :date_of_birth, :age, :sex, :date_of_registration,
-                                      :administration_unit_id, :kebele, :house_number, :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number)
+                                      :region_id, :zone, :woreda, :kebele, :house_number, :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number)
     end
 end

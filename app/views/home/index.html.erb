@@ -2,6 +2,6 @@
   <%= render partial: 'dashboards/admin' %>
 <% elsif current_user.is_role(User::LIAISON_OFFICER) %>
   <%= render partial: 'dashboards/liaison_office' %>
-<% elsif current_user.is_role(User::OR_MANAGER) or current_user.is_role(User::OR_USER) %>
+<% elsif current_user.is_role(User::OR_USER) %>
   <%= render partial: 'dashboards/or' %>
 <% end %>

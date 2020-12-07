@@ -10,7 +10,9 @@ class CreatePatients < ActiveRecord::Migration[5.2]
       t.date :date_of_birth_gr
       t.integer :age
       t.string :sex
-      t.references :administration_unit, type: :uuid, foreign_key: true
+      t.references :region, type: :uuid, foreign_key: true
+      t.string :zone
+      t.string :woreda
       t.string :kebele
       t.string :house_number
       t.string :primary_telephone_number

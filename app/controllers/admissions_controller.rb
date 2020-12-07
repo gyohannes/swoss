@@ -158,7 +158,7 @@ class AdmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admission_params
-      params.require(:admission).permit(:user_id, :patient_id, :date_of_registration, :admission_type, :diagnosis_id, :procedure_id, :priority, :reason_for_admission,
+      params.require(:admission).permit(:user_id, :patient_id, :date_of_registration, :admission_type, :diagnosis_id, :procedure_id, :procedure_category_id, :priority, :reason_for_admission,
                                         :physician_id, :department_id, :listing_status, :information, :appointment_date, :admission_date, :ward_id, :payment_type_id)
     end
 end

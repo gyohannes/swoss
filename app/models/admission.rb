@@ -9,7 +9,7 @@ class Admission < ApplicationRecord
   belongs_to :payment_type, optional: true
   has_many :phone_calls
   has_many :admission_statuses, dependent: :destroy
-  has_one :or_schedule
+  has_many :or_schedules
   before_save :set_gregorian_dates
   validates :date_of_registration, :admission_type, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective
@@ -30,7 +30,7 @@ class Admission < ApplicationRecord
   end
 
   def self.waiting_total(status)
-    return Department.all.collect{|d| d.waiting_total(status)}.sum
+    return Admission.where('status = ?', status).count
   end
 
   def self.waiting_month_total(status, month)

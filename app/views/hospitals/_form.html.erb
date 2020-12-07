@@ -5,13 +5,7 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-      <div class="form-group row">
-        <label class="col-form-label col-sm-3">Select Administration Unit</label>
-        <div class="col-sm-9">
-          <div id="hospital_administration_unit_tree"></div>
-        </div>
-      </div>
-      <%=  f.association :administration_unit, label: 'Administration Unit' %>
+      <%=  f.association :region %>
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn btn-primary' %>

@@ -17,13 +17,9 @@
       <%= f.input :sex, collection: ['Female', 'Male'], disabled: f.object.persisted? %>
     </div>
     <div class="col-lg-6">
-      <div class="form-group row">
-        <label class="col-form-label col-sm-3">Select Woreda</label>
-        <div class="col-sm-9">
-          <div id="patient_administration_unit_tree"></div>
-        </div>
-      </div>
-      <%=  f.association :administration_unit, label: 'Woreda', collection: @woredas %>
+      <%=  f.association :region %>
+      <%= f.input :zone, label: 'Zone/Sub City' %>
+      <%= f.input :woreda %>
       <%= f.input :kebele %>
       <%= f.input :house_number %>
       <%= f.input :primary_telephone_number %>

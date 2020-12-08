@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-hospital = Hospital.create(name: 'Hospital Name')
+region = Region.create(name: 'Region Name')
+hospital = Hospital.create(name: 'Hospital Name', region_id: region.id)
 user = User.new(user_name: 'admin', hospital_id: hospital.id, full_name: 'Admin Admin', password: 'Admin123', role: User::ADMINISTRATOR)
 user.save(validate: false)

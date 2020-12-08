@@ -109,7 +109,7 @@
                   Regions
               <% end %>
               <div class="dropdown-divider"></div>
-              <%= link_to new_hospital_path, class: 'dropdown-item' do %>
+              <%= link_to @hospital.blank? ? new_hospital_path : edit_hospital_path(@hospital), class: 'dropdown-item' do %>
                   <i class="fas fa-hospital-symbol fa-sm fa-fw mr-2 text-gray-400"></i>
                   Hospital Details
               <% end %>

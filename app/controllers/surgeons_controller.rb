@@ -69,6 +69,6 @@ class SurgeonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def surgeon_params
-      params.require(:surgeon).permit(:name, :category, :hospital_id)
+      params.require(:surgeon).permit(:name, :occupation_group_id, :hospital_id)
     end
 end

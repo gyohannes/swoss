@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :occupation_groups
   resources :regions
   resources :or_blocks
   resources :procedure_categories

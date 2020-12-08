@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Category</th>
+      <th>Occupation Group</th>
       <th>Hospital</th>
       <th></th>
     </tr>
@@ -18,7 +18,7 @@
     <% @surgeons.each do |surgeon| %>
       <tr>
         <td><%= surgeon.name %></td>
-        <td><%= surgeon.category %></td>
+        <td><%= surgeon.occupation_group %></td>
         <td><%= surgeon.hospital %></td>
         <td><%= link_to 'Edit', edit_surgeon_path(surgeon) %> |
           <%= link_to 'Remove', surgeon, method: :delete, data: { confirm: 'Are you sure?' } %>

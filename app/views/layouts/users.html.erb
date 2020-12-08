@@ -27,7 +27,7 @@
           <div class="row" style="padding: 10px">
             <div class="col-sm-3"><%= image_tag 'logo.png', width: '150px' %></div>
             <h3 class="col-sm-6" style="font-weight: bold">Surgical Waitlist Management <br/>and OR Scheduling System<br/> (SWOSS)</h3>
-            <div class="col-sm-3"><%= image_tag Hospital.first.logo, width: '150px' %></div>
+            <div class="col-sm-3"><%= image_tag Hospital.first.logo, width: '150px' rescue nil %></div>
           </div>
           <hr/>
   <%= yield %>

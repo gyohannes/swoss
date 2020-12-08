@@ -15,7 +15,6 @@ class CreateOrSchedules < ActiveRecord::Migration[5.2]
       t.string :scheduled_date
       t.date :scheduled_date_gr
       t.time :scheduled_time
-      t.references :schedule_order, type: :uuid, foreign_key: true
 
       t.timestamps
     end

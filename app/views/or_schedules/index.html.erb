@@ -18,16 +18,17 @@
       <thead>
       <tr>
         <th>OR Table </th>
+        <th>Scheduled order</th>
         <th>Name</th>
         <th>Sex</th>
         <th>Procedure type</th>
+        <th>Procedure</th>
         <th>Surgeon in charge</th>
         <th>Anesthesia in charge</th>
         <th>Scrub nurse</th>
         <th>Circulating nurse</th>
         <th>Scheduled date</th>
         <th>Scheduled time</th>
-        <th>Scheduled order</th>
         <th></th>
       </tr>
       </thead>
@@ -37,12 +38,23 @@
           <div class = 'rotate15' ><%= table.or_block %><br/><%= table %></div>
           </th>
          </tr>
+          <% counter = 1 %>
           <% schedules.each do |os| %>
           <tr>
+            <td><%= counter %></td>
           <td><%= os.admission %></td>
           <td><%= os.admission.patient.sex %></td>
           <td><%= os.procedure_type %></td>
-          <td><%= os.surgeon %></td>
+            <td><%= os.admission.procedure %></td>
+          <td>
+            <%= os.surgeon %><br/><br/>
+            Assisstants
+            <ul>
+              <% os.assisstant_surgeons.each do |as| %>
+                <li><%= as %></li>
+              <% end %>
+            </ul>
+          </td>
           <td><%= os.anesthesian %></td>
           <td><%= os.scrub_nurse %></td>
           <td><%= os.circulating_nurse %></td>
@@ -51,6 +63,7 @@
           <td><%= os.schedule_order %></td>
           <td><%= link_to 'Edit', edit_or_schedule_path(os), class: 'btn btn-primary' %></td>
         </tr>
+              <% counter += 1 %>
         <% end %>
       <% end %>
     </table>

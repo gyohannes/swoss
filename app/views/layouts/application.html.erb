@@ -58,7 +58,7 @@
         </button>
 
         <h4 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search font-weight-bolder text-center">
-          <%= image_tag @hospital.logo, height: '70px' %> <%= @hospital %>
+          <%= image_tag @hospital.logo, height: '70px' rescue nil %> <%= @hospital %>
         </h4>
 
         <!-- Topbar Navbar -->
@@ -158,11 +158,6 @@
               <%= link_to procedures_path, class: 'dropdown-item' do %>
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Procedures
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to schedule_orders_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Schedule Orders
               <% end %>
             </div>
           </li>

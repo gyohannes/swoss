@@ -9,15 +9,16 @@
       <thead>
       <tr>
         <th>OR Table</th>
-        <th>Name</th>
+        <th>Schedule Order</th>
+        <th>Patient</th>
         <th>Procedure type</th>
+        <th>Procedure</th>
         <th>Surgeon in charge</th>
         <th>Anesthesia in charge</th>
         <th>Scrub nurse</th>
         <th>Circulating nurse</th>
         <th>Scheduled date</th>
         <th>Scheduled time</th>
-        <th>Scheduled order</th>
         <th></th>
       </tr>
       </thead>
@@ -28,17 +29,27 @@
                 <div class = 'rotate15' ><%= table.or_block %><br/><%= table %></div>
             </th>
         </tr>
+          <% counter = 1 %>
         <% schedules.each do |os| %>
           <tr>
+            <td><%= counter %></td>
             <td><%= link_to os.admission.patient.to_s, os.admission.patient %></td>
             <td><%= os.procedure_type %></td>
-            <td><%= os.surgeon %></td>
+            <td><%= os.admission.procedure %></td>
+            <td>
+              <%= os.surgeon %><br/><br/>
+              Assisstants
+              <ul>
+                <% os.assisstant_surgeons.each do |as| %>
+                    <li><%= as %></li>
+                <% end %>
+              </ul>
+            </td>
             <td><%= os.anesthesian %></td>
             <td><%= os.scrub_nurse %></td>
             <td><%= os.circulating_nurse %></td>
             <td><%= os.scheduled_date %></td>
             <td><%= os.scheduled_time.strftime("%H:%M %p") rescue nil %></td>
-            <td><%= os.schedule_order %></td>
             <th>
             <% if os.surgical_service.blank? %>
                 <%= link_to 'Record Surgical Service Data', new_surgical_service_path(schedule: os.id), class: 'btn btn-primary' if os.surgical_service.blank? %>
@@ -46,7 +57,7 @@
                 <%= os.surgical_service.post_schedule_status %>
             <% end %>
             </th>
-
+            <% counter =+ 1 %>
             <% end %>
           </tr>
       <% end %>

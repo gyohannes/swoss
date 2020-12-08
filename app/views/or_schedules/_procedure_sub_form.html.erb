@@ -2,8 +2,7 @@
     <% if @procedure_type == Constants::ELECTIVE %>
       <%= f.input :scheduled_date, input_html: {class: 'ethiopian_date_picker'} %>
       <%= f.input :scheduled_time, as: :string, input_html:
-        { value: @or_schedule.blank? ? '' : f.object.scheduled_time.strftime("%H:%M %P"), class: 'time_picker'} %>
-      <%= f.input :schedule_order_id, collection: ScheduleOrder.all %>
+        { value: @or_schedule.blank? ? '' : f.object.scheduled_time.strftime("%H:%M %P"), class: 'time_picker'} rescue nil%>
     <% end %>
 <% end %>
 

@@ -60,7 +60,6 @@ Rails.application.routes.draw do
   resources :circulating_nurses
   resources :scrub_nurses
   resources :surgeons
-  resources :schedule_orders
   resources :departments
   resources :physicians
   resources :or_tables

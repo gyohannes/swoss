@@ -81,4 +81,8 @@ class SurgicalService < ApplicationRecord
     surgeries(month).map {|s| s.surgery_time_in_minutes}.sum
   end
 
+  def surgery_time_in_minutes
+    (surgery_end_time - incision_time)/60
+  end
+
 end

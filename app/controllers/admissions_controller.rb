@@ -4,7 +4,7 @@ class AdmissionsController < ApplicationController
   # GET /admissions
   # GET /admissions.json
   def index
-    @admissions = Admission.all
+    @admissions = Admission.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST)
   end
 
   def load_sub_form

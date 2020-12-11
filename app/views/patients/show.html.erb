@@ -98,6 +98,7 @@
                 <th>Admitting Ward:</th>
                 <th>Appointment Date:</th>
                 <th>Status</th>
+                <th></th>
               </tr>
               <% @patient.admissions.each do |a| %>
               <tr>
@@ -113,6 +114,7 @@
                 <td><%= a.ward %></td>
                 <td><%= a.appointment_date %></td>
                 <td><%= a.status %></td>
+                <td><%= link_to 'Edit', edit_admission_path(a) %></td>
               </tr>
               <% end %>
             </table>

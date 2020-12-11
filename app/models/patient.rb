@@ -1,6 +1,6 @@
 class Patient < ApplicationRecord
   belongs_to :region
-  has_many :admissions
+  has_many :admissions, dependent: :destroy
   belongs_to :hospital
 
   validates :mrn, :first_name, :father_name, :grand_father_name, :date_of_birth, :age, :sex,

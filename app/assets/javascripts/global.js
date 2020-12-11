@@ -48,4 +48,6 @@ $(function () {
             'colvis','copy'
         ]
     });
+
+    $('select').select2();
 });

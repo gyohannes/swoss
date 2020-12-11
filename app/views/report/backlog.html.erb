@@ -4,24 +4,29 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <table class="table table-striped" width="100%">
+    <table class="table table-bordered" width="100%">
+
       <thead>
       <tr>
+        <th>Procedure Category</th>
         <th>Department</th>
         <th>Backlog</th>
       </tr>
       </thead>
       <% total = 0 %>
-      <% Department.all.map do |d| %>
+      <% ProcedureCategory.all.each do |pc| %>
           <tr>
-            <th><%= d %></th>
-            <th><%= dt = d.missing_total %></th>
-            <% total += dt %>
-          </tr>
+            <td rowspan="<%= Department.count %>"><%= pc %></td>
+            <% Department.all.each do |d| %>
+                <td><%= d %></td>
+                <th><%= dt = d.missing_total(pc.id) %></th>
+                <% total += dt %>
+                </tr>
+            <% end %>
       <% end %>
       <tr>
-        <th class="text-center">Total</th>
-        <th><%= total %></th>
+        <th colspan="2">Total</th>
+        <th><%= link_to total, admissions_path %></th>
       </tr>
     </table>
   </div>

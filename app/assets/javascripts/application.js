@@ -32,6 +32,7 @@
 //= require jquery/calendar/jquery.calendars.picker.ext.min
 //= require jquery/calendar/jquery.calendars.ethiopian
 //= require jquery/calendar/jquery.calendars.ethiopian-am
+//= require select2
 //= require mdtimepicker
 //= require chartkick
 //= require highcharts

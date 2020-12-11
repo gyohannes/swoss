@@ -8,7 +8,7 @@ class OrSchedule < ApplicationRecord
   belongs_to :schedule_order, optional: true
   belongs_to :or_block
   belongs_to :or_table
-  has_one :surgical_service
+  has_one :surgical_service, dependent: :destroy
 
   before_save :set_gregorian_dates
 

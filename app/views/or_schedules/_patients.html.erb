@@ -29,10 +29,10 @@
         <td><%= a.department %></td>
         <td><%= a.admission_date %></td>
         <td>
-            <% if a.or_schedules.blank? %>
+            <% if a.or_schedule.blank? %>
                 <%= link_to 'Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
             <% else %>
-                <%= link_to 'Re Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
+                Scheduled
             <% end %>
         </td>
       </tr>

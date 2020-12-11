@@ -31,8 +31,9 @@ class Department < ApplicationRecord
                                                           self.id, Constants::OPERATED, from, to)
   end
 
-  def missing_total
-    admissions.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST).count
+  def missing_total(category)
+    admissions.where('procedure_category_id = ? and appointment_date_gr < ? and status = ?',
+                     category, Date.today, Constants::ON_WAITING_LIST).count
   end
 
   def to_s

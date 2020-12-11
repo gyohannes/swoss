@@ -1,49 +1,42 @@
-<h1>Admissions/Appointments</h1>
-
-<table class="table table-striped table-responsive dataTable">
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Patient</th>
-      <th>Admission type</th>
-      <th>Diagnosis</th>
-      <th>Procedure</th>
-      <th>Priority</th>
-      <th>Physician</th>
-      <th>Department</th>
-      <th>Listing status</th>
-      <th>Appointment date</th>
-      <th>Admission date</th>
-      <th>Ward</th>
-      <th>Payment type</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admissions.each do |admission| %>
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Backlog List</h6>
+  </div>
+  <!-- Card Body -->
+  <div class="card-body">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
       <tr>
-        <td><%= admission.user %></td>
-        <td><%= admission.patient %></td>
-        <td><%= admission.admission_type %></td>
-        <td><%= admission.diagnosis %></td>
-        <td><%= admission.procedure %></td>
-        <td><%= admission.priority %></td>
-        <td><%= admission.physician %></td>
-        <td><%= admission.department %></td>
-        <td><%= admission.listing_status %></td>
-        <td><%= admission.appointment_date %></td>
-        <td><%= admission.admission_date %></td>
-        <td><%= admission.ward %></td>
-        <td><%= admission.payment_type %></td>
-        <td>
-          <%= link_to 'Edit', edit_admission_path(admission) %> | <%= link_to 'Delete', admission, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <th>Patient</th>
+        <th>Admission type</th>
+        <th>Diagnosis</th>
+        <th>Procedure</th>
+        <th>Priority</th>
+        <th>Physician</th>
+        <th>Department</th>
+        <th>Listing status</th>
+        <th>Appointment date</th>
+        <th>Status type</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<br>
-
-<%= link_to 'New Admission', new_admission_path %>
+      <tbody>
+      <% @admissions.each do |admission| %>
+          <tr>
+            <td><%= admission.patient %></td>
+            <td><%= admission.admission_type %></td>
+            <td><%= admission.diagnosis %></td>
+            <td><%= admission.procedure %></td>
+            <td><%= admission.priority %></td>
+            <td><%= admission.physician %></td>
+            <td><%= admission.department %></td>
+            <td><%= admission.listing_status %></td>
+            <td><%= admission.appointment_date %></td>
+            <td><%= admission.status %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

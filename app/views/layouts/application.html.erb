@@ -25,9 +25,9 @@
 
     <!-- Sidebar - Brand -->
     <%= link_to root_path, class: 'sidebar-brand d-flex align-items-center justify-content-center' do  %>
-      <div class="sidebar-brand-icon">
-        <h3>SWMOSS</h3>
-      </div>
+        <div class="sidebar-brand-icon">
+          <h3>SWMOSS</h3>
+        </div>
     <% end %>
 
     <!-- Divider -->
@@ -57,110 +57,110 @@
           <i class="fa fa-bars"></i>
         </button>
 
-        <h4 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search font-weight-bolder text-center">
+        <h4 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 font-weight-bolder text-center">
           <%= image_tag @hospital.logo, height: '70px' rescue nil %> <%= @hospital %>
         </h4>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
           <% if current_user.is_role(User::ADMINISTRATOR) %>
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-suitcase"></i>
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Work Force</span>
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <%= link_to occupation_groups_path, class: 'dropdown-item' do %>
-                    <i class="fas fa-object-group fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Occupation Groups
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to surgeons_path, class: 'dropdown-item' do %>
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Surgeons
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to anesthesians_path, class: 'dropdown-item' do %>
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Anesthesians
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to physicians_path, class: 'dropdown-item' do %>
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Physicians
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to scrub_nurses_path, class: 'dropdown-item' do %>
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Scrub Nurses
-                <% end %>
-                <div class="dropdown-divider"></div>
-                <%= link_to circulating_nurses_path, class: 'dropdown-item' do %>
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Circulating Nurses
-                <% end %>
-              </div>
-            </li>
-            <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-fw fa-cog"></i>
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Settings</span>
-            </a>
-            <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <%= link_to regions_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-layer-group fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Regions
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to @hospital.blank? ? new_hospital_path : edit_hospital_path(@hospital), class: 'dropdown-item' do %>
-                  <i class="fas fa-hospital-symbol fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Hospital Details
-              <% end %>
+              <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-fw fa-suitcase"></i>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Work Force</span>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                  <%= link_to occupation_groups_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-object-group fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Occupation Groups
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to surgeons_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Surgeons
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to anesthesians_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Anesthesians
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to physicians_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Physicians
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to scrub_nurses_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Scrub Nurses
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to circulating_nurses_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Circulating Nurses
+                  <% end %>
+                </div>
+              </li>
+              <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Settings</span>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                  <%= link_to regions_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-layer-group fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Regions
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to @hospital.blank? ? new_hospital_path : edit_hospital_path(@hospital), class: 'dropdown-item' do %>
+                      <i class="fas fa-hospital-symbol fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Hospital Details
+                  <% end %>
 
-              <div class="dropdown-divider"></div>
-              <%= link_to payment_types_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-dollar-sign fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Payment Types
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to departments_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Departments
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to or_blocks_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-tablet-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  OR Blocks
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to wards_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Wards
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to or_tables_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-tablet-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  OR Tables
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to diagnoses_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Diagnoses
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to procedure_categories_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Procedure Categories
-              <% end %>
-              <div class="dropdown-divider"></div>
-              <%= link_to procedures_path, class: 'dropdown-item' do %>
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Procedures
-              <% end %>
-            </div>
-          </li>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to payment_types_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-dollar-sign fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Payment Types
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to departments_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Departments
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to or_blocks_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-tablet-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      OR Blocks
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to wards_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Wards
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to or_tables_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-tablet-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      OR Tables
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to diagnoses_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Diagnoses
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to procedure_categories_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Procedure Categories
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to procedures_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Procedures
+                  <% end %>
+                </div>
+              </li>
           <% end %>
           <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -196,12 +196,12 @@
       <div class="container-fluid">
         <%= render partial: 'shared/flash_messages' %>
 
-          <%= yield :header %>
+        <%= yield :header %>
 
         <div class="row">
 
           <div class="col-xl-12 col-lg-12">
-                <%= yield %>
+            <%= yield %>
           </div>
         </div>
 

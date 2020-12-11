@@ -2,34 +2,34 @@
   <div class="card shadow mb-4 col-sm-6">
     <div class="card-body row">
       <table class="table table-bordered" width="100%">
-              <thead>
-              <tr>
-                <th>Procedure Category</th>
-                <th>Department</th>
-                <% Constants::PATIENT_STATUS.each do |s| %>
-                    <th><%= s %></th>
-                <% end %>
-              </tr>
-              </thead>
-              <% @procedure_categories.each do |pc| %>
-                  <tr>
-                    <td rowspan="<%= Department.count %>"><%= pc %></td>
-                    <% Department.all.each do |d| %>
-                        <td><%= d %></td>
-                        <% Constants::PATIENT_STATUS.each do |s| %>
-                            <th><%= d.category_waiting_total(s, pc.id) %></th>
-                        <% end %>
-                        </tr>
-                    <% end %>
+        <thead>
+        <tr>
+          <th>Procedure Category</th>
+          <th>Department</th>
+          <% Constants::PATIENT_STATUS.each do |s| %>
+              <th><%= s %></th>
+          <% end %>
+        </tr>
+        </thead>
+        <% @procedure_categories.each do |pc| %>
+            <tr>
+              <td rowspan="<%= Department.count %>"><%= pc %></td>
+              <% Department.all.each do |d| %>
+                  <td><%= d %></td>
+                  <% Constants::PATIENT_STATUS.each do |s| %>
+                      <th><%= d.category_waiting_total(s, pc.id) %></th>
+                  <% end %>
+                  </tr>
               <% end %>
-              <tr>
-                <th colspan="2">Total</th>
-                <% Constants::PATIENT_STATUS.each do |s| %>
-                    <th>
-                        <%= Admission.waiting_total(s) %><br/>
-                    </th>
-              <% end %>
-              </tr>
+        <% end %>
+        <tr>
+          <th colspan="2">Total</th>
+          <% Constants::PATIENT_STATUS.each do |s| %>
+              <th>
+                <%= Admission.waiting_total(s) %><br/>
+              </th>
+          <% end %>
+        </tr>
       </table>
     </div>
   </div>

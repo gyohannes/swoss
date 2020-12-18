@@ -15,4 +15,16 @@ $(function () {
         newAssisstantField.val("")
         $('#assisstant_surgeons').append(newAssisstantField);
     })
+
+    $("#search_mrn, #search_department").change(function(){
+        var mrn = $("#search_mrn").val()
+        var department = $("#search_department").val()
+        $.ajax({
+            url: '/or_schedules/load_patients',
+            data: {mrn: mrn, department: department},
+            success: function(response){
+                $('#patients_list').html(response);
+            }
+        });
+    });
 });

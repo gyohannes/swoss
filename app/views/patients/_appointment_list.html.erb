@@ -26,14 +26,14 @@
         <td><%= link_to a.patient.mrn, a.patient %></td>
         <td><%= a.patient.full_name %></td>
         <td><%= a.patient.sex %></td>
-        <td><%= a.patient.age %></td>
+        <td><%= Patient.age(a.patient.date_of_birth) %></td>
         <td><%= a.patient.primary_telephone_number %></td>
         <td><%= a.diagnosis %></td>
         <td><%= a.procedure %></td>
         <td><%= a.priority_status %></td>
         <td><%= a.appointment_date %></td>
         <td>
-          <%= link_to 'Update Appointment', new_phone_call_path(admission: a.id) %>
+          <%= link_to 'Update Appointment', new_phone_call_path(admission: a.id) if can? :create, PhoneCall %>
         </td>
       </tr>
   <% end %>

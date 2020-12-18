@@ -15,6 +15,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/new
   def new
     @department = Department.new
+    @department.hospital_id = current_user.hospital_id
   end
 
   # GET /departments/1/edit

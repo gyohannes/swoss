@@ -20,7 +20,7 @@ class CreateAdmissions < ActiveRecord::Migration[5.2]
       t.string :admission_date
       t.date :admission_date_gr
       t.references :ward, type: :uuid, foreign_key: true
-      t.string :bed_number
+      t.references :bed, type: :uuid, foreign_key: true
       t.string :reason_for_admission
       t.references :payment_type, type: :uuid, foreign_key: true
       t.string :status

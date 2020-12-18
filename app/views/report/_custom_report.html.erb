@@ -33,7 +33,7 @@
   <% @admissions.each do |admission| %>
       <tr>
         <td><%= admission.patient.mrn %></td>
-        <td><%= admission.patient.age %></td>
+        <td><%= Patient.age(admission.patient.date_of_birth) %></td>
         <td><%= admission.patient.sex %></td>
         <td><%= admission.date_of_registration %></td>
         <td><%= admission.referring_facility %></td>
@@ -54,7 +54,7 @@
         <td><%= admission.or_schedule.surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>
         <td><%= admission.or_schedule.surgical_service.post_schedule_status rescue nil %></td>
         <td><%= admission.or_schedule.surgical_service.cancellation_reason rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.surgical_safety_checklist_completed rescue nil %></td>
+        <td><%= admission.or_schedule.surgical_service.checklist rescue nil %></td>
         <td><%= admission.or_schedule.surgical_service.immediate_postoperative_outcome rescue nil %></td>
         <td><%= admission.or_schedule.surgical_service.reason_for_death rescue nil %></td>
       </tr>

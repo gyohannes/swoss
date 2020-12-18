@@ -1,9 +1,10 @@
      <div class="card shadow mb-4">
       <!-- Card Body -->
       <div class="card-body">
-          <%= simple_form_for :search, remote: true, html: { novalidate: true } do |f| %>
-              <%=  f.input :mrn, label: 'MRN' %>
-          <% end %>
+        <%= simple_form_for :search, remote: true, html: { novalidate: true } do |f| %>
+            <%=  f.input :mrn, label: 'MRN' %>
+            <%=  f.input :department, collection: Department.all %>
+        <% end %>
           <div id="patients_list">
           </div>
         </div>
@@ -20,8 +21,9 @@
         <th>OR Table </th>
         <th>Scheduled order</th>
         <th>Name</th>
+        <th>Name</th>
         <th>Sex</th>
-        <th>Procedure type</th>
+        <th>Diagnosis</th>
         <th>Procedure</th>
         <th>Surgeon in charge</th>
         <th>Anesthesia in charge</th>
@@ -35,16 +37,17 @@
       <% @or_schedules.each do |table, schedules| %>
         <tr>
           <th rowspan= "<%= schedules.count + 1 %> ">
-          <div class = 'rotate15' ><%= table.or_block %><br/><%= table %></div>
+          <div class = 'rotate15' ><%= table %></div>
           </th>
          </tr>
           <% counter = 1 %>
           <% schedules.each do |os| %>
           <tr>
             <td><%= counter %></td>
+            <td><%= link_to os.admission.patient.mrn, os.admission.patient %></td>
           <td><%= os.admission %></td>
           <td><%= os.admission.patient.sex %></td>
-          <td><%= os.procedure_type %></td>
+            <td><%= os.admission.diagnosis %></td>
             <td><%= os.admission.procedure %></td>
           <td>
             <%= os.surgeon %><br/><br/>
@@ -61,7 +64,12 @@
           <td><%= os.scheduled_date %></td>
           <td><%= os.scheduled_time.strftime("%H:%M %p") rescue nil %></td>
           <td><%= os.schedule_order %></td>
-          <td><%= link_to 'Edit', edit_or_schedule_path(os), class: 'btn btn-primary' %></td>
+          <th>
+            <%= os.surgical_service.post_schedule_status rescue nil %><br/>
+            <%= link_to 'Details', os %> <br/>
+            <%= link_to 'Edit', edit_or_schedule_path(os) if can? :edit, os %><br/>
+            <%= link_to 'Delete', os, method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, os, class: 'btn btn-danger' %>
+          </th>
         </tr>
               <% counter += 1 %>
         <% end %>

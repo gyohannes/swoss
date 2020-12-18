@@ -8,7 +8,6 @@ class CreatePatients < ActiveRecord::Migration[5.2]
       t.string :grand_father_name
       t.string :date_of_birth
       t.date :date_of_birth_gr
-      t.integer :age
       t.string :sex
       t.references :region, type: :uuid, foreign_key: true
       t.string :zone

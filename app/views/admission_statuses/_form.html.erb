@@ -1,0 +1,16 @@
+
+<%= simple_form_for(@admission_status) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :admission, as: :hidden %>
+    <%= f.input :status, as: :hidden %>
+    <%= f.input :status_date, label: 'Discharge Date', input_html: {class: 'ethiopian_date_picker'} %>
+    <%= f.input :reason, label: 'Status', collection: ['Alive', 'Transferred', 'Dead'] %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -15,6 +15,7 @@ class CirculatingNursesController < ApplicationController
   # GET /circulating_nurses/new
   def new
     @circulating_nurse = CirculatingNurse.new
+    @circulating_nurse.hospital_id = current_user.hospital_id
   end
 
   # GET /circulating_nurses/1/edit

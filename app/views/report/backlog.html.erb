@@ -4,8 +4,7 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <table class="table table-bordered" width="100%">
-
+    <table class="table table-bordered buttons-dataTable" width="100%">
       <thead>
       <tr>
         <th>Procedure Category</th>
@@ -13,6 +12,7 @@
         <th>Backlog</th>
       </tr>
       </thead>
+      <tbody>
       <% total = 0 %>
       <% ProcedureCategory.all.each do |pc| %>
           <tr>
@@ -24,10 +24,13 @@
                 </tr>
             <% end %>
       <% end %>
+      </tbody>
+      <tfoot>
       <tr>
         <th colspan="2">Total</th>
         <th><%= link_to total, admissions_path %></th>
       </tr>
+      </tfoot>
     </table>
   </div>
 </div>

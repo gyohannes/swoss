@@ -22,4 +22,10 @@ $(function () {
         });
     });
 
+    $('.ethiopian_date_picker').calendarsPicker($.extend({
+        calendar: $.calendars.instance('ethiopian', 'am'),
+        dateFormat: 'dd/mm/yyyy',
+        maxDate: '1y'
+    }));
+
 });

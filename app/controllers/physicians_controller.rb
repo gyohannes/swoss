@@ -15,6 +15,7 @@ class PhysiciansController < ApplicationController
   # GET /physicians/new
   def new
     @physician = Physician.new
+    @physician.hospital_id = current_user.hospital_id
   end
 
   # GET /physicians/1/edit

@@ -1,41 +1,42 @@
 
 <%= simple_form_for(@or_schedule, html: { autocomplete: "off" }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :user, as: :hidden %>
-    <%= f.association :admission, as: :hidden %>
-    <div class="form-group row">
-    <label class="col-sm-3">Patient</label>
-    <div class="col-sm-9">
-      <span class="form-control"><%= @or_schedule.admission.patient.name_and_mrn rescue nil %></div>
-      </span>
-    </div>
-    <%= f.input :procedure_type, collection: Constants::PROCEDURE_TYPES %>
-    <%= f.association :surgeon %>
-    <div class="form-group row">
-      <label class="col-form-label col-sm-3">Assisstant Surgeons</label>
-      <div class="col-sm-9">
-        <span id="assisstant_surgeons"><%= f.input :assisstant_surgeons, label: false, as: :array %></span>
-        <br/>
-        <a id="add-assisstant-button" class="btn btn-primary" style="color: white">Add Assisstant Surgeon</a>
-        <br/>
+    <div class="form-inputs">
+      <%= f.association :user, as: :hidden %>
+      <%= f.association :admission, as: :hidden %>
+      <div class="form-group row">
+        <label class="col-sm-3">Patient</label>
+        <div class="col-sm-9">
+          <span class="form-control"><%= @or_schedule.admission.patient.name_and_mrn rescue nil %></div>
+        </span>
       </div>
-    </div>
-    <%= f.input :blood_units_required %>
-    <%= f.association :or_block, label: 'OR Block' %>
-    <%= f.association :or_table, label: 'OR Table' %>
-    <%= f.association :anesthesian %>
-    <%= f.association :scrub_nurse %>
-    <%= f.association :circulating_nurse %>
-    <div id="procedure_sub_form_display">
-      <%= render partial: 'procedure_sub_form' %>
+      <%= f.input :procedure_type, collection: Constants::PROCEDURE_TYPES %>
+      <%= f.association :surgeon %>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3">Assisstant Surgeons</label>
+        <div class="col-sm-9">
+          <span id="assisstant_surgeons"><%= f.input :assisstant_surgeons, label: false, as: :array %></span>
+          <br/>
+          <a id="add-assisstant-button" class="btn btn-primary" style="color: white">Add Assisstant Surgeon</a>
+          <br/>
+        </div>
+      </div>
+      <%= f.input :blood_group %>
+      <%= f.input :blood_units_required %>
+      <%= f.association :or_block, label: 'OR Block' %>
+      <%= f.association :or_table, collection: OrTable.all.map{|x| [x.to_s, x.id]} %>
+      <%= f.association :anesthesian %>
+      <%= f.association :scrub_nurse %>
+      <%= f.association :circulating_nurse %>
+      <div id="procedure_sub_form_display">
+        <%= render partial: 'procedure_sub_form' %>
+      </div>
+
     </div>
 
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
+    </div>
 <% end %>

@@ -15,6 +15,7 @@ class OrBlocksController < ApplicationController
   # GET /or_blocks/new
   def new
     @or_block = OrBlock.new
+    @or_block.hospital_id = current_user.hospital_id
   end
 
   # GET /or_blocks/1/edit

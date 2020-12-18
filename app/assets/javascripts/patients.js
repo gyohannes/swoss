@@ -14,29 +14,13 @@ $(function () {
                     grand_father_name: grand_father_name, phone_number: phone_number},
                 success: function (response) {
                     $("#patients_list").html(response)
-                    $('.js-exportable').DataTable({
-                        dom: '<"html5buttons"B>lTfgtip',
+                    $('.dataTable').DataTable({
                         responsive: true,
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
+                        retrieve: true,
                     });
                 }
             })
         });
-
-    $("#search_mrn, #search_first_name, #search_father_name").change(function(){
-        var mrn = $("#search_mrn").val()
-        var first_name = $("#search_first_name").val()
-        var father_name = $("#search_father_name").val()
-        $.ajax({
-            url: '/or_schedules/load_patients',
-            data: {mrn: mrn, first_name: first_name, father_name: father_name},
-            success: function(response){
-                $('#patients_list').html(response);
-            }
-        });
-    });
 
     $(".days").click(function(){
         var days = $(this).text()
@@ -45,6 +29,10 @@ $(function () {
             data: {days: days},
             success: function(response){
                 $('#appointment_list').html(response);
+                $('.dataTable').DataTable({
+                    responsive: true,
+                    retrieve: true,
+                });
             }
         });
     });

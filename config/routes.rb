@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :admission_statuses
+  resources :beds
   resources :occupation_groups
   resources :regions
   resources :or_blocks

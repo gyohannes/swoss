@@ -4,6 +4,7 @@ class CreateSurgeons < ActiveRecord::Migration[5.2]
       t.string :name
       t.references :occupation_group, type: :uuid, foreign_key: true
       t.references :hospital, type: :uuid, foreign_key: true
+      t.boolean :status
 
       t.timestamps
     end

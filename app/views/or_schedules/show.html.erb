@@ -1,10 +1,22 @@
 <div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h4>Schedule Details</h4>
+  </div>
   <!-- Card Body -->
   <div class="card-body row">
     <table class="table col-sm-6">
       <tr>
         <th>Patient</th>
         <td><%= @or_schedule.admission.patient %></td>
+      </tr>
+      <tr>
+        <th>Diagnosis type</th>
+        <td><%= @or_schedule.admission.diagnosis %></td>
+      </tr>
+
+      <tr>
+        <th>Procedure</th>
+        <td><%= @or_schedule.admission.procedure %></td>
       </tr>
 
       <tr>
@@ -25,12 +37,16 @@
           <% end %>
         </td>
       </tr>
-
+      <tr>
+        <th>Blood Group</th>
+        <td><%= @or_schedule.blood_group %></td>
+      </tr>
       <tr>
         <th>Blood units required</th>
         <td><%= @or_schedule.blood_units_required %></td>
       </tr>
-
+    </table>
+    <table class="table col-sm-6">
       <tr>
         <th>OR Block</th>
         <td><%= @or_schedule.or_block %></td>
@@ -40,9 +56,6 @@
         <th>OR Table</th>
         <td><%= @or_schedule.or_table %></td>
       </tr>
-    </table>
-    <table class="table col-sm-6">
-
       <tr>
         <th>Anesthesian:</th>
         <td><%= @or_schedule.anesthesian %></td>
@@ -67,14 +80,7 @@
         <th>Scheduled time:</th>
         <td><%= @or_schedule.scheduled_time.strftime("%I:%M %p") rescue nil %></td>
       </tr>
-
-      <tr>
-        <th>Schedule order:</th>
-        <td><%= @or_schedule.schedule_order %></td>
-      </tr>
     </table>
     <hr/>
-<%= link_to 'Edit', edit_or_schedule_path(@or_schedule) %> |
-<%= link_to 'Back', or_schedules_path %>
-  </div>
+<%= link_to 'Edit', edit_or_schedule_path(@or_schedule) if can? :edit, @or_schedule, class: 'btn btn-primary' %></div>
 </div>

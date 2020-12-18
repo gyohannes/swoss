@@ -6,12 +6,12 @@
       <%= f.input :user_name %>
       <%= f.input :email %>
       <%= f.input :full_name %>
-    <%= f.association :hospital %>
+      <%= f.association :hospital, as: :hidden %>
       <%= f.input :role, collection: User::ROLES %>
       <%= f.input :password %>
       <%= f.input :password_confirmation, label: 'Confirm Password' %>
     <br/>
   <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

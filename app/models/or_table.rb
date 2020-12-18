@@ -1,6 +1,8 @@
 class OrTable < ApplicationRecord
   belongs_to :or_block
 
+  validates :name, :code, presence: true
+
   def to_s
     code
   end

@@ -13,9 +13,8 @@
     <% elsif @admission_type == Constants::EMERGENCY_NEW || @admission_type == Constants::EMERGENCY_REOPERATION %>
         <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: @admission.blank? ? false : f.object.persisted? %>
         <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: @admission.blank? ? false : f.object.persisted? %>
-        <%= f.input :bed_number, disabled: @admission.blank? ? false : f.object.persisted? %>
+        <%= f.input :bed_id, label: 'Bed Number', collection: @beds, disabled: @admission.blank? ? false : f.object.persisted? %>
     <% end %>
-    <%= javascript_include_tag 'global' %>
 <% end %>
 <%= javascript_include_tag 'admissions' %>
 

@@ -4,23 +4,47 @@ class Admission < ApplicationRecord
   belongs_to :diagnosis
   belongs_to :procedure
   belongs_to :physician
-  belongs_to :department, optional: true
+  belongs_to :department
   belongs_to :ward, optional: true
+  belongs_to :bed, optional: true
   belongs_to :payment_type, optional: true
   has_many :phone_calls, dependent: :destroy
   has_many :admission_statuses, dependent: :destroy
   has_one :or_schedule, dependent: :destroy
-  before_save :set_gregorian_dates
+
   validates :date_of_registration, :admission_type, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective
-  validates :department_id, :admission_date, :ward_id, presence: true, if: :emergency
+  validates :admission_date, :ward_id, :bed_id, presence: true, if: :emergency
+
+  before_save :set_gregorian_dates
+  after_save :occupy_bed
+
+  scope :list_by_mrn, -> (mrn) { joins(:patient).where('mrn = ?', mrn) unless mrn.blank? }
+  scope :list_by_department, -> (department) { where("department_id = ?", department) unless department.blank? }
+
+  def self.search(mrn=nil, department=nil)
+    admissions = []
+    available_filters = {mrn => list_by_mrn(mrn), department => list_by_department(department)}.select{|k,v| !k.blank?}
+    counter = 0
+    available_filters.each do |k,v|
+      admissions = counter == 0 ? v : admissions.merge(v)
+      counter += 1
+    end
+    return admissions
+  end
+
+  def occupy_bed
+    unless bed.blank?
+      bed.update_attribute('status', true)
+    end
+  end
 
   def elective
     admission_type == Constants::ELECTIVE
   end
 
   def emergency
-    admission_type == Constants::EMERGENCY_NEW || admission_type == Constants::EMERGENCY_REOPERATION
+    admission_type != Constants::ELECTIVE
   end
 
   def set_gregorian_dates
@@ -39,11 +63,17 @@ class Admission < ApplicationRecord
     eth_month = year_month_day[1] + '/' + year_month_day[0]
     from = Services::EthioGregorianDates.eth_month_reporting_start(eth_month)
     to = Services::EthioGregorianDates.eth_month_reporting_end(eth_month)
-    joins(:admission_statuses).where('admission_statuses.status = ? and admission_statuses.status_date >= ? and admission_statuses.status_date <= ?', status, from,to).count
+    joins(:admission_statuses).where('admission_statuses.status = ? and admission_statuses.status_date_gr >= ? and admission_statuses.status_date_gr <= ?', status, from,to).count
   end
 
   def self.appointed_for_next(days)
-    where('status = ? and appointment_date_gr <= ?', Constants::ON_WAITING_LIST, Date.today + days.days)
+    admissions = []
+    if days == 'All Days'
+      admissions = where('status = ? and appointment_date_gr >= ?', Constants::ON_WAITING_LIST, Date.today)
+    else
+      admissions = where('status = ? and appointment_date_gr <= ?', Constants::ON_WAITING_LIST, Date.today + days.to_i.days)
+    end
+    return admissions
   end
 
 
@@ -58,6 +88,10 @@ class Admission < ApplicationRecord
 
   def self.admissions(from, to)
     where('date_of_registration_gr >= ? and date_of_registration_gr <= ?', from, to)
+  end
+
+  def self.all_elective_admissions(from, to)
+    admissions(from, to).where(admission_type: Constants::ELECTIVE)
   end
 
   def priority_status

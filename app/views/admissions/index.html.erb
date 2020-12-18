@@ -24,7 +24,7 @@
       <tbody>
       <% @admissions.each do |admission| %>
           <tr>
-            <td><%= admission.patient %></td>
+            <td><%= link_to admission.patient, admission.patient %></td>
             <td><%= admission.admission_type %></td>
             <td><%= admission.diagnosis %></td>
             <td><%= admission.procedure %></td>

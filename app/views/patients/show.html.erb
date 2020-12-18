@@ -22,10 +22,11 @@
     <div class="tab-content">
       <br/>
       <div class="float-right row">
-        <%= link_to 'Edit Registraion', edit_patient_path(@patient), class: 'btn btn-primary' %>&nbsp;
-        <%= link_to 'Update Appointment', new_phone_call_path(admission: @patient.latest_admission.try(:id)), class: 'btn btn-primary' %>&nbsp;
-        <%= link_to 'Admission', admission_admission_path(@patient.latest_admission), class: 'btn btn-primary' if @patient.latest_admission and @patient.latest_admission.status == Constants::ON_WAITING_LIST %>&nbsp;
-        <%= link_to 'Register New Appointment', new_admission_path(patient: @patient.id), class: 'btn btn-primary' %> &nbsp;
+        <%= link_to 'Edit Registraion', edit_patient_path(@patient), class: 'btn btn-primary' if can? :edit, @patient %>&nbsp;
+        <%= link_to 'Update Appointment', new_phone_call_path(admission: @patient.latest_admission.try(:id)), class: 'btn btn-primary' if @patient.latest_admission and @patient.latest_admission.status == Constants::ON_WAITING_LIST and can? :create, PhoneCall %>&nbsp;
+        <%= link_to 'Admission', admission_admission_path(@patient.latest_admission), class: 'btn btn-primary' if @patient.latest_admission and @patient.latest_admission.status == Constants::ON_WAITING_LIST and can? :create, Admission %>&nbsp;
+        <%= link_to 'Discharge', new_admission_status_path(admission: @patient.latest_admission, status: Constants::DISCHARGED), class: 'btn btn-primary' if @patient.latest_admission and @patient.latest_admission.status == Constants::ADMITTED and can? :create, AdmissionStatus%>&nbsp;
+        <%= link_to 'Register New Appointment', new_admission_path(patient: @patient.id), class: 'btn btn-primary' if can? :create, Admission %> &nbsp;
       </div>
       <br/><br/>
       <div class="tab-pane active" id="registration" role="tabpanel" aria-labelledby="registration-tab">
@@ -48,7 +49,7 @@
 
               <tr>
                 <th>Age:</th>
-                <td><%= @patient.age %></td>
+                <td><%= Patient.age(@patient.date_of_birth) %></td>
             </tr>
 
               <tr>
@@ -114,7 +115,7 @@
                 <td><%= a.ward %></td>
                 <td><%= a.appointment_date %></td>
                 <td><%= a.status %></td>
-                <td><%= link_to 'Edit', edit_admission_path(a) %></td>
+                <td><%= link_to 'Edit', edit_admission_path(a) if can? :edit, a %></td>
               </tr>
               <% end %>
             </table>
@@ -170,7 +171,7 @@
                         <td><%= boolean_to_text(surgical_service.surgical_safety_checklist_completed) %></td>
                         <td><%= surgical_service.immediate_postoperative_outcome %></td>
                         <td>
-                          <%= link_to 'Edit', edit_surgical_service_path(surgical_service) %>
+                          <%= link_to 'Edit', edit_surgical_service_path(surgical_service) if can? :edit, surgical_service %>
                         </td>
                       </tr>
                   <% end %>

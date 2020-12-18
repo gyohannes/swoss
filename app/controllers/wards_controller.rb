@@ -15,6 +15,7 @@ class WardsController < ApplicationController
   # GET /wards/new
   def new
     @ward = Ward.new
+    @ward.hospital_id = current_user.hospital_id
   end
 
   # GET /wards/1/edit

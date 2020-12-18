@@ -2,7 +2,7 @@ class Constants
 
   PROCEDURE_CATEGORIES = [1,2,3]
   REASON_FOR_ADMISSION = [EMERGENCY = 'Emergency', SCHEDULED = 'Scheduled']
-  PATIENT_STATUS = [ON_WAITING_LIST = 'On Waiting List', ADMITTED = 'Admitted', REMOVED = 'Removed']
+  PATIENT_STATUS = [ON_WAITING_LIST = 'On Waiting List', ADMITTED = 'Admitted', REMOVED = 'Removed', DISCHARGED = 'Discharged']
 
   ADMISSION_TYPES = [EMERGENCY_NEW = 'Emergency - New', EMERGENCY_REOPERATION = 'Emergency - Reoperation', ELECTIVE = 'Elective']
 

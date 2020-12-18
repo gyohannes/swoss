@@ -10,6 +10,7 @@ $(function () {
         dateFormat: 'dd/mm/yyyy',
         minDate: '-100y',
         maxDate: '0d',
+        defaultDate: null,
         onChangeMonthYear: function(year){
             $("#patient_date_of_birth").val("01/06/" + year)
             var dob = $(this).val()
@@ -33,7 +34,9 @@ $(function () {
         }
     }));
 
-    $('.time_picker').mdtimepicker();
+    $('.time_picker').mdtimepicker({
+        clearBtn: true
+    });
 
     $('.dataTable').DataTable({
         responsive: true,
@@ -45,7 +48,7 @@ $(function () {
         retrieve: true,
         dom: 'Bfrtip',
         buttons: [
-            'colvis','copy'
+            'colvis', { extend: 'excelHtml5', footer: true }
         ]
     });
 

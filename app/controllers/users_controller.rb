@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @user.hospital_id = current_user.hospital_id
   end
 
   # GET /users/1/edit

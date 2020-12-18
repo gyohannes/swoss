@@ -9,7 +9,6 @@
     <tr>
       <th>Name</th>
       <th>Occupation Group</th>
-      <th>Hospital</th>
       <th></th>
     </tr>
   </thead>
@@ -19,10 +18,7 @@
       <tr>
         <td><%= surgeon.name %></td>
         <td><%= surgeon.occupation_group %></td>
-        <td><%= surgeon.hospital %></td>
-        <td><%= link_to 'Edit', edit_surgeon_path(surgeon) %> |
-          <%= link_to 'Remove', surgeon, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <td><%= link_to 'Edit', edit_surgeon_path(surgeon) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,6 +26,6 @@
 
 <br>
 
-<%= link_to 'New Surgeon', new_surgeon_path, class: 'btn btn-primary' %>
+<%= link_to 'Add Surgeon', new_surgeon_path, class: 'btn btn-primary' %>
   </div>
 </div>

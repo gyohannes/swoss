@@ -24,6 +24,8 @@
 //= require jquery/dataTables.buttons.min
 //= require jquery/buttons.colVis.min
 //= require jquery/buttons.html5.min
+//= require jquery/buttons.flash.min
+//= require jquery/jszip.min
 //= require sbadmin2/dataTables.bootstrap4.min
 //= require jquery/calendar/jquery.calendars
 //= require jquery/calendar/jquery.calendars.plus

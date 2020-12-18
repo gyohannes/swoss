@@ -1,11 +1,12 @@
 class PatientsController < ApplicationController
+  authorize_resource
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   before_action :set_woredas, only: [:new, :create, :edit, :update, :create_from_search]
 
   # GET /patients
   # GET /patients.json
   def index
-    @patients = []
+    @patients = (Patient.registered_today.blank? ? Patient.patients_no_admission : Patient.registered_today + Patient.patients_no_admission).uniq
   end
 
   def load_patients
@@ -25,12 +26,12 @@ class PatientsController < ApplicationController
   end
 
   def load_age
-    @age = fromGregorianToEthiopic(Date.today.year, Date.today.month, Date.today.day).split('-')[0].to_i - params[:dob].split('/')[2].to_i
+    @age = Patient.age(params[:dob])
     render partial: 'age'
   end
 
   def load_appointments
-    @appointments = Admission.appointed_for_next(params[:days].to_i)
+    @appointments = Admission.appointed_for_next(params[:days])
     render partial: 'appointment_list'
   end
 
@@ -58,6 +59,7 @@ class PatientsController < ApplicationController
 
   # GET /patients/1/edit
   def edit
+    @age = Patient.age(@patient.date_of_birth)
   end
 
   # POST /patients

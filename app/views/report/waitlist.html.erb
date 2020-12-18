@@ -4,7 +4,7 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-           <table class="table table-bordered dataTable buttons-dataTable" width="100%">
+           <table class="table table-bordered buttons-dataTable" width="100%">
             <thead>
             <tr>
               <th>Procedure Category</th>
@@ -22,10 +22,12 @@
               </tr>
             <% end %>
             <% end %>
+             <tfoot>
             <tr>
                 <th colspan='2'>Total</th>
                 <th><%= Admission.waiting_total(Constants::ON_WAITING_LIST) %></th>
             </tr>
+             </tfoot>
           </table>
   </div>
 </div>

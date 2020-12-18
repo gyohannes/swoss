@@ -1,4 +1,5 @@
 class PhoneCallsController < ApplicationController
+  authorize_resource
   before_action :set_phone_call, only: [:show, :edit, :update, :destroy]
 
   # GET /phone_calls

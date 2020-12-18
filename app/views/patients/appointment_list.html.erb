@@ -7,7 +7,7 @@
 
     <h4><strong>Next <% [3, 7, 15, 30].each do |d| %>
           <button class="btn btn-primary days"><%= d %></button>
-      <% end %> Days</strong></h4>
+      <% end %> Days</strong> <button class="btn btn-primary days">All Days</button> </h4>
     <br/>
     <div id="appointment_list">
       <%= render partial: '/patients/appointment_list' %>

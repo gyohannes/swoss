@@ -1,4 +1,5 @@
 class OrSchedulesController < ApplicationController
+  authorize_resource
   before_action :set_or_schedule, only: [:show, :edit, :update, :destroy]
 
   # GET /or_schedules
@@ -17,7 +18,7 @@ class OrSchedulesController < ApplicationController
   end
 
   def load_patients
-    @admissions = Admission.joins(:patient).where('mrn = ?', params[:mrn]).where('status in (?)', [Constants::ON_WAITING_LIST,Constants::ADMITTED])
+    @admissions = Admission.search(params[:mrn], params[:department]).where(status: Constants::ADMITTED)
     render partial: 'patients'
   end
 
@@ -94,6 +95,6 @@ class OrSchedulesController < ApplicationController
     def or_schedule_params
       params.require(:or_schedule).permit(:user_id, :admission_id, :procedure_type, :surgeon_id, :anesthesian_id,
                                           :scrub_nurse_id, :circulating_nurse_id, :scheduled_date, :scheduled_time,
-                                          :schedule_order_id, :or_block_id, :or_table_id, :blood_units_required, assisstant_surgeons: [])
+                                          :schedule_order_id, :or_block_id, :or_table_id, :blood_group, :blood_units_required, assisstant_surgeons: [])
     end
 end

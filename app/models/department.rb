@@ -2,6 +2,8 @@ class Department < ApplicationRecord
   belongs_to :hospital
   has_many :admissions
 
+  validates :name, presence: true
+
   def waiting_total(status)
     admissions.where('status = ?', status).count
   end

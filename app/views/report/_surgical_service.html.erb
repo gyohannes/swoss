@@ -2,7 +2,7 @@
   <!-- Card Body -->
   <div class="card-body">
     <h4>Reporting Period: <%= 'From ' << @from unless @from.blank? %> <%= 'To ' << @to unless @to.blank? %></h4><br/>
-    <table class="table table-bordered" width="100%">
+    <table class="table table-bordered buttons-dataTable" width="100%">
       <thead>
       <tr>
         <th>Admitting Department</th>
@@ -12,26 +12,24 @@
         <th>Surgical checklist completion rate</th>
       </tr>
       </thead>
-      <% total_delay = 0 %>
-      <% total_preelective = 0 %>
-      <% total_cancellation = 0 %>
-      <% total_checklist_completion_rate = 0 %>
       <% Department.all.each do |d| %>
           <tr>
             <td><%= d %></td>
-            <td><%= td = SurgicalService.delay_of_elective_surgical_admission(d.id, @from_gr, @to_gr) %> <% total_delay += td || 0 %></td>
-            <td><%= tp = SurgicalService.mean_pre_elective_operative_stay(d.id, @from_gr, @to_gr) %> <% total_preelective += tp || 0 %></td>
-            <td><%= tc = SurgicalService.elective_surgery_cancellation_rate(d.id, @from_gr, @to_gr) %> <% total_cancellation += tc || 0 %></td>
-            <td><%= tcl = SurgicalService.surgical_safety_checklist_completion_rate(d.id, @from_gr, @to_gr) %> <% total_checklist_completion_rate += tcl || 0 %></td>
+            <td><%= SurgicalService.delay_of_elective_surgical_admission(d.id, @from_gr, @to_gr) %></td>
+            <td><%= SurgicalService.mean_pre_elective_operative_stay(d.id, @from_gr, @to_gr) %></td>
+            <td><%= SurgicalService.elective_surgery_cancellation_rate(d.id, @from_gr, @to_gr) %></td>
+            <td><%= SurgicalService.surgical_safety_checklist_completion_rate(d.id, @from_gr, @to_gr) %></td>
           </tr>
       <% end %>
+      <tfoot>
       <tr>
         <th>Overall</th>
-        <td><%= total_delay %></td>
-        <td><%= total_preelective %></td>
-        <td><%= total_cancellation %></td>
-        <td><%= total_checklist_completion_rate %></td>
+        <td><%= SurgicalService.average_delay_of_elective_surgical_admission(@from_gr, @to_gr) %></td>
+        <td><%= SurgicalService.overall_mean_pre_elective_operative_stay(@from_gr, @to_gr) %></td>
+        <td><%= SurgicalService.cancellation_rate(@from_gr, @to_gr) %></td>
+        <td><%= SurgicalService.overall_surgical_safety_checklist_completion_rate(@from_gr, @to_gr) %></td>
       </tr>
+      </tfoot>
     </table>
   </div>
 </div>

@@ -10,7 +10,7 @@
         <%= f.input :department_id, collection: Department.all, label: 'Admitting Department', disabled: !f.object.department_id.blank? %>
         <%= f.input :reason_for_admission, collection: Constants::REASON_FOR_ADMISSION, disabled: !f.object.reason_for_admission.blank? %>
         <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: !f.object.ward_id.blank? %>
-        <%= f.input :bed_number, disabled: !f.object.ward_id.blank? %>
+        <%= f.input :bed_id, label: 'Bed Number', collection: @beds, disabled: !f.object.ward_id.blank? %>
         <div class="form-actions">
           <%= f.button :submit, 'Save', class: 'btn btn-primary' %>
         </div>

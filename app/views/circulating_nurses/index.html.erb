@@ -8,7 +8,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Hospital</th>
       <th></th>
     </tr>
   </thead>
@@ -17,10 +16,7 @@
     <% @circulating_nurses.each do |circulating_nurse| %>
       <tr>
         <td><%= circulating_nurse.name %></td>
-        <td><%= circulating_nurse.hospital %></td>
-        <td><%= link_to 'Edit', edit_circulating_nurse_path(circulating_nurse) %> |
-          <%= link_to 'Remove', circulating_nurse, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <td><%= link_to 'Edit', edit_circulating_nurse_path(circulating_nurse) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,6 +24,6 @@
 
 <br>
 
-<%= link_to 'New Circulating Nurse', new_circulating_nurse_path, class: 'btn btn-primary' %>
+<%= link_to 'Add Circulating Nurse', new_circulating_nurse_path, class: 'btn btn-primary' %>
   </div>
 </div>

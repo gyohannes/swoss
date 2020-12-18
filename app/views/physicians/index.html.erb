@@ -8,7 +8,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Hospital</th>
       <th></th>
     </tr>
   </thead>
@@ -17,9 +16,7 @@
     <% @physicians.each do |physician| %>
       <tr>
         <td><%= physician.name %></td>
-        <td><%= physician.hospital %></td>
-        <td><%= link_to 'Edit', edit_physician_path(physician) %> |
-          <%= link_to 'Remove', physician, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <td><%= link_to 'Edit', edit_physician_path(physician) %>
         </td>
       </tr>
     <% end %>
@@ -28,6 +25,6 @@
 
 <br>
 
-<%= link_to 'New Physician', new_physician_path, class: 'btn btn-primary' %>
+<%= link_to 'Add Physician', new_physician_path, class: 'btn btn-primary' %>
   </div>
 </div>

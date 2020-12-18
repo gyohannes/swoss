@@ -3,13 +3,16 @@ class Patient < ApplicationRecord
   has_many :admissions, dependent: :destroy
   belongs_to :hospital
 
-  validates :mrn, :first_name, :father_name, :grand_father_name, :date_of_birth, :age, :sex,
+  validates :mrn, :first_name, :father_name, :grand_father_name, :date_of_birth, :sex,
             :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number, presence: true
 
   validates :mrn, uniqueness: { message: "already registered, please go to the patient details and proceed with appointment/admission" }
+  validates :primary_telephone_number, :contact_person_telephone_number, length: {is: 10}
 
   before_save :set_gregorian_dates
-  after_find :set_current_age
+
+  scope :registered_today, -> {where('date(patients.created_at) = ?', Date.today)}
+  scope :patients_no_admission, -> {includes(:admissions).where(admissions: {id: nil})}
 
   scope :list_by_hospital, -> (hospital) { hospital.patients unless hospital.blank? }
   scope :list_by_mrn, -> (mrn) { where('mrn = ?', mrn) unless mrn.blank? }
@@ -40,8 +43,15 @@ class Patient < ApplicationRecord
     self[:date_of_birth_gr] = Services::EthioGregorianDates.set_gregorian(self.date_of_birth, '/')
   end
 
-  def set_current_age
-    self.age = fromGregorianToEthiopic(Date.today.year, Date.today.month, Date.today.day).split('-')[0].to_i - date_of_birth.split('/')[2].to_i
+  def self.age(eth_date)
+    ethdate = eth_date.split('/')
+    dob = fromEthiopicToGregorian(ethdate[2].to_i, ethdate[1].to_i, ethdate[0].to_i)
+    total = (Date.today - dob).to_i
+    years = total > 0 ? total/365 : 0
+    total = total > 0 ? total%365 : 0
+    months = total > 0 ? total/30 : 0
+    days = total > 0 ? total%30 + 1 : 0
+    return "#{years > 0 ? years.to_s + " Years, " : ''} #{months > 0 ? months.to_s + " Months, " : ''} #{days > 0 ? days.to_s + " Days " : ''}"
   end
 
 

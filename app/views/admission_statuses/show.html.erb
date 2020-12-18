@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Admission:</strong>
+  <%= @admission_status.admission %>
+</p>
+
+<p>
+  <strong>Status date:</strong>
+  <%= @admission_status.status_date %>
+</p>
+
+<p>
+  <strong>Status date gr:</strong>
+  <%= @admission_status.status_date_gr %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @admission_status.status %>
+</p>
+
+<%= link_to 'Edit', edit_admission_status_path(@admission_status) %> |
+<%= link_to 'Back', admission_statuses_path %>

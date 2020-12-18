@@ -21,7 +21,7 @@
                 <div class="col-sm-3">
                   <div class="form-actions">
                   <%= f.button :submit, 'Reset Form', type: 'reset', class: 'btn btn-light' %><br/><br/>
-                    <%= f.button :submit, 'Register New Patient', class: 'btn btn-primary btn-raised' %>
+                    <%= f.button :submit, 'Register New Patient', class: 'btn btn-primary btn-raised' if can? :manage, Patient %>
 
                   </div>
                 </div>

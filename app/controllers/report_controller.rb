@@ -23,7 +23,7 @@ class ReportController < ApplicationController
   def load_surgical_service_efficiency
     @from = params[:from]
     @to = params[:to]
-    @from_gr = Services::EthioGregorianDates.eth_month_reporting_start(@from) + 5.days
+    @from_gr = Services::EthioGregorianDates.eth_month_reporting_start(@from)
     @to_gr = Services::EthioGregorianDates.eth_month_reporting_end(@to)
     @date_range = (@from_gr..@to_gr).uniq{|x| [x.month, x.year]}
 
@@ -38,7 +38,7 @@ class ReportController < ApplicationController
   end
 
   def load_admissions
-    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(params[:from]) + 5.days
+    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(params[:from])
     to_gr = Services::EthioGregorianDates.eth_month_reporting_end(params[:to])
     @admissions = Admission.admissions(from_gr, to_gr)
     render partial: 'custom_report'

@@ -1,6 +1,7 @@
 <div class="row">
   <div class="card shadow mb-4 col-sm-6">
     <div class="card-body row">
+      <legend>Patient Statistics</legend>
       <table class="table table-bordered" width="100%">
         <thead>
         <tr>
@@ -37,7 +38,6 @@
     <div class="card-body">
       <legend>Backlog</legend>
       <table class="table table-bordered" width="100%">
-
         <thead>
         <tr>
           <th>Procedure Category</th>
@@ -64,4 +64,4 @@
     </div>
   </div>
 </div>
-<%= line_chart patients_by_status_by_month_admissions_path, defer: true, title: 'Surgical Waitlist over the last 12 months', colors: ["#0000FF", "#008000", "#FF0000"] %>
+<%= column_chart patients_by_status_by_month_admissions_path, defer: true, title: 'Surgical Waitlist over the last 12 months', colors: ["#0000FF", "#008000", "#FF0000", "#FFFF00"] %>

@@ -1,5 +1,11 @@
 class AdmissionsController < ApplicationController
-  before_action :set_admission, only: [:show, :edit, :update, :destroy, :admission]
+  authorize_resource
+  before_action :set_admission, only: [:show, :edit, :update, :destroy, :admission, :discharge]
+  before_action :load, only: [:load_sub_form, :admission, :new, :create, :edit, :update]
+
+  def load
+    @beds = Bed.all
+  end
 
   # GET /admissions
   # GET /admissions.json
@@ -50,7 +56,7 @@ class AdmissionsController < ApplicationController
 
   def patients_by_status_by_month
     patients = []
-    date_range = (Date.today.months_ago(11)..Date.today).uniq{|d| d.month}
+    date_range = (Date.today.months_ago(11)..Date.today).uniq{|d| d.month}.collect{|y| y.change(day: 15)}
     Constants::PATIENT_STATUS.each do |s|
       patients << {name: s, data: date_range.map{|d| [d.strftime("%B"), Admission.waiting_month_total(s,d)]} }
     end
@@ -104,14 +110,15 @@ class AdmissionsController < ApplicationController
     @admission.user_id = current_user.id
     respond_to do |format|
       if @admission.save
-        status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : (@admission.admission_date_gr <= Date.today ? Constants::ADMITTED : '')
-        as = @admission.admission_statuses.build(status: status, status_date: Date.today)
+        status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : Constants::ADMITTED
+        as = @admission.admission_statuses.build(status: status, status_date_gr: Date.today)
         if as.save
           @admission.update_attribute('status', status)
         end
         format.html { redirect_to @admission.patient, notice: 'Admission was successfully created.' }
         format.json { render :show, status: :created, location: @admission }
       else
+        logger.info("----------------------------------#{@admission.errors.inspect}")
         format.html { render :new }
         format.json { render json: @admission.errors, status: :unprocessable_entity }
       end
@@ -124,9 +131,9 @@ class AdmissionsController < ApplicationController
     @admission_type = admission_params[:admission_type]
     respond_to do |format|
       if @admission.update(admission_params)
-        status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : (@admission.admission_date_gr <= Date.today ? Constants::ADMITTED : '')
+        status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : Constants::ADMITTED
         if @admission.status != status
-          as = @admission.admission_statuses.build(status: status, status_date: Date.today)
+          as = @admission.admission_statuses.build(status: status, status_date_gr: Date.today)
           if as.save
             @admission.update_attribute('status', status)
           end
@@ -158,7 +165,8 @@ class AdmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admission_params
-      params.require(:admission).permit(:user_id, :patient_id, :date_of_registration, :admission_type, :diagnosis_id, :procedure_id, :procedure_category_id, :priority, :reason_for_admission,
-                                        :physician_id, :department_id, :listing_status, :information, :appointment_date, :admission_date, :ward_id, :payment_type_id)
+      params.require(:admission).permit(:user_id, :patient_id, :date_of_registration, :admission_type, :diagnosis_id, :procedure_id,
+                                        :procedure_category_id, :priority, :reason_for_admission, :physician_id, :department_id, :referring_facility,
+                                        :bed_id, :listing_status, :information, :appointment_date, :admission_date, :ward_id, :payment_type_id)
     end
 end

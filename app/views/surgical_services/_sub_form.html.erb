@@ -2,7 +2,9 @@
     <% if @status == Constants::CANCELLED %>
         <%= f.input :reason_for_cancellation, collection: Constants::OPERATION_CANCELLATION_REASONS %>
     <% elsif @status == Constants::OPERATED %>
-      <%= f.input :adverse_event, as: :text, input_html: {rows: '4'} %>
+        <%= f.input :date_operated, input_html: {class: 'ethiopian_date_picker'} %>
+        <%= f.input :adverse_event_happened, label: 'Adverse Event', collection: [['Yes', true],['No', false]] %>
+      <%= f.input :adverse_event, label: 'Specify Adverse Event', as: :text, input_html: {rows: '4'} %>
       <%= f.input :anesthesia_time, as: :string, input_html:
           { value: @surgical_service.blank? ? '' : (f.object.anesthesia_time.blank? ? '' : f.object.anesthesia_time.strftime("%H:%M %P")), class: 'time_picker'} %>
       <%= f.input :incision_time, as: :string, input_html:

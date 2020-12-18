@@ -4,7 +4,7 @@
   <div class="card shadow mb-4">
     <div class="card-body">
     <caption>OR Table Efficiency</caption>
-    <table class="table table-bordered" width="100%">
+    <table class="table table-bordered buttons-dataTable" width="100%">
       <thead>
       <tr>
         <th>Month</th>
@@ -34,7 +34,7 @@
     <div class="card shadow mb-4">
       <div class="card-body">
     <caption>Surgical Efficiency</caption>
-    <table class="table table-bordered" width="100%">
+    <table class="table table-bordered buttons-dataTable" width="100%">
       <thead>
       <tr>
         <th>Admitting Department</th>
@@ -51,11 +51,13 @@
             <td><%= ap = d.average_procedure_duration(@from_gr, @to_gr) %> <% total_ave_duration += ap || 0 %></td>
           </tr>
       <% end %>
+      <tfoot>
       <tr>
         <th>Overall</th>
         <td><%= total_surgeon_eff/Department.count %></td>
         <td><%= total_ave_duration/Department.count %></td>
       </tr>
+      </tfoot>
     </table>
   </div>
     </div>

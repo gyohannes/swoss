@@ -7,8 +7,20 @@ class Ability
     #   user ||= User.new # guest user (not logged in)
        if user.is_role(User::ADMINISTRATOR)
          can :manage, :all
-       else
-         can :read, :all
+         cannot :create, [Patient, PhoneCall, Admission, AdmissionStatus, OrSchedule, SurgicalService]
+         cannot :edit, [PhoneCall, Admission, AdmissionStatus, OrSchedule, SurgicalService]
+       end
+       if user.is_role(User::LIAISON_OFFICER)
+         can :manage, Patient
+         can :manage, [Admission, PhoneCall, AdmissionStatus]
+       end
+       if user.is_role(User::OR_USER)
+         can :manage, SurgicalService
+         can :manage, OrSchedule
+         cannot [:edit, :destroy], OrSchedule
+         can [:edit, :destroy], OrSchedule do |os|
+           os.surgical_service.blank?
+         end
        end
     #
     # The first argument to `can` is the action you are giving the user

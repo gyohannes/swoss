@@ -8,7 +8,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Hospital</th>
       <th></th>
     </tr>
   </thead>
@@ -17,10 +16,7 @@
     <% @scrub_nurses.each do |scrub_nurse| %>
       <tr>
         <td><%= scrub_nurse.name %></td>
-        <td><%= scrub_nurse.hospital %></td>
-        <td><%= link_to 'Edit', edit_scrub_nurse_path(scrub_nurse) %> |
-          <%= link_to 'Remove', scrub_nurse, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <td><%= link_to 'Edit', edit_scrub_nurse_path(scrub_nurse) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,6 +24,6 @@
 
 <br>
 
-<%= link_to 'New Scrub Nurse', new_scrub_nurse_path, class: 'btn btn-primary' %>
+<%= link_to 'Add Scrub Nurse', new_scrub_nurse_path, class: 'btn btn-primary' %>
   </div>
 </div>

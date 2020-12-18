@@ -13,6 +13,14 @@ $(function () {
                 data: {from: from, to: to},
                 success: function(response){
                     $('#surgical_service_report').html(response);
+                    $('.buttons-dataTable').DataTable({
+                        responsive: true,
+                        retrieve: true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'colvis', { extend: 'excelHtml5', footer: true }
+                        ]
+                    });
                 }
             });
         }
@@ -33,6 +41,14 @@ $(function () {
                 data: {from: from, to: to},
                 success: function(response){
                     $('#surgical_service_report').html(response);
+                    $('.buttons-dataTable').DataTable({
+                        responsive: true,
+                        retrieve: true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'colvis', { extend: 'excelHtml5', footer: true }
+                        ]
+                    });
                 }
             });
         }
@@ -52,6 +68,14 @@ $(function () {
                 data: {from: from, to: to},
                 success: function(response){
                     $('#surgical_service_efficiency_report').html(response);
+                    $('.buttons-dataTable').DataTable({
+                        responsive: true,
+                        retrieve: true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'colvis', { extend: 'excelHtml5', footer: true }
+                        ]
+                    });
                 }
             });
         }
@@ -72,6 +96,14 @@ $(function () {
                 data: {from: from, to: to},
                 success: function(response){
                     $('#surgical_service_efficiency_report').html(response);
+                    $('.buttons-dataTable').DataTable({
+                        responsive: true,
+                        retrieve: true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'colvis', { extend: 'excelHtml5', footer: true }
+                        ]
+                    });
                 }
             });
         }
@@ -92,6 +124,14 @@ $(function () {
                 data: {from: from, to: to},
                 success: function(response){
                     $('#custom_report').html(response);
+                    $('.buttons-dataTable').DataTable({
+                        responsive: true,
+                        retrieve: true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'colvis', { extend: 'excelHtml5', footer: true }
+                        ]
+                    });
                 }
             });
         }
@@ -112,10 +152,17 @@ $(function () {
                 data: {from: from, to: to},
                 success: function(response){
                     $('#custom_report').html(response);
+                    $('.buttons-dataTable').DataTable({
+                        responsive: true,
+                        retrieve: true,
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'colvis', { extend: 'excelHtml5', footer: true }
+                        ]
+                    });
                 }
             });
         }
     }));
-
 
 })

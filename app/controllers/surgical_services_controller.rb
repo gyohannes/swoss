@@ -1,4 +1,5 @@
 class SurgicalServicesController < ApplicationController
+  authorize_resource
   before_action :set_surgical_service, only: [:show, :edit, :update, :destroy]
 
   # GET /surgical_services
@@ -19,14 +20,14 @@ class SurgicalServicesController < ApplicationController
   end
 
   def surgeries_by_status_by_month
-    from = Date.today - 12.months
+    from = Date.today - 11.months
     to = Date.today
     eth_from = fromGregorianToEthiopic(from.year, from.month, from.day).split('-')
     eth_to = fromGregorianToEthiopic(to.year, to.month, to.day).split('-')
     eth_from = eth_from[1] + '/' + eth_from[0]
     eth_to = eth_to[1] + '/' + eth_to[0]
-    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(eth_from) + 2.month
-    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(eth_to) + 1.month
+    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(eth_from) + 1.month
+    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(eth_to)
     date_range = (from_gr..to_gr).uniq{|d| d.month}.collect{|y| y.change(day: 15)}
     surgeries = []
     Constants::POST_SCHEDULE_STATUS.each do |s|
@@ -44,8 +45,8 @@ class SurgicalServicesController < ApplicationController
     eth_to = fromGregorianToEthiopic(to.year, to.month, to.day).split('-')
     eth_from = eth_from[1] + '/' + eth_from[0]
     eth_to = eth_to[1] + '/' + eth_to[0]
-    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(eth_from) + 5.days
-    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(eth_to) - 5.days
+    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(eth_from) + 1.month
+    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(eth_to)
     date_range = (from_gr..to_gr).uniq{|d| [d.month, d.year]}.collect{|y| y.change(day: 15)}
     efficiencies = []
     ['te', 'se'].each do |s|
@@ -63,8 +64,8 @@ class SurgicalServicesController < ApplicationController
     eth_to = fromGregorianToEthiopic(to.year, to.month, to.day).split('-')
     eth_from = eth_from[1] + '/' + eth_from[0]
     eth_to = eth_to[1] + '/' + eth_to[0]
-    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(eth_from) + 5.days
-    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(eth_to) - 5.days
+    from_gr = Services::EthioGregorianDates.eth_month_reporting_start(eth_from) + 1.month
+    to_gr = Services::EthioGregorianDates.eth_month_reporting_end(eth_to)
     date_range = (from_gr..to_gr).uniq{|d| [d.month, d.year]}.collect{|y| y.change(day: 15)}
     durations = date_range.map{|d| [AmharicMonths[fromGregorianToEthiopic(d.year, d.month, d.day).split('-')[1]],
                                                  SurgicalService.month_average_procedure_duration(d) ]}
@@ -140,6 +141,7 @@ class SurgicalServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def surgical_service_params
-      params.require(:surgical_service).permit(:user_id, :or_schedule_id, :post_schedule_status, :adverse_event, :reason_for_cancellation, :or_table_id, :anesthesia_time, :incision_time, :surgery_end_time, :surgical_safety_checklist_completed, :immediate_postoperative_outcome, :reason_for_death)
+      params.require(:surgical_service).permit(:user_id, :or_schedule_id, :post_schedule_status, :adverse_event_happened, :adverse_event,
+                                               :date_operated, :date_operated_gr, :reason_for_cancellation, :or_table_id, :anesthesia_time, :incision_time, :surgery_end_time, :surgical_safety_checklist_completed, :immediate_postoperative_outcome, :reason_for_death)
     end
 end

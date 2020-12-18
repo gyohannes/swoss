@@ -15,6 +15,7 @@ class ScrubNursesController < ApplicationController
   # GET /scrub_nurses/new
   def new
     @scrub_nurse = ScrubNurse.new
+    @scrub_nurse.hospital_id = current_user.hospital_id
   end
 
   # GET /scrub_nurses/1/edit

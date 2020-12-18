@@ -21,20 +21,21 @@
         <td><%= link_to a.patient.mrn, a.patient %></td>
         <td><%= a.patient.full_name %></td>
         <td><%= a.patient.sex %></td>
-        <td><%= a.patient.age %></td>
+        <td><%= Patient.age(a.patient.date_of_birth) %></td>
         <td><%= a.diagnosis %></td>
         <td><%= a.procedure %></td>
         <td><%= a.priority_status %></td>
         <td><%= a.physician %></td>
         <td><%= a.department %></td>
         <td><%= a.admission_date %></td>
-        <td>
-            <% if a.or_schedule.blank? %>
-                <%= link_to 'Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
+        <th>
+            <% unless a.or_schedule.blank? %>
+              Scheduled<br/>
+              <%= link_to 'Details', a.or_schedule %>
             <% else %>
-                Scheduled
+              <%= link_to 'Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
             <% end %>
-        </td>
+        </th>
       </tr>
   <% end %>
   </tbody>

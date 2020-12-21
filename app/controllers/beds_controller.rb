@@ -1,4 +1,5 @@
 class BedsController < ApplicationController
+  authorize_resource
   before_action :set_bed, only: [:show, :edit, :update, :destroy]
 
   # GET /beds
@@ -64,7 +65,7 @@ class BedsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bed
-      @bed = Bed.find(params[:id])
+      @bed = Bed.unscoped.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -20,4 +20,15 @@ $(function () {
             }
         });
     });
+
+    $("#surgical_service_adverse_event_happened").change(function(){
+        var adverse_event = $(this).val();
+        $.ajax({
+            url: '/surgical_services/load_adverse_event',
+            data: {adverse_event: adverse_event},
+            success: function(response){
+                $('#adverse_event_display').html(response);
+            }
+        });
+    });
 });

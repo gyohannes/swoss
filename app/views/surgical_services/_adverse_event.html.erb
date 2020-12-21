@@ -1,0 +1,5 @@
+<% if @adverse_event %>
+  <%= simple_fields_for :surgical_service, @surgical_service do |f| %>
+    <%= f.input :adverse_event, label: 'Specify Adverse Event', as: :text, input_html: {rows: '4'} %>
+  <% end %>
+<% end %>

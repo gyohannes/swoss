@@ -92,12 +92,13 @@
                 <th>Diagnosis</th>
                 <th>Procedure</th>
                 <th>Priority</th>
-                <th>Admitting Department:</th>
-                <th>Listing Status:</th>
-                <th>Admission Date:</th>
+                <th>Admitting Department</th>
+                <th>Listing Status</th>
+                <th>Admission Date</th>
+                <th>Admission Time</th>
                 <th>Reason for admission</th>
-                <th>Admitting Ward:</th>
-                <th>Appointment Date:</th>
+                <th>Admitting Ward</th>
+                <th>Appointment Date</th>
                 <th>Status</th>
                 <th></th>
               </tr>
@@ -111,6 +112,7 @@
                 <td><%= a.department %></td>
                 <td><%= a.listing_status %></td>
                 <td><%= a.admission_date %></td>
+                <td><%= a.admission_time.strftime("%H:%M %P") rescue nil %></td>
                 <td><%= a.reason_for_admission %></td>
                 <td><%= a.ward %></td>
                 <td><%= a.appointment_date %></td>
@@ -152,6 +154,7 @@
                   <tr>
                     <th>Patient</th>
                     <th>Post schedule status</th>
+                    <th>Procedure Date</th>
                     <th>Anesthesia time</th>
                     <th>Incision time</th>
                     <th>Surgery end time</th>
@@ -165,6 +168,7 @@
                       <tr>
                         <td><%= surgical_service.or_schedule.admission %></td>
                         <td><%= surgical_service.post_schedule_status %></td>
+                        <td><%= surgical_service.date_operated_gr.strftime("%B %d, %Y") rescue nil %></td>
                         <td><%= surgical_service.anesthesia_time.strftime("%H:%M %p") rescue nil %></td>
                         <td><%= surgical_service.incision_time.strftime("%H:%M %p") rescue nil %></td>
                         <td><%= surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>

@@ -4,7 +4,7 @@ class SurgeonsController < ApplicationController
   # GET /surgeons
   # GET /surgeons.json
   def index
-    @surgeons = Surgeon.all
+    @surgeons = Surgeon.unscoped.all
   end
 
   # GET /surgeons/1
@@ -65,11 +65,11 @@ class SurgeonsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_surgeon
-      @surgeon = Surgeon.find(params[:id])
+      @surgeon = Surgeon.unscoped.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def surgeon_params
-      params.require(:surgeon).permit(:name, :occupation_group_id, :hospital_id)
+      params.require(:surgeon).permit(:name, :occupation_group_id, :hospital_id, :status)
     end
 end

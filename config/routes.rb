@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get 'average_procedure_duration_by_month'
       get 'load_sub_form'
       get 'load_death_reason'
+      get 'load_adverse_event'
     end
   end
   resources :or_schedules do

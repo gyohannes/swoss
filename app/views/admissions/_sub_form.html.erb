@@ -12,9 +12,11 @@
         <%= f.input :payment_type_id, collection: PaymentType.all, disabled: @admission.blank? ? false : f.object.persisted? %>
     <% elsif @admission_type == Constants::EMERGENCY_NEW || @admission_type == Constants::EMERGENCY_REOPERATION %>
         <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: @admission.blank? ? false : f.object.persisted? %>
+        <%= f.input :admission_time, as: :string, input_html: { class: 'time_picker'}, disabled: false %>
         <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: @admission.blank? ? false : f.object.persisted? %>
         <%= f.input :bed_id, label: 'Bed Number', collection: @beds, disabled: @admission.blank? ? false : f.object.persisted? %>
     <% end %>
 <% end %>
 <%= javascript_include_tag 'admissions' %>
+<%= javascript_include_tag 'global' %>
 

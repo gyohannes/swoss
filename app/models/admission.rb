@@ -14,10 +14,11 @@ class Admission < ApplicationRecord
 
   validates :date_of_registration, :admission_type, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective
-  validates :admission_date, :ward_id, :bed_id, presence: true, if: :emergency
+  validates :admission_date, :admission_time, :ward_id, :bed_id, presence: true, if: :emergency
 
   before_save :set_gregorian_dates
   after_save :occupy_bed
+  after_save :set_admission_time
 
   scope :list_by_mrn, -> (mrn) { joins(:patient).where('mrn = ?', mrn) unless mrn.blank? }
   scope :list_by_department, -> (department) { where("department_id = ?", department) unless department.blank? }
@@ -45,6 +46,14 @@ class Admission < ApplicationRecord
 
   def emergency
     admission_type != Constants::ELECTIVE
+  end
+
+  def set_admission_time
+    unless admission_time.blank?
+      if admission_date_gr.year != admission_time.year or admission_date_gr.month != admission_time.month or admission_date_gr.day != admission_time.day
+        update(admission_time: admission_time.change(year: admission_date_gr.year, month: admission_date_gr.month, day: admission_date_gr.day))
+      end
+    end
   end
 
   def set_gregorian_dates

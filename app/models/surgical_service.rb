@@ -5,6 +5,7 @@ class SurgicalService < ApplicationRecord
 
   before_save :set_gregorian_dates
   after_save :set_surgery_times, if: :operated
+  validates :adverse_event, presence: true, if: :adverse
 
   def set_surgery_times
     if date_operated_gr.year != anesthesia_time.year or date_operated_gr.month != anesthesia_time.month or date_operated_gr.day != anesthesia_time.day
@@ -22,6 +23,10 @@ class SurgicalService < ApplicationRecord
     post_schedule_status == Constants::OPERATED
   end
 
+  def adverse
+    adverse_event_happened == true
+  end
+
   def set_gregorian_dates
     self[:date_operated_gr] = Services::EthioGregorianDates.set_gregorian(self.date_operated, '/')
   end
@@ -37,7 +42,7 @@ class SurgicalService < ApplicationRecord
     from = Services::EthioGregorianDates.eth_month_reporting_start(eth_month)
     to = Services::EthioGregorianDates.eth_month_reporting_end(eth_month)
 
-    return where('post_schedule_status = ? and surgical_services.created_at >= ? and surgical_services.created_at <= ?', status, from, to).count
+    return where('post_schedule_status = ? and surgical_services.date_operated_gr >= ? and surgical_services.date_operated_gr <= ?', status, from, to).count
   end
 
   def self.delay_of_elective_surgical_admission(department,from, to)
@@ -142,6 +147,66 @@ class SurgicalService < ApplicationRecord
 
   def checklist
     surgical_safety_checklist_completed == true ? 'Yes' : ''
+  end
+
+  def self.dep_average_first_case_incision_time(dep, from, to)
+    if !from.blank? and !to.blank?
+      date_range = (from..to)
+      times = []
+      date_range.each do |d|
+        times << dep_first_procudure(dep,d).incision_time unless dep_first_procudure(dep, d).blank?
+      end
+      total_minutes = times.map{|t| t.hour * 60 + t.strftime("%M").to_i}.sum
+      average_minutes = total_minutes/times.size unless total_minutes.blank?
+      hours, minutes = average_minutes/60, average_minutes%60 unless average_minutes.blank?
+      return "#{hours > 10 ? hours : "#{ '0' << hours.to_s}"}:#{minutes > 10 ? minutes : "#{'0' << minutes.to_s}"}" unless average_minutes.blank?
+    end
+  end
+
+
+  def self.average_first_case_incision_time(from, to)
+    if !from.blank? and !to.blank?
+      date_range = (from..to)
+      times = []
+      date_range.each do |d|
+        times << first_procudure(d).incision_time unless first_procudure(d).blank?
+      end
+      total_minutes = times.map{|t| t.hour * 60 + t.strftime("%M").to_i}.sum
+      average_minutes = total_minutes/times.size unless total_minutes.blank?
+      hours, minutes = average_minutes/60, average_minutes%60 unless average_minutes.blank?
+      return "#{hours > 10 ? hours : "#{ '0' << hours.to_s}"}:#{minutes > 10 ? minutes : "#{'0' << minutes.to_s}"}" unless average_minutes.blank?
+    end
+  end
+
+  def self.first_procudure(day)
+    where('post_schedule_status = ? and date(date_operated_gr) = ?', Constants::OPERATED, day).order('incision_time').first
+  end
+
+  def self.dep_first_procudure(dep,day)
+    joins(:or_schedule=>:admission).where('department_id = ? and post_schedule_status = ? and date(date_operated_gr) = ?',
+                                          dep, Constants::OPERATED, day).order('incision_time').first
+  end
+
+  def self.delay_of_emergency_surgery(from, to)
+    emergency_procedures(from, to).map{|x| x.emergency_surgery_delay}.sum/emergency_procedures(from, to).count unless emergency_procedures(from, to).blank?
+  end
+
+  def self.dep_delay_of_emergency_surgery(dep,from, to)
+    dep_emergency_procedures(dep, from, to).map{|x| x.emergency_surgery_delay}.sum/dep_emergency_procedures(dep,from,to).count unless dep_emergency_procedures(dep, from, to).blank?
+  end
+
+  def emergency_surgery_delay
+    ((incision_time - or_schedule.admission.admission_time)/3600).to_f.round(2)
+  end
+
+  def self.emergency_procedures(from, to)
+    joins(:or_schedule=>:admission).where('admission_type != ? and post_schedule_status = ? and date_operated_gr >= ? and date_operated_gr <= ?',
+                                          Constants::ELECTIVE, Constants::OPERATED, from, to)
+  end
+
+  def self.dep_emergency_procedures(dep, from, to)
+    joins(:or_schedule=>:admission).where('admission_type != ? and department_id = ? and post_schedule_status = ? and date_operated_gr >= ? and date_operated_gr <= ?',
+                                         Constants::ELECTIVE, dep, Constants::OPERATED, from, to)
   end
 
 end

@@ -19,6 +19,11 @@ class SurgicalServicesController < ApplicationController
     render partial: 'death_reason'
   end
 
+  def load_adverse_event
+    @adverse_event = params[:adverse_event] == 'true' ? true : false
+    render partial: 'adverse_event'
+  end
+
   def surgeries_by_status_by_month
     from = Date.today - 11.months
     to = Date.today
@@ -88,6 +93,7 @@ class SurgicalServicesController < ApplicationController
   def edit
     @status = @surgical_service.post_schedule_status
     @outcome = @surgical_service.immediate_postoperative_outcome
+    @adverse_event = @surgical_service.adverse_event_happened
   end
 
   # POST /surgical_services
@@ -96,6 +102,7 @@ class SurgicalServicesController < ApplicationController
     @surgical_service = SurgicalService.new(surgical_service_params)
     @status = @surgical_service.post_schedule_status
     @outcome = @surgical_service.immediate_postoperative_outcome
+    @adverse_event = @surgical_service.adverse_event_happened
     respond_to do |format|
       if @surgical_service.save
         format.html { redirect_to surgical_services_path, notice: 'Surgical service was successfully created.' }
@@ -112,6 +119,7 @@ class SurgicalServicesController < ApplicationController
   def update
     @status = surgical_service_params[:post_schedule_status]
     @outcome = surgical_service_params[:immediate_postoperative_outcome]
+    @adverse_event = surgical_service_params[:adverse_event_happened]
     respond_to do |format|
       if @surgical_service.update(surgical_service_params)
         format.html { redirect_to surgical_services_path, notice: 'Surgical service was successfully updated.' }

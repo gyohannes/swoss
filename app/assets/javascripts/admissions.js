@@ -4,6 +4,7 @@ $(function () {
         dateFormat: 'dd/mm/yyyy',
         maxDate: '1y'
     }));
+
     $("#admission_admission_type").change(function(){
         var admission_type = $(this).val();
         var procedure_category = $("#admission_procedure_category_id").val();

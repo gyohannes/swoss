@@ -118,7 +118,6 @@ class AdmissionsController < ApplicationController
         format.html { redirect_to @admission.patient, notice: 'Admission was successfully created.' }
         format.json { render :show, status: :created, location: @admission }
       else
-        logger.info("----------------------------------#{@admission.errors.inspect}")
         format.html { render :new }
         format.json { render json: @admission.errors, status: :unprocessable_entity }
       end
@@ -167,6 +166,6 @@ class AdmissionsController < ApplicationController
     def admission_params
       params.require(:admission).permit(:user_id, :patient_id, :date_of_registration, :admission_type, :diagnosis_id, :procedure_id,
                                         :procedure_category_id, :priority, :reason_for_admission, :physician_id, :department_id, :referring_facility,
-                                        :bed_id, :listing_status, :information, :appointment_date, :admission_date, :ward_id, :payment_type_id)
+                                        :bed_id, :listing_status, :information, :appointment_date, :admission_date, :admission_time, :ward_id, :payment_type_id)
     end
 end

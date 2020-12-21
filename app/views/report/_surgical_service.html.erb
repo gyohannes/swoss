@@ -10,6 +10,8 @@
         <th>Pre-elective operative stay (days)</th>
         <th>Elective surgery cancellation rate</th>
         <th>Surgical checklist completion rate</th>
+        <th>Average first case incision time</th>
+        <th>Delay of Emergency Surgery(hours)</th>
       </tr>
       </thead>
       <% Department.all.each do |d| %>
@@ -19,6 +21,8 @@
             <td><%= SurgicalService.mean_pre_elective_operative_stay(d.id, @from_gr, @to_gr) %></td>
             <td><%= SurgicalService.elective_surgery_cancellation_rate(d.id, @from_gr, @to_gr) %></td>
             <td><%= SurgicalService.surgical_safety_checklist_completion_rate(d.id, @from_gr, @to_gr) %></td>
+            <td><%= SurgicalService.dep_average_first_case_incision_time(d.id, @from_gr, @to_gr) %></td>
+            <td><%= SurgicalService.dep_delay_of_emergency_surgery(d.id, @from_gr, @to_gr) %></td>
           </tr>
       <% end %>
       <tfoot>
@@ -28,6 +32,8 @@
         <td><%= SurgicalService.overall_mean_pre_elective_operative_stay(@from_gr, @to_gr) %></td>
         <td><%= SurgicalService.cancellation_rate(@from_gr, @to_gr) %></td>
         <td><%= SurgicalService.overall_surgical_safety_checklist_completion_rate(@from_gr, @to_gr) %></td>
+        <td><%= SurgicalService.average_first_case_incision_time(@from_gr, @to_gr) %></td>
+        <td><%= SurgicalService.delay_of_emergency_surgery(@from_gr, @to_gr) %></td>
       </tr>
       </tfoot>
     </table>

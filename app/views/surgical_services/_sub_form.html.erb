@@ -4,7 +4,9 @@
     <% elsif @status == Constants::OPERATED %>
         <%= f.input :date_operated, input_html: {class: 'ethiopian_date_picker'} %>
         <%= f.input :adverse_event_happened, label: 'Adverse Event', collection: [['Yes', true],['No', false]] %>
-      <%= f.input :adverse_event, label: 'Specify Adverse Event', as: :text, input_html: {rows: '4'} %>
+        <div id="adverse_event_display">
+          <%= render partial: 'adverse_event' %>
+        </div>
       <%= f.input :anesthesia_time, as: :string, input_html:
           { value: @surgical_service.blank? ? '' : (f.object.anesthesia_time.blank? ? '' : f.object.anesthesia_time.strftime("%H:%M %P")), class: 'time_picker'} %>
       <%= f.input :incision_time, as: :string, input_html:

@@ -9,6 +9,7 @@
             <th>Patient</th>
             <th>Post schedule status</th>
             <th>Reason for cancellation</th>
+            <th>Procedure Date</th>
             <th>Anesthesia time</th>
             <th>Incision time</th>
             <th>Surgery end time</th>
@@ -23,6 +24,7 @@
                 <td><%= surgical_service.or_schedule.admission %></td>
                 <td><%= surgical_service.post_schedule_status %></td>
                 <td><%= surgical_service.reason_for_cancellation %></td>
+                <td><%= surgical_service.date_operated_gr.strftime("%B %d, %Y") rescue nil %></td>
                 <td><%= surgical_service.anesthesia_time.strftime("%H:%M %p") rescue nil %></td>
                 <td><%= surgical_service.incision_time.strftime("%H:%M %p") rescue nil %></td>
                 <td><%= surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>

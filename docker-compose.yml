@@ -1,0 +1,47 @@
+version: '3.9'
+
+volumes:
+  postgres_data: {}
+
+services:
+  swmossdb:
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  swmossapp:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+      args:
+        RAILS_ENV: production
+    environment:
+      POSTGRES_HOST: swmossdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+    - .:/home/swmossdata
+    depends_on:
+      - swmossdb
+    ports:
+      - "3000:3000"
+
+  swmossweb:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+      args:
+        RAILS_ENV: production
+
+    depends_on:
+      - swmossapp
+
+    ports:
+      - 80:80

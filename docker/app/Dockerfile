@@ -6,7 +6,7 @@ RUN bundle config --global frozen 1
 
 ENV RAILS_ROOT /var/www/swmoss
 ENV RAILS_ENV production
-
+ENV RACK_ENV production
 # make a new directory where our project will be copied
 RUN mkdir -p $RAILS_ROOT
 

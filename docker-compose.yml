@@ -2,7 +2,7 @@ version: '3.9'
 
 volumes:
   postgres_data: {}
-
+  assets:
 services:
   swmossdb:
     image: postgres:11-alpine
@@ -25,12 +25,15 @@ services:
       POSTGRES_HOST: swmossdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    #volumes:
+    #- .:/home/swmossdata
     volumes:
-    - .:/home/swmossdata
+      - ./storage:/storage/
+      - assets:/app/public/assets/
     depends_on:
       - swmossdb
-    ports:
-      - "3000:3000"
+    #ports:
+     # - "3000:3000"
 
   swmossweb:
     restart: always
@@ -45,3 +48,12 @@ services:
 
     ports:
       - 80:80
+      
+  db_backup:
+    image: equinoxone/postgres_backup:0.1
+    depends_on:
+      - swmossdb
+    volumes:
+      - ./backup:/backup
+    environment:
+      - PGDATABASE=swmoss_prod     

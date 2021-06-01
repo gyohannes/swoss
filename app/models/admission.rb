@@ -72,7 +72,7 @@ class Admission < ApplicationRecord
     eth_month = year_month_day[1] + '/' + year_month_day[0]
     from = Services::EthioGregorianDates.eth_month_reporting_start(eth_month)
     to = Services::EthioGregorianDates.eth_month_reporting_end(eth_month)
-    joins(:admission_statuses).where('admission_statuses.status = ? and admission_statuses.status_date_gr >= ? and admission_statuses.status_date_gr <= ?', status, from,to).count
+    joins(:admission_statuses).where('admission_statuses.status = ? and admission_statuses.status_date >= ? and admission_statuses.status_date <= ?', status, from,to).count
   end
 
   def self.appointed_for_next(days)

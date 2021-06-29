@@ -1,5 +1,6 @@
 module Services
   class EthioGregorianDates
+
     def self.set_gregorian(ethiopian_date, separator)
       unless ethiopian_date.blank?
         year_month_day = ethiopian_date.split(separator)

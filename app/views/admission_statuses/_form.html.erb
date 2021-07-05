@@ -6,7 +6,7 @@
   <div class="form-inputs">
     <%= f.association :admission, as: :hidden %>
     <%= f.input :status, as: :hidden %>
-    <%= f.input :status_date, label: 'Discharge Date', input_html: {class: 'ethiopian_date_picker'} %>
+    <%= f.input :status_date, as: :string, label: 'Discharge Date', input_html: {class: 'date_picker'} %>
     <%= f.input :reason, label: 'Status', collection: ['Alive', 'Transferred', 'Dead'] %>
   </div>
 

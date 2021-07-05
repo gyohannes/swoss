@@ -5,6 +5,8 @@ $(function () {
         maxDate: '1y'
     }));
 
+    $('.date_picker').calendarsPicker();
+
     $('#patient_date_of_birth').calendarsPicker($.extend({
         calendar: $.calendars.instance('ethiopian', 'am'),
         dateFormat: 'dd/mm/yyyy',

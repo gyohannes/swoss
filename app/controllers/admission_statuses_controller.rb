@@ -74,6 +74,6 @@ class AdmissionStatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admission_status_params
-      params.require(:admission_status).permit(:admission_id, :status_date, :status_date_gr, :status, :reason)
+      params.require(:admission_status).permit(:admission_id, :status_date, :status, :reason)
     end
 end

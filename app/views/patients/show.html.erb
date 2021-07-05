@@ -92,12 +92,13 @@
                 <th>Diagnosis</th>
                 <th>Procedure</th>
                 <th>Priority</th>
-                <th>Admitting Department</th>
+                <th>Department</th>
                 <th>Listing Status</th>
                 <th>Admission Date</th>
                 <th>Admission Time</th>
                 <th>Reason for admission</th>
-                <th>Admitting Ward</th>
+                <th>Ward</th>
+                <th>Bed</th>
                 <th>Appointment Date</th>
                 <th>Status</th>
                 <th></th>
@@ -115,6 +116,7 @@
                 <td><%= a.admission_time.strftime("%H:%M %P") rescue nil %></td>
                 <td><%= a.reason_for_admission %></td>
                 <td><%= a.ward %></td>
+                <td><%= a.bed %></td>
                 <td><%= a.appointment_date %></td>
                 <td><%= a.status %></td>
                 <td><%= link_to 'Edit', edit_admission_path(a) if can? :edit, a %></td>

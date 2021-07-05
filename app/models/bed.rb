@@ -1,5 +1,4 @@
 class Bed < ApplicationRecord
-  default_scope {where(status: nil)}
   belongs_to :ward
 
   validates :block, :floor, :bed_number, presence: true

@@ -14,7 +14,7 @@ class PhoneCall < ApplicationRecord
   def update_status
     unless admission.status == Constants::REMOVED
       if self.action == Constants::REMOVE_FROM_WAITLIST or patient_response == Constants::DIED
-        as = admission.admission_statuses.build(status: Constants::REMOVED, status_date_gr: Date.today)
+        as = admission.admission_statuses.build(status: Constants::REMOVED, status_date: Date.today)
         if as.save
           self.admission.update_attribute('status', Constants::REMOVED)
         end

@@ -4,7 +4,7 @@ class AdmissionsController < ApplicationController
   before_action :load, only: [:load_sub_form, :admission, :new, :create, :edit, :update]
 
   def load
-    @beds = Bed.all
+    @beds = Bed.where(status: nil)
   end
 
   # GET /admissions

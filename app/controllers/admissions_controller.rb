@@ -111,7 +111,7 @@ class AdmissionsController < ApplicationController
     respond_to do |format|
       if @admission.save
         status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : Constants::ADMITTED
-        as = @admission.admission_statuses.build(status: status, status_date_gr: Date.today)
+        as = @admission.admission_statuses.build(status: status, status_date: Date.today)
         if as.save
           @admission.update_attribute('status', status)
         end
@@ -132,7 +132,7 @@ class AdmissionsController < ApplicationController
       if @admission.update(admission_params)
         status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : Constants::ADMITTED
         if @admission.status != status
-          as = @admission.admission_statuses.build(status: status, status_date_gr: Date.today)
+          as = @admission.admission_statuses.build(status: status, status_date: Date.today)
           if as.save
             @admission.update_attribute('status', status)
           end

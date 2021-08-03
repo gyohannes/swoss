@@ -1,0 +1,7 @@
+<div class="card-body">
+<%= column_chart patients_by_status_by_month_admissions_path, defer: true, title: 'Surgical Waitlist over the last 12 months', colors: ["#0000FF", "#008000", "#FF0000", "#FFFF00"] %>
+</div>
+
+<div class="card-body">
+  <%= line_chart surgeries_by_status_by_month_surgical_services_path, title: 'Surgeries over the last 12 months', label: true, defer: true, colors: ["#008000", "#FF0000"] %>
+</div>

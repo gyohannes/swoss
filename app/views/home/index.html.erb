@@ -4,4 +4,6 @@
   <%= render partial: 'dashboards/liaison_office' %>
 <% elsif current_user.is_role(User::OR_USER) %>
   <%= render partial: 'dashboards/or' %>
+<% elsif current_user.is_role(User::QUALITY) %>
+    <%= render partial: 'dashboards/quality' %>
 <% end %>

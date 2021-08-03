@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  ROLES = [ADMINISTRATOR='Administrator', LIAISON_OFFICER='Liaison Officer', OR_USER='Operating Room']
+  ROLES = [ADMINISTRATOR='Administrator', LIAISON_OFFICER='Liaison Officer', OR_USER='Operating Room', QUALITY='Quality']
 
   def is_role(given_role)
     role == given_role

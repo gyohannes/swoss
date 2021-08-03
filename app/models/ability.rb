@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :patients_by_status_by_month, :surgeries_by_status_by_month, :to => :read
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -22,6 +23,10 @@ class Ability
            os.surgical_service.blank?
          end
        end
+
+      if user.is_role(User::QUALITY)
+        can :read, :all
+      end
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

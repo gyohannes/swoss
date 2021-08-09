@@ -33,7 +33,6 @@ class AdmissionStatusesController < ApplicationController
         @admission_status.admission.update_attribute('status', @admission_status.status)
         format.html { redirect_to @admission_status.admission.patient, notice: 'Patient was successfully discharged.' }
         format.json { render :show, status: :created, location: @admission_status }
-        logger.info("-----------------------#{@admission_status.admission.errors.inspect}")
       else
         format.html { render :new }
         format.json { render json: @admission_status.errors, status: :unprocessable_entity }

@@ -85,6 +85,12 @@ class Admission < ApplicationRecord
     return admissions
   end
 
+  def self.admitted_list
+    admissions = []
+      admissions = where('status = ?', Constants::ADMITTED)
+    return admissions
+  end
+
 
   def self.elective_admissions(department, from, to)
     where('department_id = ? and admission_type = ? and date_of_registration_gr >= ? and date_of_registration_gr <= ?',

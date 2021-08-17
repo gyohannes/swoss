@@ -5,6 +5,8 @@ class AdmissionsController < ApplicationController
 
   def load
     @beds = Bed.where(status: nil)
+    @procedures = Procedure.order(:name)
+    @diagnoses = Diagnosis.order(:name)
   end
 
   # GET /admissions

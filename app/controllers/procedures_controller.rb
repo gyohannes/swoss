@@ -7,6 +7,14 @@ class ProceduresController < ApplicationController
     @procedures = Procedure.all
   end
 
+  def import
+    if request.post?
+      @procedures = Procedure.import(params[:procedures_csv_file])
+      flash[:notice] = @procedures.blank? ? 'No procedure imported' : 'Procedures imported'
+    end
+    redirect_to procedures_path
+  end
+
   # GET /procedures/1
   # GET /procedures/1.json
   def show

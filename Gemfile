@@ -14,6 +14,7 @@ gem "chartkick"
 gem "highcharts-rails"
 gem 'data-confirm-modal'
 gem "select2-rails"
+gem 'fastercsv'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

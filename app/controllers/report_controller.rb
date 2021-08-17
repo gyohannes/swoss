@@ -23,9 +23,9 @@ class ReportController < ApplicationController
   def load_surgical_service_efficiency
     @from = params[:from]
     @to = params[:to]
-    @from_gr = Services::EthioGregorianDates.eth_month_reporting_start(@from)
+    @from_gr = Services::EthioGregorianDates.eth_month_reporting_start(@from) + 1.month
     @to_gr = Services::EthioGregorianDates.eth_month_reporting_end(@to)
-    @date_range = (@from_gr..@to_gr).uniq{|x| [x.month, x.year]}
+    @date_range = (@from_gr..@to_gr).uniq{|x| [x.month, x.year]}.collect{|y| y.change(day: 15)}
 
     render partial: 'surgical_service_efficiency'
   end

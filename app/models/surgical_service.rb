@@ -4,6 +4,7 @@ class SurgicalService < ApplicationRecord
   belongs_to :or_table, optional: true
 
   before_save :set_gregorian_dates
+  before_save :set_canceled_date, if: :canceled
   after_save :set_surgery_times, if: :operated
   validates :adverse_event, presence: true, if: :adverse
 
@@ -22,9 +23,18 @@ class SurgicalService < ApplicationRecord
   def operated
     post_schedule_status == Constants::OPERATED
   end
+  def canceled
+    post_schedule_status == Constants::CANCELLED
+  end
 
   def adverse
     adverse_event_happened == true
+  end
+
+  def set_canceled_date
+    if post_schedule_status == Constants::CANCELLED
+      self[:date_operated_gr] = Date.today
+    end
   end
 
   def set_gregorian_dates
@@ -157,7 +167,7 @@ class SurgicalService < ApplicationRecord
         times << dep_first_procudure(dep,d).incision_time unless dep_first_procudure(dep, d).blank?
       end
       total_minutes = times.map{|t| t.hour * 60 + t.strftime("%M").to_i}.sum
-      average_minutes = total_minutes/times.size unless total_minutes.blank?
+      average_minutes = times.blank? ? 0 : total_minutes/times.size unless total_minutes.blank?
       hours, minutes = average_minutes/60, average_minutes%60 unless average_minutes.blank?
       return "#{hours > 10 ? hours : "#{ '0' << hours.to_s}"}:#{minutes > 10 ? minutes : "#{'0' << minutes.to_s}"}" unless average_minutes.blank?
     end
@@ -172,7 +182,7 @@ class SurgicalService < ApplicationRecord
         times << first_procudure(d).incision_time unless first_procudure(d).blank?
       end
       total_minutes = times.map{|t| t.hour * 60 + t.strftime("%M").to_i}.sum
-      average_minutes = total_minutes/times.size unless total_minutes.blank?
+      average_minutes = times.blank? ? 0 : total_minutes/times.size unless total_minutes.blank?
       hours, minutes = average_minutes/60, average_minutes%60 unless average_minutes.blank?
       return "#{hours > 10 ? hours : "#{ '0' << hours.to_s}"}:#{minutes > 10 ? minutes : "#{'0' << minutes.to_s}"}" unless average_minutes.blank?
     end
@@ -206,7 +216,7 @@ class SurgicalService < ApplicationRecord
 
   def self.dep_emergency_procedures(dep, from, to)
     joins(:or_schedule=>:admission).where('admission_type != ? and department_id = ? and post_schedule_status = ? and date_operated_gr >= ? and date_operated_gr <= ?',
-                                         Constants::ELECTIVE, dep, Constants::OPERATED, from, to)
+                                          Constants::ELECTIVE, dep, Constants::OPERATED, from, to)
   end
 
 end

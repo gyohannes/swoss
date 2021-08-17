@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :backups do
+    member do
+      get 'restore'
+    end
+  end
   resources :admission_statuses
   resources :beds
   resources :occupation_groups
@@ -54,6 +59,7 @@ Rails.application.routes.draw do
     collection do
       get 'appointment_list'
       get 'load_appointments'
+      get 'admitted_list'
       get 'load_age'
       get 'load_patients'
       post 'create_from_search'
@@ -67,7 +73,11 @@ Rails.application.routes.draw do
   resources :physicians
   resources :or_tables
   resources :payment_types
-  resources :procedures
+  resources :procedures do
+    collection do
+      post 'import'
+    end
+  end
   resources :diagnoses
   resources :wards
   resources :hospitals

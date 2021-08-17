@@ -14,11 +14,11 @@
         <%= f.input :referring_facility, disabled: f.object.persisted? %>
         <%= f.input :date_of_registration, disabled: f.object.persisted?, input_html: {class: 'ethiopian_date_picker'} %>
         <%= f.input :admission_type, collection: Constants::ADMISSION_TYPES, disabled: f.object.persisted? %>
-        <%= f.association :procedure, disabled: f.object.persisted? %>
+        <%= f.association :procedure, collection: @procedures, disabled: f.object.persisted? %>
         <div id="procedure_category_display">
 
         </div>
-        <%= f.association :diagnosis, disabled: f.object.persisted? %>
+        <%= f.association :diagnosis, collection: @diagnoses, disabled: f.object.persisted? %>
         <%= f.association :physician, label: 'Admitting Physician Name', disabled: f.object.persisted? %>
       </div>
       <div class="col-lg-6" id="sub_admission_form">

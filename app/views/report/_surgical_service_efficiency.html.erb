@@ -22,7 +22,7 @@
       <% end %>
       <tr>
         <th>Overall</th>
-        <td><%= total_table_eff/@date_range.count %></td>
+        <td><%= (total_table_eff/@date_range.count).round(2) %></td>
       </tr>
       <% end %>
     </table>

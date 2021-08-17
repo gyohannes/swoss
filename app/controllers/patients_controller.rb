@@ -25,6 +25,10 @@ class PatientsController < ApplicationController
     @appointments = Admission.appointed_for_next(3)
   end
 
+  def admitted_list
+    @admissions = Admission.where('status = ?', Constants::ADMITTED)
+  end
+
   def load_age
     @age = Patient.age(params[:dob])
     render partial: 'age'

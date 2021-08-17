@@ -16,6 +16,7 @@ class Ability
          can :manage, [Admission, PhoneCall, AdmissionStatus]
        end
        if user.is_role(User::OR_USER)
+         can :read, Patient
          can :manage, SurgicalService
          can :manage, OrSchedule
          cannot [:edit, :destroy], OrSchedule

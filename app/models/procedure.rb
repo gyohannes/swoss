@@ -8,14 +8,11 @@ class Procedure < ApplicationRecord
     procedures = []
     CSV.foreach(file.path, :headers=>true, encoding: 'iso-8859-1:utf-8') do |row|
       name = row[0]
-      category = row[1].blank? ? nil : ProcedureCategory.find_or_create_by(code: row[1])
+      category = row[1].blank? ? nil : ProcedureCategory.find_or_create_by(code: row[1].strip)
       attrbts = {name: name, procedure_category_id: category.try(:id)}
-      procedure = Procedure.find_by(name: name)
-      if procedure.blank?
-        p = Procedure.new(attrbts)
-        if p.save
-          procedures << p unless p.blank?
-        end
+      p = Procedure.create(attrbts)
+      unless p.blank?
+        procedures << p unless p.blank?
       end
     end
     return procedures

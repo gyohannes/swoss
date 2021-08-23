@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :user_name, :full_name, :role, presence: true
+  validates :user_name, uniqueness: {case_sensitive: false}
 
   ROLES = [ADMINISTRATOR='Administrator', LIAISON_OFFICER='Liaison Officer', OR_USER='Operating Room', QUALITY='Quality']
 

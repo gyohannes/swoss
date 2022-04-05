@@ -38,6 +38,9 @@ $(function () {
             data: {listing_status: listing_status, procedure: procedure, priority: priority},
             success: function(response){
                 $('#information_display').html(response);
+                $('#information_display').animate({
+                    color: "red"
+                }, 1500);
             }
         });
     });

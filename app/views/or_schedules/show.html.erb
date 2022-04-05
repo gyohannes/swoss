@@ -26,12 +26,9 @@
 
       <tr>
         <th>Surgeon</th>
-        <td><%= @or_schedule.surgeon %></td>
-      </tr>
-
-      <tr>
-        <th>Assisstant Surgeons</th>
         <td>
+        <%= @or_schedule.surgeon %><br/>
+        Assisstants
           <% @or_schedule.assisstant_surgeons.each do |as| %>
               <li><%= as %></li>
           <% end %>
@@ -57,8 +54,18 @@
         <td><%= @or_schedule.or_table %></td>
       </tr>
       <tr>
-        <th>Anesthesian:</th>
-        <td><%= @or_schedule.anesthesian %></td>
+        <th>Anesthesians:</th>
+        <td>
+          <ul>
+            <% @or_schedule.anesthesians.each do |ans| %>
+              <li><%= ans %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>Anesthesia type</th>
+        <td><%= @or_schedule.anesthesia_type %></td>
       </tr>
 
       <tr>
@@ -82,5 +89,5 @@
       </tr>
     </table>
     <hr/>
-<%= link_to 'Edit', edit_or_schedule_path(@or_schedule) if can? :edit, @or_schedule, class: 'btn btn-primary' %></div>
+<%= link_to 'Edit', edit_or_schedule_path(@or_schedule), class: 'btn btn-primary' if can? :edit, @or_schedule %></div>
 </div>

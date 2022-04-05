@@ -25,8 +25,9 @@
         <th>Sex</th>
         <th>Diagnosis</th>
         <th>Procedure</th>
-        <th>Surgeon in charge</th>
-        <th>Anesthesia in charge</th>
+        <th>Surgeon</th>
+        <th>Anesthesians</th>
+        <th>Anesthesia type</th>
         <th>Scrub nurse</th>
         <th>Circulating nurse</th>
         <th>Scheduled date</th>
@@ -50,19 +51,27 @@
             <td><%= os.admission.diagnosis %></td>
             <td><%= os.admission.procedure %></td>
           <td>
-            <%= os.surgeon %><br/><br/>
-            Assisstants
+            <%= os.surgeon %>
+            <hr>
+            <i>Assisstants</i>
             <ul>
               <% os.assisstant_surgeons.each do |as| %>
                 <li><%= as %></li>
               <% end %>
             </ul>
           </td>
-          <td><%= os.anesthesian %></td>
+          <td>
+          <ul>
+              <% os.anesthesians.each do |ans| %>
+                <li><%= ans %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= os.anesthesia_type %></td>
           <td><%= os.scrub_nurse %></td>
           <td><%= os.circulating_nurse %></td>
           <td><%= os.scheduled_date %></td>
-          <td><%= os.scheduled_time.strftime("%H:%M %p") rescue nil %></td>
+          <td><%= os.scheduled_time.strftime("%I:%M %p") rescue nil %></td>
           <td><%= os.schedule_order %></td>
           <th>
             <%= os.surgical_service.post_schedule_status rescue nil %><br/>

@@ -2,13 +2,15 @@ class OrSchedule < ApplicationRecord
   belongs_to :user
   belongs_to :admission
   belongs_to :surgeon
-  belongs_to :anesthesian
+  belongs_to :anesthesia_type
   belongs_to :scrub_nurse
   belongs_to :circulating_nurse
   belongs_to :schedule_order, optional: true
   belongs_to :or_block
   belongs_to :or_table
   has_one :surgical_service, dependent: :destroy
+  has_many :or_schedule_anesthesians, dependent: :destroy
+  has_many :anesthesians, through: :or_schedule_anesthesians
 
   before_save :set_gregorian_dates
   after_save :set_scheduled_time, if: :elective_procedure
@@ -16,6 +18,8 @@ class OrSchedule < ApplicationRecord
 
   validates :procedure_type, presence: true
   validates :scheduled_date, :scheduled_time, presence: true, if: :elective_procedure
+
+  accepts_nested_attributes_for :or_schedule_anesthesians, allow_destroy: :true
 
   def elective_procedure
     procedure_type == Constants::ELECTIVE

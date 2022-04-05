@@ -31,7 +31,7 @@ class BackupsController < ApplicationController
   # POST /backups
   # POST /backups.json
   def create
-    system('rake db:dump')
+    system('RAILS_ENV=production rake db:dump')
     @backup = Backup.new(backup_params)
 
     respond_to do |format|

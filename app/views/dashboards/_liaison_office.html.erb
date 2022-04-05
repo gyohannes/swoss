@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="card shadow mb-4 col-sm-6">
+  <div class="card shadow mb-4 col-sm-12">
     <div class="card-body row">
       <legend>Patient Statistics</legend>
       <table class="table table-bordered" width="100%">
@@ -34,7 +34,7 @@
       </table>
     </div>
   </div>
-  <div class="card shadow mb-4 col-sm-6">
+  <div class="card shadow mb-4 col-sm-12">
     <div class="card-body">
       <legend>Backlog</legend>
       <table class="table table-bordered" width="100%">
@@ -51,7 +51,13 @@
               <td rowspan="<%= Department.count %>"><%= pc %></td>
               <% Department.all.each do |d| %>
                   <td><%= d %></td>
-                  <th><%= dt = d.missing_total(pc.id) %></th>
+                  <% dt = d.missing_total(pc.id) %>
+                  <th><% if dt > 0 %>
+                    <%= link_to dt, admissions_path(department: d.id, category: pc.id) %>
+                  <% else %>
+                    <%= dt %>
+                  <% end %>
+                  </th>
                   <% total += dt %>
                   </tr>
               <% end %>

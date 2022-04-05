@@ -12,7 +12,12 @@ class AdmissionsController < ApplicationController
   # GET /admissions
   # GET /admissions.json
   def index
-    @admissions = Admission.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST)
+    unless params[:department].blank? and params[:category].blank?
+      @admissions = Admission.where('procedure_category_id = ? and department_id = ? and appointment_date_gr < ? and status = ?', 
+        params[:category], params[:department], Date.today, Constants::ON_WAITING_LIST)
+    else
+      @admissions = Admission.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST)
+    end
   end
 
   def load_sub_form
@@ -40,10 +45,12 @@ class AdmissionsController < ApplicationController
     appointment_date = params[:appointment_date]
     appointment_date_gr = Services::EthioGregorianDates.set_gregorian(appointment_date, '/')
     appointment_length_days = priority == "true" ? cat_1.max_appointment_days : procedure.procedure_category.max_appointment_days
-    if appointment_date_gr > Date.today + appointment_length_days.days
-      @message = 'You have selected a date range that is longer than what is allowed for the selected procedure category and listing status. Would you like to continue?'
+    unless appointment_date_gr.blank?
+      if appointment_date_gr > Date.today + appointment_length_days.days
+        @message = 'You have selected a date range that is longer than what is allowed for the selected procedure category and listing status. Would you like to continue?'
+      end
+      render partial: 'submit'
     end
-    render partial: 'submit'
   end
 
   def load_information
@@ -102,6 +109,7 @@ class AdmissionsController < ApplicationController
   # GET /admissions/1/edit
   def edit
     @admission_type = @admission.admission_type
+    @category = @admission.procedure_category
   end
 
   # POST /admissions
@@ -109,6 +117,7 @@ class AdmissionsController < ApplicationController
   def create
     @admission = Admission.new(admission_params)
     @admission_type = @admission.admission_type
+    @category = @admission.procedure_category
     @admission.user_id = current_user.id
     respond_to do |format|
       if @admission.save
@@ -130,6 +139,7 @@ class AdmissionsController < ApplicationController
   # PATCH/PUT /admissions/1.json
   def update
     @admission_type = admission_params[:admission_type]
+    @category = @admission.procedure_category
     respond_to do |format|
       if @admission.update(admission_params)
         status = @admission.admission_date_gr.blank? ? Constants::ON_WAITING_LIST : Constants::ADMITTED

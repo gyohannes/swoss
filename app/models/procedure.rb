@@ -10,7 +10,7 @@ class Procedure < ApplicationRecord
       name = row[0]
       category = row[1].blank? ? nil : ProcedureCategory.find_or_create_by(code: row[1].strip)
       attrbts = {name: name, procedure_category_id: category.try(:id)}
-      p = Procedure.create(attrbts)
+      p = Procedure.find_or_create_by(attrbts)
       unless p.blank?
         procedures << p unless p.blank?
       end

@@ -1,4 +1,6 @@
 <%= simple_fields_for :admission, @admission do |f| %>
-    <%= f.input :procedure_category_id, collection: ProcedureCategory.all,  disabled: true, selected: @admission.try(:procedure_category_id) || @category.id %>
-    <%= f.input :procedure_category_id, as: :hidden, input_html: {value: @admission.try(:procedure_category_id) || @category.id} %>
+    <% if !@category.blank? or !@admission.procedure_category_id.blank? %>
+    <%= f.input :procedure_category_id, collection: ProcedureCategory.all,  disabled: true, selected: @admission.try(:procedure_category_id) || @category.try(:id) %>
+    <%= f.input :procedure_category_id, as: :hidden, input_html: {value: @admission.try(:procedure_category_id) || @category.try(:id)} %>
+    <% end %>
 <% end %>

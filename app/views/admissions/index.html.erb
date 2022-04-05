@@ -4,20 +4,20 @@
   </div>
   <!-- Card Body -->
   <div class="card-body">
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <table class="table table-striped table-responsive dataTable">
       <thead>
       <tr>
         <th>Patient</th>
         <th>Admission type</th>
         <th>Diagnosis</th>
         <th>Procedure</th>
+        <th>Category</th>
         <th>Priority</th>
         <th>Physician</th>
         <th>Department</th>
         <th>Listing status</th>
         <th>Appointment date</th>
         <th>Status type</th>
-        <th></th>
       </tr>
       </thead>
 
@@ -28,7 +28,8 @@
             <td><%= admission.admission_type %></td>
             <td><%= admission.diagnosis %></td>
             <td><%= admission.procedure %></td>
-            <td><%= admission.priority %></td>
+            <td><%= admission.procedure.procedure_category %></td>
+            <td><%= admission.priority_status %></td>
             <td><%= admission.physician %></td>
             <td><%= admission.department %></td>
             <td><%= admission.listing_status %></td>

@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :user_name, :full_name, :role, presence: true
   validates :user_name, uniqueness: {case_sensitive: false}
 
-  ROLES = [ADMINISTRATOR='Administrator', LIAISON_OFFICER='Liaison Officer', OR_USER='Operating Room', QUALITY='Quality']
+  ROLES = [ADMINISTRATOR='Administrator', LIAISON_OFFICER='Liaison Officer', OR_USER='Operating Room', QUALITY='Quality', CEO = 'Ceo']
 
   def is_role(given_role)
     role == given_role

@@ -1,0 +1,8 @@
+<%= simple_fields_for :patient, @patient do |f| %>
+    <% if @selected_method == 'dob' or @patient.try(:age_entry) == 'dob' %>
+        <%= f.input :date_of_birth, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+    <% elsif @selected_method == 'age' or @patient.try(:age_entry) == 'age' %>
+        <%= f.input :age, as: :numeric, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+    <% end %>
+<% end %>
+<%= javascript_include_tag 'global' %>

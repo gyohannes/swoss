@@ -37,6 +37,7 @@ class OrSchedulesController < ApplicationController
     @or_schedule = OrSchedule.new
     @or_schedule.user_id = current_user.id
     @or_schedule.admission_id = params[:admission]
+    2.times { @or_schedule.or_schedule_anesthesians.build}
   end
 
   # GET /or_schedules/1/edit
@@ -54,6 +55,7 @@ class OrSchedulesController < ApplicationController
         format.html { redirect_to or_schedules_url, notice: 'OR schedule was successfully created.' }
         format.json { render :show, status: :created, location: @or_schedule }
       else
+        logger.info("------------------------#{@or_schedule.errors.inspect}")
         format.html { render :new }
         format.json { render json: @or_schedule.errors, status: :unprocessable_entity }
       end
@@ -93,8 +95,10 @@ class OrSchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def or_schedule_params
-      params.require(:or_schedule).permit(:user_id, :admission_id, :procedure_type, :surgeon_id, :anesthesian_id,
+      params.require(:or_schedule).permit(:user_id, :admission_id, :procedure_type, :surgeon_id, :anesthesian_id, :anesthesia_type_id,
                                           :scrub_nurse_id, :circulating_nurse_id, :scheduled_date, :scheduled_time,
-                                          :schedule_order_id, :or_block_id, :or_table_id, :blood_group, :blood_units_required, assisstant_surgeons: [])
+                                          :schedule_order_id, :or_block_id, :or_table_id, :blood_group, :blood_units_required, 
+                                          or_schedule_anesthesians_attributes: [:id, :anesthesian_id, :_destroy],
+                                          assisstant_surgeons: [])
     end
 end

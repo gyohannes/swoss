@@ -9,10 +9,11 @@
       <%= f.input :first_name, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
       <%= f.input :father_name, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
       <%= f.input :grand_father_name, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
-      <%= f.input :date_of_birth, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
-      <div id="age_form">
-        <%= render partial: 'age', locals: {f: f} %>
+      <%= f.input :age_entry, label: 'Age / Date of Birth', collection: [['Age','age'], ['Date of Birth','dob']], as: :radio_buttons, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+      <div id="age_or_dob_display">
+        <%= render partial: 'age_or_dob', locals: {f: f} %>
       </div>
+      <br/>
       <%= f.input :sex, collection: ['Female', 'Male'], disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
     </div>
     <div class="col-lg-6">

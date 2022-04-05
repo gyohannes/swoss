@@ -68,6 +68,12 @@ fieldset.sub_form{
     float: left;
     width: 100%;
 }
+.bordered-box{
+    border: 1px solid silver;
+    color: red;
+    font-weight: bold;
+    font-size: large;
+}
 .nav-tabs li a{
     border: 1px solid red;
 }

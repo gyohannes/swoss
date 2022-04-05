@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @anesthesia_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @anesthesia_type.description %>
+</p>
+
+<%= link_to 'Edit', edit_anesthesia_type_path(@anesthesia_type) %> |
+<%= link_to 'Back', anesthesia_types_path %>

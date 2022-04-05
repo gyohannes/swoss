@@ -19,7 +19,14 @@
             <td rowspan="<%= Department.count %>"><%= pc %></td>
             <% Department.all.each do |d| %>
                 <td><%= d %></td>
-                <th><%= dt = d.missing_total(pc.id) %></th>
+                <th>
+                  <% dt = d.missing_total(pc.id) %>
+                  <% if dt > 0 %>
+                    <%= link_to dt, admissions_path(department: d.id, category: pc.id) %>
+                  <% else %>
+                    <%= dt %>
+                  <% end %>
+                </th>
                 <% total += dt %>
                 </tr>
             <% end %>

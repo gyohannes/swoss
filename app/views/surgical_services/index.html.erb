@@ -25,9 +25,9 @@
                 <td><%= surgical_service.post_schedule_status %></td>
                 <td><%= surgical_service.reason_for_cancellation %></td>
                 <td><%= surgical_service.date_operated_gr.strftime("%B %d, %Y") rescue nil %></td>
-                <td><%= surgical_service.anesthesia_time.strftime("%H:%M %p") rescue nil %></td>
-                <td><%= surgical_service.incision_time.strftime("%H:%M %p") rescue nil %></td>
-                <td><%= surgical_service.surgery_end_time.strftime("%H:%M %p") rescue nil %></td>
+                <td><%= surgical_service.anesthesia_time.strftime("%I:%M %p") rescue nil %></td>
+                <td><%= surgical_service.incision_time.strftime("%I:%M %p") rescue nil %></td>
+                <td><%= surgical_service.surgery_end_time.strftime("%I:%M %p") rescue nil %></td>
                 <td><%= surgical_service.checklist %></td>
                 <td><%= surgical_service.immediate_postoperative_outcome %></td>
                 <td>

@@ -11,18 +11,27 @@
             <span class="form-control"><%= @admission.patient.name_and_mrn rescue nil %></div>
           </span>
         </div>
-        <%= f.input :referring_facility, disabled: f.object.persisted? %>
-        <%= f.input :date_of_registration, disabled: f.object.persisted?, input_html: {class: 'ethiopian_date_picker'} %>
-        <%= f.input :admission_type, collection: Constants::ADMISSION_TYPES, disabled: f.object.persisted? %>
-        <%= f.association :procedure, collection: @procedures, disabled: f.object.persisted? %>
+        <%= f.input :referring_facility, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+        <%= f.input :date_of_registration, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)), input_html: {class: 'ethiopian_date_picker'} %>
+        <%= f.input :admission_type, collection: Constants::ADMISSION_TYPES, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+        <%= f.association :procedure, collection: @procedures, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
         <div id="procedure_category_display">
-
+        <%= render partial: 'category' %>
         </div>
-        <%= f.association :diagnosis, collection: @diagnoses, disabled: f.object.persisted? %>
-        <%= f.association :physician, label: 'Admitting Physician Name', disabled: f.object.persisted? %>
+        <%= f.association :diagnosis, collection: @diagnoses, disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+        <%= f.association :physician, label: 'Admitting Physician Name', disabled: (f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
       </div>
-      <div class="col-lg-6" id="sub_admission_form">
+      <div class="col-lg-6">
+      <div id="sub_admission_form">
         <%= render partial: 'sub_form' %>
+        </div>
+        <% if @admission.status == Constants::ADMITTED %>
+          <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: (!f.object.admission_date.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
+          <%= f.input :admission_time, as: :string, input_html: { class: 'time_picker'}, disabled: (!f.object.admission_time.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
+          <%= f.input :reason_for_admission, collection: Constants::REASON_FOR_ADMISSION, disabled: (!f.object.reason_for_admission.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
+          <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: (!f.object.ward_id.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
+          <%= f.input :bed_id, collection: @beds + [@admission.bed], label: 'Bed Number', disabled: (!f.object.bed_id.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
+        <% end %>
       </div>
     </div>
   <div class="form-actions">

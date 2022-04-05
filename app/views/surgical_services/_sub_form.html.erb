@@ -8,11 +8,11 @@
           <%= render partial: 'adverse_event' %>
         </div>
       <%= f.input :anesthesia_time, as: :string, input_html:
-          { value: @surgical_service.blank? ? '' : (f.object.anesthesia_time.blank? ? '' : f.object.anesthesia_time.strftime("%H:%M %P")), class: 'time_picker'} %>
+          { value: @surgical_service.blank? ? '' : (f.object.anesthesia_time.blank? ? '' : f.object.anesthesia_time.strftime("%I:%M %P")), class: 'time_picker'} %>
       <%= f.input :incision_time, as: :string, input_html:
-          { value: @surgical_service.blank? ? '' : (f.object.incision_time.blank? ? '' : f.object.incision_time.strftime("%H:%M %P")), class: 'time_picker'} %>
+          { value: @surgical_service.blank? ? '' : (f.object.incision_time.blank? ? '' : f.object.incision_time.strftime("%I:%M %P")), class: 'time_picker'} %>
       <%= f.input :surgery_end_time, as: :string, input_html:
-          { value: @surgical_service.blank? ? '' : (f.object.surgery_end_time.blank? ? '' : f.object.surgery_end_time.strftime("%H:%M %P")), class: 'time_picker'} %>
+          { value: @surgical_service.blank? ? '' : (f.object.surgery_end_time.blank? ? '' : f.object.surgery_end_time.strftime("%I:%M %P")), class: 'time_picker'} %>
       <%= f.input :surgical_safety_checklist_completed, as: :boolean, label: false %>
       <%= f.input :immediate_postoperative_outcome, collection: Constants::POSTOPERATIVE_OUTCOME %>
         <div id="death_reason_display">

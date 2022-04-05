@@ -3,6 +3,7 @@ class Admission < ApplicationRecord
   belongs_to :patient
   belongs_to :diagnosis
   belongs_to :procedure
+  belongs_to :procedure_category
   belongs_to :physician
   belongs_to :department
   belongs_to :ward, optional: true
@@ -12,7 +13,7 @@ class Admission < ApplicationRecord
   has_many :admission_statuses, dependent: :destroy
   has_one :or_schedule, dependent: :destroy
 
-  validates :date_of_registration, :admission_type, presence: true
+  validates :date_of_registration, :admission_type, :department_id, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective
   validates :admission_date, :admission_time, :ward_id, :bed_id, presence: true, if: :emergency
 
@@ -22,6 +23,10 @@ class Admission < ApplicationRecord
 
   scope :list_by_mrn, -> (mrn) { joins(:patient).where('mrn = ?', mrn) unless mrn.blank? }
   scope :list_by_department, -> (department) { where("department_id = ?", department) unless department.blank? }
+
+  def latest_status
+    admission_statuses.order('status_date DESC').first
+  end
 
   def self.search(mrn=nil, department=nil)
     admissions = []
@@ -63,7 +68,12 @@ class Admission < ApplicationRecord
   end
 
   def self.waiting_total(status)
-    return Admission.where('status = ?', status).count
+    total = Admission.where('status = ?', status).count
+    return status == Constants::ON_WAITING_LIST ? total - missing_total(status) : total
+  end
+
+  def self.missing_total(status)
+    Admission.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST).count
   end
 
   def self.waiting_month_total(status, month)
@@ -80,7 +90,8 @@ class Admission < ApplicationRecord
     if days == 'All Days'
       admissions = where('status = ? and appointment_date_gr >= ?', Constants::ON_WAITING_LIST, Date.today)
     else
-      admissions = where('status = ? and appointment_date_gr <= ?', Constants::ON_WAITING_LIST, Date.today + days.to_i.days)
+      admissions = where('status = ? and appointment_date_gr <= ? and appointment_date_gr >= ?', 
+        Constants::ON_WAITING_LIST, Date.today + days.to_i.days, Date.today)
     end
     return admissions
   end
@@ -110,7 +121,7 @@ class Admission < ApplicationRecord
   end
 
   def priority_status
-    priority == true ? 'Yes' : 'No'
+    priority == true ? 'Yes' : ''
   end
 
   def to_s

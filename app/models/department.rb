@@ -9,7 +9,8 @@ class Department < ApplicationRecord
   end
 
   def category_waiting_total(status, category)
-    admissions.where('status = ? and procedure_category_id = ?', status, category).count
+    total = admissions.where('status = ? and procedure_category_id = ?', status, category).count
+    return status == Constants::ON_WAITING_LIST ? total - missing_total(category) : total
   end
 
   def surgeries_total(status)

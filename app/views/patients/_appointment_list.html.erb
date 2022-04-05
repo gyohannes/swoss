@@ -26,7 +26,7 @@
         <td><%= link_to a.patient.mrn, a.patient %></td>
         <td><%= a.patient.full_name %></td>
         <td><%= a.patient.sex %></td>
-        <td><%= Patient.age(a.patient.date_of_birth) %></td>
+        <td><%= set_age(a.patient.date_of_birth) %></td>
         <td><%= a.patient.primary_telephone_number %></td>
         <td><%= a.diagnosis %></td>
         <td><%= a.procedure %></td>

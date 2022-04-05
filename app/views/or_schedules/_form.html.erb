@@ -1,5 +1,5 @@
 
-<%= simple_form_for(@or_schedule, html: { autocomplete: "off" }) do |f| %>
+<%= simple_nested_form_for(@or_schedule, html: { autocomplete: "off" }) do |f| %>
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -27,7 +27,24 @@
       <%= f.input :blood_units_required %>
       <%= f.association :or_block, label: 'OR Block' %>
       <%= f.association :or_table, collection: OrTable.all.map{|x| [x.to_s, x.id]} %>
-      <%= f.association :anesthesian %>
+
+      <div class="form-group row">
+        <label class="col-sm-3">Anesthesians</label>
+        <div class="col-sm-9">
+          <div id="anesthesians">
+            <%= f.simple_fields_for :or_schedule_anesthesians, :wrapper => false do |af| %>
+              <div class="fields row">
+                <div class='col-sm-9'><%= af.input :anesthesian_id,  label: false, collection: Anesthesian.all %></div>
+                <div class='col-sm-3'><%= af.link_to_remove "Remove" %></div>
+              </div>
+            <% end %>
+          </div>
+          <p><%= f.link_to_add "Add Anesthesian", :or_schedule_anesthesians, :data => { :target => "#anesthesians" }, class: 'btn btn-primary' %></p>
+        </div>
+      </div>
+      
+
+      <%= f.association :anesthesia_type %>
       <%= f.association :scrub_nurse %>
       <%= f.association :circulating_nurse %>
       <div id="procedure_sub_form_display">

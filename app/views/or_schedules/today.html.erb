@@ -15,7 +15,8 @@
         <th>Diagnosis</th>
         <th>Procedure</th>
         <th>Surgeon in charge</th>
-        <th>Anesthesia in charge</th>
+        <th>Anesthesians</th>
+        <th>Anesthesia Type</th>
         <th>Scrub nurse</th>
         <th>Circulating nurse</th>
         <th>Scheduled date</th>
@@ -48,10 +49,11 @@
               </ul>
             </td>
             <td><%= os.anesthesian %></td>
+            <td><%= os.anesthesia_type %></td>
             <td><%= os.scrub_nurse %></td>
             <td><%= os.circulating_nurse %></td>
             <td><%= os.scheduled_date %></td>
-            <td><%= os.scheduled_time.strftime("%H:%M %p") rescue nil %></td>
+            <td><%= os.scheduled_time.strftime("%I:%M %p") rescue nil %></td>
             <th>
             <% unless os.surgical_service.blank? %>
                   <%= os.surgical_service.post_schedule_status %><br/>

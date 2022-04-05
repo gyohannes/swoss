@@ -44,6 +44,5 @@
 //= require or_schedules
 //= require surgical_services
 //= require report
-//= require administration_units
 //= require hospitals
 //= require global

@@ -1,4 +1,5 @@
 class PatientsController < ApplicationController
+  include ApplicationHelper
   authorize_resource
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
   before_action :set_woredas, only: [:new, :create, :edit, :update, :create_from_search]
@@ -29,8 +30,13 @@ class PatientsController < ApplicationController
     @admissions = Admission.where('status = ?', Constants::ADMITTED)
   end
 
+  def load_age_or_dob
+    @selected_method = params[:selected_method]
+    render partial: 'age_or_dob'
+  end
+
   def load_age
-    @age = Patient.age(params[:dob])
+    @age = set_age(params[:dob])
     render partial: 'age'
   end
 
@@ -63,7 +69,6 @@ class PatientsController < ApplicationController
 
   # GET /patients/1/edit
   def edit
-    @age = Patient.age(@patient.date_of_birth)
   end
 
   # POST /patients
@@ -118,7 +123,7 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:mrn, :hospital_id, :first_name, :father_name, :grand_father_name, :date_of_birth, :age, :sex, :date_of_registration,
+      params.require(:patient).permit(:mrn, :hospital_id, :first_name, :father_name, :grand_father_name, :age_entry, :date_of_birth, :age, :sex, :date_of_registration,
                                       :region_id, :zone, :woreda, :kebele, :house_number, :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number)
     end
 end

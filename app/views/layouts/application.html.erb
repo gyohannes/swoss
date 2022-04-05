@@ -36,6 +36,7 @@
     <%= render 'menus/liaison_officer'  %>
     <%= render 'menus/or_user'  %>
     <%= render 'menus/quality'  %>
+    <%= render 'menus/ceo'  %>
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
       <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -171,6 +172,11 @@
                   <%= link_to procedures_path, class: 'dropdown-item' do %>
                       <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                       Procedures
+                  <% end %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to anesthesia_types_path, class: 'dropdown-item' do %>
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Anesthesia Types
                   <% end %>
                 </div>
               </li>

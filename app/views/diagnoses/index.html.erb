@@ -29,5 +29,16 @@
 <br>
 
 <%= link_to 'Add Diagnosis', new_diagnosis_path, class: 'btn btn-primary' %>
-  </div>
+<hr/>
+  <%= form_tag import_diagnoses_path,:multipart=>true do %>
+      <div class="row">
+      <div class="col-sm-3">
+        <label>Select CSV File</label> <%= file_field_tag(:diagnosis_csv_file) %>
+      </div>
+      <div class="col-sm-3">
+        <%= submit_tag 'Import',class: 'btn btn-primary' %>
+      </div>
+      </div>
+  <% end %>
+</div>
 </div>

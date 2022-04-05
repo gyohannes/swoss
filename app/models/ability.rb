@@ -9,7 +9,6 @@ class Ability
        if user.is_role(User::ADMINISTRATOR)
          can :manage, :all
          cannot :create, [Patient, PhoneCall, Admission, AdmissionStatus, OrSchedule, SurgicalService]
-         cannot :edit, [PhoneCall, Admission, AdmissionStatus, OrSchedule, SurgicalService]
        end
        if user.is_role(User::LIAISON_OFFICER)
          can :manage, Patient
@@ -26,6 +25,9 @@ class Ability
        end
 
       if user.is_role(User::QUALITY)
+        can :read, :all
+      end
+      if user.is_role(User::CEO)
         can :read, :all
       end
     #

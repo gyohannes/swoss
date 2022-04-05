@@ -6,4 +6,6 @@
   <%= render partial: 'dashboards/or' %>
 <% elsif current_user.is_role(User::QUALITY) %>
     <%= render partial: 'dashboards/quality' %>
+<% elsif current_user.is_role(User::CEO) %>
+    <%= render partial: 'dashboards/ceo' %>
 <% end %>

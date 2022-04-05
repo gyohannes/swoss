@@ -3,12 +3,15 @@ class Patient < ApplicationRecord
   has_many :admissions, dependent: :destroy
   belongs_to :hospital
 
-  validates :mrn, :first_name, :father_name, :grand_father_name, :date_of_birth, :sex,
+  validates :mrn, :first_name, :father_name, :grand_father_name, :sex, :age_entry,
             :primary_telephone_number, :name_of_contact_person, :contact_person_telephone_number, presence: true
+  validates :date_of_birth, presence: true, if: :age_in_dob
+  validates :age, presence: true, if: :age_in_age
 
   validates :mrn, uniqueness: { message: "already registered, please go to the patient details and proceed with appointment/admission" }
   validates :primary_telephone_number, :contact_person_telephone_number, length: {is: 10}
-
+  
+  before_save :set_date_of_birth
   before_save :set_gregorian_dates
 
   scope :registered_today, -> {where('date(patients.created_at) = ?', Date.today)}
@@ -35,6 +38,14 @@ class Patient < ApplicationRecord
     return patients.uniq
   end
 
+  def age_in_age
+    age_entry == 'age'
+  end
+
+  def age_in_dob
+    age_entry == 'dob'
+  end
+
   def latest_admission
     admissions.order('created_at DESC').first
   end
@@ -43,17 +54,14 @@ class Patient < ApplicationRecord
     self[:date_of_birth_gr] = Services::EthioGregorianDates.set_gregorian(self.date_of_birth, '/')
   end
 
-  def self.age(eth_date)
-    ethdate = eth_date.split('/')
-    dob = fromEthiopicToGregorian(ethdate[2].to_i, ethdate[1].to_i, ethdate[0].to_i)
-    total = (Date.today - dob).to_i
-    years = total > 0 ? total/365 : 0
-    total = total > 0 ? total%365 : 0
-    months = total > 0 ? total/30 : 0
-    days = total > 0 ? total%30 + 1 : 0
-    return "#{years > 0 ? years.to_s + " Years, " : ''} #{months > 0 ? months.to_s + " Months, " : ''} #{days > 0 ? days.to_s + " Days " : ''}"
+  def set_date_of_birth
+    if age_entry=='age'
+      t = Date.today
+      ethiopian_year = fromGregorianToEthiopic(t.year, t.month, t.day).split('-')[0].to_i
+      year = ethiopian_year - age
+      self[:date_of_birth] = "01/06/#{year}"
+    end
   end
-
 
   def address
     [region, woreda, zone, house_number].join(' ')

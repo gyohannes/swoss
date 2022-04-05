@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :anesthesia_types
   resources :backups do
     member do
       get 'restore'
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
       get 'load_appointments'
       get 'admitted_list'
       get 'load_age'
+      get 'load_age_or_dob'
       get 'load_patients'
       post 'create_from_search'
     end
@@ -78,7 +80,11 @@ Rails.application.routes.draw do
       post 'import'
     end
   end
-  resources :diagnoses
+  resources :diagnoses do
+    collection do
+      post 'import'
+    end
+  end
   resources :wards
   resources :hospitals
   devise_for :users, controllers: {

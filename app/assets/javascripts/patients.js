@@ -56,4 +56,15 @@ $(function () {
         });
 
     });
+
+    $('#patient_age_entry_age, #patient_age_entry_dob').change(function(){
+        selected_method = $(this).val()
+        $.ajax({
+            url: '/patients/load_age_or_dob',
+            data: {selected_method: selected_method},
+            success: function(response){
+                $('#age_or_dob_display').html(response);
+            }
+        });
+    })
 });

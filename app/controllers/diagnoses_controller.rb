@@ -7,6 +7,14 @@ class DiagnosesController < ApplicationController
     @diagnoses = Diagnosis.all
   end
 
+  def import
+    if request.post?
+      @diagnoses = Diagnosis.import(params[:diagnosis_csv_file])
+      flash[:notice] = @diagnoses.blank? ? 'No Diagnoses imported' : 'Diagnoses imported'
+    end
+    redirect_to diagnoses_path
+  end
+
   # GET /diagnoses/1
   # GET /diagnoses/1.json
   def show

@@ -1,5 +1,5 @@
 <%= simple_fields_for :admission, @admission do |f| %>
-    <%= f.input :department_id, collection: Department.all, label: 'Admitting Department/Unit', disabled: @admission.blank? ? false : f.object.persisted? %>
+  <%= f.input :department_id, collection: Department.all, label: 'Admitting Department/Unit', disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
     <% if @admission_type == Constants::ELECTIVE %>
         <div id="priority_display">
           <%= render partial: 'priority' %>
@@ -9,12 +9,12 @@
           <%= render partial: 'information' %>
         </div>
         <%= f.input :appointment_date, input_html: {class: 'ethiopian_date_picker'} %>
-        <%= f.input :payment_type_id, collection: PaymentType.all, disabled: @admission.blank? ? false : f.object.persisted? %>
+        <%= f.input :payment_type_id, collection: PaymentType.all, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
     <% elsif @admission_type == Constants::EMERGENCY_NEW || @admission_type == Constants::EMERGENCY_REOPERATION %>
-        <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: @admission.blank? ? false : f.object.persisted? %>
+        <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
         <%= f.input :admission_time, as: :string, input_html: { class: 'time_picker'}, disabled: false %>
-        <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: @admission.blank? ? false : f.object.persisted? %>
-        <%= f.input :bed_id, label: 'Bed Number', collection: @beds, disabled: @admission.blank? ? false : f.object.persisted? %>
+        <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+        <%= f.input :bed_id, label: 'Bed Number', collection: @beds, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
     <% end %>
 <% end %>
 <%= javascript_include_tag 'admissions' %>

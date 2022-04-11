@@ -198,11 +198,11 @@ class SurgicalService < ApplicationRecord
   end
 
   def self.delay_of_emergency_surgery(from, to)
-    emergency_procedures(from, to).map{|x| x.emergency_surgery_delay}.sum/emergency_procedures(from, to).count unless emergency_procedures(from, to).blank?
+    (emergency_procedures(from, to).map{|x| x.emergency_surgery_delay}.sum/emergency_procedures(from, to).count).round(2) unless emergency_procedures(from, to).blank?
   end
 
   def self.dep_delay_of_emergency_surgery(dep,from, to)
-    dep_emergency_procedures(dep, from, to).map{|x| x.emergency_surgery_delay}.sum/dep_emergency_procedures(dep,from,to).count unless dep_emergency_procedures(dep, from, to).blank?
+    (dep_emergency_procedures(dep, from, to).map{|x| x.emergency_surgery_delay}.sum/dep_emergency_procedures(dep,from,to).count).round(2) unless dep_emergency_procedures(dep, from, to).blank?
   end
 
   def emergency_surgery_delay

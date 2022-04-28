@@ -48,7 +48,11 @@
                 <% end %>
               </ul>
             </td>
-            <td><%= os.anesthesian %></td>
+            <td><ul>
+            <% os.anesthesians.each do |ans| %>
+              <li><%= ans %></li>
+            <% end %>
+          </ul></td>
             <td><%= os.anesthesia_type %></td>
             <td><%= os.scrub_nurse %></td>
             <td><%= os.circulating_nurse %></td>

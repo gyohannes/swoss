@@ -12,11 +12,12 @@
         <th>Diagnosis</th>
         <th>Procedure</th>
         <th>Category</th>
+        <th>Appointment date</th>
+        <th>Appointment date(ETH)</th>
         <th>Priority</th>
         <th>Physician</th>
         <th>Department</th>
         <th>Listing status</th>
-        <th>Appointment date</th>
         <th>Status type</th>
       </tr>
       </thead>
@@ -29,11 +30,12 @@
             <td><%= admission.diagnosis %></td>
             <td><%= admission.procedure %></td>
             <td><%= admission.procedure.procedure_category %></td>
+            <td><%= admission.appointment_date_gr %></td>
+            <td><%= admission.appointment_date %></td>
             <td><%= admission.priority_status %></td>
             <td><%= admission.physician %></td>
             <td><%= admission.department %></td>
             <td><%= admission.listing_status %></td>
-            <td><%= admission.appointment_date %></td>
             <td><%= admission.status %></td>
           </tr>
       <% end %>

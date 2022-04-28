@@ -4,7 +4,7 @@ namespace :db do
   task :dump => :environment do
     cmd = nil
     with_config do |app, host, db, user, passwrd|
-      cmd = "export PGPASSWORD='#{passwrd}' && pg_dump --host #{host} --username #{user} -w --verbose --clean --no-owner --no-acl --format=c #{db} > /tmp/swmoss_db.dump"
+      cmd = "export PGPASSWORD='#{passwrd}' && pg_dump --username #{user} -w --verbose --clean --no-owner --no-acl --format=c #{db} > /tmp/swmoss_db.dump"
     end
     puts cmd
     exec cmd
@@ -14,7 +14,7 @@ namespace :db do
   task :restore, [:backup] => :environment do |t, args|
     cmd = nil
     with_config do |app, host, db, user, passwd|
-      cmd = "export PGPASSWORD='#{passwd}' && pg_restore --verbose --host #{host} --username #{user} -w -c -C --no-owner --no-acl --dbname #{db} #{args[:backup]}"
+      cmd = "export PGPASSWORD='#{passwd}' && pg_restore --verbose --username #{user} -w -c -C --no-owner --no-acl --dbname #{db} #{args[:backup]}"
     end
     Rake::Task["db:drop"].invoke
     Rake::Task["db:create"].invoke

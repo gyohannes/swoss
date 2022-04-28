@@ -40,7 +40,7 @@ class Admission < ApplicationRecord
   end
 
   def occupy_bed
-    unless bed.blank?
+    if !bed.blank? and status == Constants::ADMITTED
       bed.update_attribute('status', true)
     end
   end

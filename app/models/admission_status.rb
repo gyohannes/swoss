@@ -11,8 +11,9 @@ class AdmissionStatus < ApplicationRecord
   #end
 
   def free_bed_if_discharged
-    if status == Constants::DISCHARGED and admission.bed
-      admission.bed.update_attribute('status', nil)
+    bed = admission.bed
+    if status == Constants::DISCHARGED and !bed.blank?
+      bed.update_attribute('status', nil)
     end
   end
 

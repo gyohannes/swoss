@@ -70,6 +70,6 @@ class BedsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bed_params
-      params.require(:bed).permit(:ward_id, :block, :floor, :bed_number)
+      params.require(:bed).permit(:ward_id, :block, :floor, :bed_number, :status)
     end
 end

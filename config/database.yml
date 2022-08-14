@@ -13,7 +13,7 @@
 #
 # Configure Using Gemfile
 # gem 'pg'
-#
+# 
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -76,9 +76,4 @@ test:
 # You can use this database configuration with:
 #
 production:
-  <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-
-#production:
- # <<: *default
-  #database: swmoss_prod

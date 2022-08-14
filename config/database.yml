@@ -22,6 +22,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
+  <<: *default
   url: <%= ENV['DEV_DATABASE_URL'] %>
 
   # The specified database role being used to connect to postgres.
@@ -75,6 +76,7 @@ test:
 # You can use this database configuration with:
 #
 production:
+  <<: *default
   url: <%= ENV['DATABASE_URL'] %>
 
 #production:

@@ -10,6 +10,7 @@ class Patient < ApplicationRecord
 
   validates :mrn, uniqueness: { message: "already registered, please go to the patient details and proceed with appointment/admission" }
   validates :primary_telephone_number, :contact_person_telephone_number, length: {is: 10}
+  validates :mrn, length: {minimum: 6}
   
   before_save :set_date_of_birth
   before_save :set_gregorian_dates

@@ -1,4 +1,5 @@
 class Region < ApplicationRecord
+  default_scope {order('name')}
   has_many :patients
 
   validates :name, presence: true

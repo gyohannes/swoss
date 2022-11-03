@@ -1,5 +1,4 @@
 #! /bin/sh
-# git clone https://github.com/gyohannes/swoss.git
 sudo apt-get install git-core curl
 # Adding Node.js repository
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -

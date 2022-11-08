@@ -3,6 +3,7 @@ class Bed < ApplicationRecord
   has_many :admissions
 
   validates :block, :floor, :bed_number, presence: true
+  validates :bed_number, uniqueness: { scope: :ward_id }
 
   def bed_status
     status == true ? 'Occupied' : 'Free'

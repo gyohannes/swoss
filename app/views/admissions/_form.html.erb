@@ -30,6 +30,9 @@
           <%= f.input :admission_time, as: :string, input_html: { class: 'time_picker'}, disabled: (!f.object.admission_time.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
           <%= f.input :reason_for_admission, collection: Constants::REASON_FOR_ADMISSION, disabled: (!f.object.reason_for_admission.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
           <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: (!f.object.ward_id.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
+          <div id="beds_display">
+          <%= render partial: 'beds' %>
+        </div>
           <%= f.input :bed_id, collection: @beds + [@admission.bed], label: 'Bed Number', disabled: (!f.object.bed_id.blank? and !current_user.is_role(User::ADMINISTRATOR)) %>
         <% end %>
       </div>

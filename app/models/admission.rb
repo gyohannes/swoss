@@ -11,7 +11,7 @@ class Admission < ApplicationRecord
   belongs_to :payment_type, optional: true
   has_many :phone_calls, dependent: :destroy
   has_many :admission_statuses, dependent: :destroy
-  has_one :or_schedule, dependent: :destroy
+  has_many :or_schedules, dependent: :destroy
 
   validates :date_of_registration, :admission_type, :department_id, presence: true
   validates :listing_status, :appointment_date, :payment_type_id, presence: true, if: :elective
@@ -26,6 +26,10 @@ class Admission < ApplicationRecord
 
   def latest_status
     admission_statuses.order('status_date DESC').first
+  end
+
+  def latest_schedule
+    or_schedules.order('created_at DESC').first
   end
 
   def self.search(mrn=nil, department=nil)

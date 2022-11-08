@@ -29,9 +29,10 @@
         <td><%= a.department %></td>
         <td><%= a.admission_date %></td>
         <th>
-            <% unless a.or_schedule.blank? %>
-              Scheduled<br/>
-              <%= link_to 'Details', a.or_schedule %>
+            <% unless a.or_schedules.blank? %>
+              <%= status = a.latest_schedule.surgery_status %><br/>
+              <%= link_to 'Reschedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' if status == Constants::CANCELLED %>
+              <%= link_to 'Details', a.latest_schedule %>
             <% else %>
               <%= link_to 'Schedule', new_or_schedule_path(admission: a.id), class: 'btn btn-primary' %>
             <% end %>

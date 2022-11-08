@@ -25,6 +25,10 @@ class OrSchedule < ApplicationRecord
     procedure_type == Constants::ELECTIVE
   end
 
+  def surgery_status
+    surgical_service.blank? ? 'Scheduled' : surgical_service.post_schedule_status
+  end
+
   def remove_blank_assisstant_surgeons
     assisstant_surgeons.reject!(&:blank?)
   end

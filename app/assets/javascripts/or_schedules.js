@@ -27,4 +27,15 @@ $(function () {
             }
         });
     });
+
+    $('#or_schedule_or_block_id').change(function(){
+        or_block = $(this).val()
+        $.ajax({
+            url: '/or_schedules/load_or_tables',
+            data: {or_block: or_block},
+            success: function(response){
+                $('#display_or_tables').html(response);
+            }
+        });
+    })
 });

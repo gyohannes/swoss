@@ -1,0 +1,4 @@
+<%= simple_fields_for :or_schedule, @or_schedule do |f| %>
+    <%= f.input :or_table_id, collection: @or_tables.map{|x| [x.to_s, x.id]} %>
+<% end %>
+<%= javascript_include_tag 'global' %>

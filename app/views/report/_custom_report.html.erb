@@ -52,17 +52,17 @@
         <td><%= admission.payment_type %></td>
         <td><%= admission.try(:latest_status).try(:status) %></td>
         <td><%= admission.try(:latest_status).try(:status_date) %></td>
-        <td><%= admission.or_schedule.try(:scheduled_date) %></td>
-        <td><%= admission.or_schedule.try(:schedule_order) %></td>
-        <td><%= admission.or_schedule.try(:procedure_type) %></td>
-        <td><%= admission.or_schedule.surgical_service.anesthesia_time.strftime("%I:%M %p") rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.incision_time.strftime("%I:%M %p") rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.surgery_end_time.strftime("%I:%M %p") rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.post_schedule_status rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.cancellation_reason rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.checklist rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.immediate_postoperative_outcome rescue nil %></td>
-        <td><%= admission.or_schedule.surgical_service.reason_for_death rescue nil %></td>
+        <td><%= admission.latest_schedule.try(:scheduled_date) %></td>
+        <td><%= admission.latest_schedule.try(:schedule_order) %></td>
+        <td><%= admission.latest_schedule.try(:procedure_type) %></td>
+        <td><%= admission.latest_schedule.surgical_service.anesthesia_time.strftime("%I:%M %p") rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.incision_time.strftime("%I:%M %p") rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.surgery_end_time.strftime("%I:%M %p") rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.post_schedule_status rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.cancellation_reason rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.checklist rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.immediate_postoperative_outcome rescue nil %></td>
+        <td><%= admission.latest_schedule.surgical_service.reason_for_death rescue nil %></td>
       </tr>
   <% end %>
   </tbody>

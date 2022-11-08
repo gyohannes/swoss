@@ -1,0 +1,4 @@
+<%= simple_fields_for :admission, @admission do |f| %>
+    <%= f.input :bed_id, label: 'Bed Number', collection:  @free_beds.map{|x| [x.to_s, x.id]}, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+<% end %>
+<%= javascript_include_tag 'global' %>

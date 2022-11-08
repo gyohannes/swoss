@@ -14,7 +14,9 @@
         <%= f.input :admission_date, input_html: {class: 'ethiopian_date_picker'}, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
         <%= f.input :admission_time, as: :string, input_html: { class: 'time_picker'}, disabled: false %>
         <%= f.input :ward_id, collection: Ward.all, label: 'Admitting Ward', disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
-        <%= f.input :bed_id, label: 'Bed Number', collection: @beds, disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
+        <div id="beds_display">
+          <%= render partial: 'beds' %>
+        </div>
     <% end %>
 <% end %>
 <%= javascript_include_tag 'admissions' %>

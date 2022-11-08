@@ -23,10 +23,12 @@
           <br/>
         </div>
       </div>
-      <%= f.input :blood_group %>
+      <%= f.input :blood_group, collection: ['A+', 'A-', 'B+', 'B-', 'AB', 'O-', 'O+'] %>
       <%= f.input :blood_units_required %>
       <%= f.association :or_block, label: 'OR Block' %>
-      <%= f.association :or_table, collection: OrTable.all.map{|x| [x.to_s, x.id]} %>
+      <div id="display_or_tables">
+        <%= render partial: 'or_tables' %>
+      </div>
 
       <div class="form-group row">
         <label class="col-sm-3">Anesthesians</label>

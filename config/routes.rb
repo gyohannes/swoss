@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get 'load_patients'
       get 'load_sub_form'
       get 'today'
+      get 'load_or_tables'
     end
   end
   resources :phone_calls do
@@ -44,6 +45,9 @@ Rails.application.routes.draw do
     end
   end
   resources :admissions do
+    collection do
+      get 'load_beds'
+    end
     member do
       get 'admission'
     end

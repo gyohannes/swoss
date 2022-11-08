@@ -22,6 +22,12 @@ class OrSchedulesController < ApplicationController
     render partial: 'patients'
   end
 
+  def load_or_tables
+    or_block = params[:or_block]
+    @or_tables  = OrTable.where('or_block_id = ?', params[:or_block])
+    render partial: 'or_tables'
+  end
+
   def load_sub_form
     @procedure_type = params[:procedure_type]
     render partial: 'procedure_sub_form'
@@ -34,6 +40,7 @@ class OrSchedulesController < ApplicationController
 
   # GET /or_schedules/new
   def new
+    @or_tables = []
     @or_schedule = OrSchedule.new
     @or_schedule.user_id = current_user.id
     @or_schedule.admission_id = params[:admission]
@@ -42,6 +49,7 @@ class OrSchedulesController < ApplicationController
 
   # GET /or_schedules/1/edit
   def edit
+    @or_tables = or_schedule.or_block.or_tables
     @procedure_type = @or_schedule.procedure_type
   end
 
@@ -49,13 +57,13 @@ class OrSchedulesController < ApplicationController
   # POST /or_schedules.json
   def create
     @or_schedule = OrSchedule.new(or_schedule_params)
+    @or_tables = or_schedule.or_block.or_tables
     @procedure_type = @or_schedule.procedure_type
     respond_to do |format|
       if @or_schedule.save
         format.html { redirect_to or_schedules_url, notice: 'OR schedule was successfully created.' }
         format.json { render :show, status: :created, location: @or_schedule }
       else
-        logger.info("------------------------#{@or_schedule.errors.inspect}")
         format.html { render :new }
         format.json { render json: @or_schedule.errors, status: :unprocessable_entity }
       end
@@ -65,6 +73,7 @@ class OrSchedulesController < ApplicationController
   # PATCH/PUT /or_schedules/1
   # PATCH/PUT /or_schedules/1.json
   def update
+    @or_tables = or_schedule.or_block.or_tables
     @procedure_type = or_schedule_params[:procedure_type]
     respond_to do |format|
       if @or_schedule.update(or_schedule_params)

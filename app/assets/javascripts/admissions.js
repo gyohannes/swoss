@@ -80,4 +80,15 @@ $(function () {
             }
         });
     });
+
+    $('#admission_ward_id').change(function(){
+        ward = $(this).val()
+        $.ajax({
+            url: '/admissions/load_beds',
+            data: {ward: ward},
+            success: function(response){
+                $('#beds_display').html(response);
+            }
+        });
+    })
 });

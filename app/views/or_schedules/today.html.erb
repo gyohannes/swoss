@@ -62,7 +62,7 @@
             <% unless os.surgical_service.blank? %>
                   <%= os.surgical_service.post_schedule_status %><br/>
             <% else %>
-                  <%= link_to 'Record Surgical Service Data', new_surgical_service_path(schedule: os.id), class: 'btn btn-primary' if os.surgical_service.blank? %>
+                  <%= link_to 'Surgical Service', new_surgical_service_path(schedule: os.id), class: 'btn btn-primary' if os.surgical_service.blank? %>
             <% end %>
               <%= link_to 'Details', os %> <br/>
               <%= link_to 'Edit', edit_or_schedule_path(os) if can? :edit, os %><br/>

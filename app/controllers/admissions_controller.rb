@@ -1,7 +1,7 @@
 class AdmissionsController < ApplicationController
   authorize_resource
   before_action :set_admission, only: [:show, :edit, :update, :destroy, :admission, :discharge]
-  before_action :load, only: [:load_sub_form, :admission, :new, :create, :edit, :update]
+  before_action :load, only: [:load_sub_form, :load_beds, :admission, :new, :create, :edit, :update]
 
   def load
     @beds = Bed.where(status: nil, status: false)
@@ -21,8 +21,14 @@ class AdmissionsController < ApplicationController
   end
 
   def load_sub_form
+    @free_beds = []
     @admission_type = params[:admission_type]
     render partial: 'sub_form'
+  end
+
+  def load_beds
+    @free_beds = Bed.where(status: nil, status: false, ward_id: params[:ward])
+    render partial: 'beds'
   end
 
   def load_category
@@ -97,10 +103,12 @@ class AdmissionsController < ApplicationController
   end
 
   def admission
+    @free_beds = []
   end
 
   # GET /admissions/new
   def new
+    @free_beds = []
     @admission = Admission.new
     @admission.patient_id = params[:patient]
   end
@@ -109,6 +117,7 @@ class AdmissionsController < ApplicationController
   # GET /admissions/1/edit
   def edit
     @admission_type = @admission.admission_type
+    @free_beds = @admission.ward.beds.where(status: nil, status: false) + [@admission.bed] rescue nil
     @category = @admission.procedure_category
   end
 
@@ -116,6 +125,7 @@ class AdmissionsController < ApplicationController
   # POST /admissions.json
   def create
     @admission = Admission.new(admission_params)
+    @free_beds = @admission.ward.beds.where(status: nil, status: false) + [@admission.bed] rescue nil
     @admission_type = @admission.admission_type
     @category = @admission.procedure_category
     @admission.user_id = current_user.id
@@ -138,6 +148,7 @@ class AdmissionsController < ApplicationController
   # PATCH/PUT /admissions/1
   # PATCH/PUT /admissions/1.json
   def update
+    @free_beds = @admission.ward.beds.where(status: nil, status: false) + + [@admission.bed] rescue nil
     @admission_type = admission_params[:admission_type]
     @category = @admission.procedure_category
     respond_to do |format|

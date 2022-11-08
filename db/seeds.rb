@@ -10,6 +10,5 @@ ProcedureCategory.create([{code: 1, max_appointment_days: 30, max_postponment_da
                          {code: 3, max_appointment_days: 365, max_postponment_days: 120}])
 region = Region.create(name: 'Region Name')
 hospital = Hospital.create(name: 'Hospital Name', region_id: region.id)
-user = User.new(user_name: 'admin', emai
-    l: 'admin@swmoss.com', hospital_id: hospital.id, full_name: 'Admin Admin', password: 'Admin123', role: User::ADMINISTRATOR)
+user = User.new(user_name: 'admin', email: 'admin@swmoss.com', hospital_id: hospital.id, full_name: 'Admin Admin', password: 'Admin123', role: User::ADMINISTRATOR)
 user.save(validate: false)

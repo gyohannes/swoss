@@ -6,7 +6,7 @@
       <%= f.input :user_name %>
       <%= f.input :email %>
       <%= f.input :full_name %>
-      <%= f.association :hospital, as: :hidden %>
+      <%= f.association :hospital %>
       <%= f.input :role, collection: User::ROLES %>
       <%= f.input :password %>
       <%= f.input :password_confirmation, label: 'Confirm Password' %>

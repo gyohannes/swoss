@@ -31,7 +31,7 @@ $(function () {
         calendar: $.calendars.instance('ethiopian', 'am'),
         dateFormat: 'mm/yyyy',
         defaultDate: '0d', selectDefaultDate: true,
-        maxDate: '0d',
+        maxDate: '1m',
         onChangeMonthYear: function(year, month){
             $("#report_to").val(month + "/" + year)
             var from = $("#report_from").val()
@@ -86,7 +86,7 @@ $(function () {
         calendar: $.calendars.instance('ethiopian', 'am'),
         dateFormat: 'mm/yyyy',
         defaultDate: '0d', selectDefaultDate: true,
-        maxDate: '0d',
+        maxDate: '1m',
         onChangeMonthYear: function(year, month){
             $("#efficiency_report_to").val(month + "/" + year)
             var from = $("#efficiency_report_from").val()
@@ -142,7 +142,7 @@ $(function () {
         calendar: $.calendars.instance('ethiopian', 'am'),
         dateFormat: 'mm/yyyy',
         defaultDate: '0d', selectDefaultDate: true,
-        maxDate: '0d',
+        maxDate: '1m',
         onChangeMonthYear: function(year, month){
             $("#custom_report_to").val(month + "/" + year)
             var from = $("#custom_report_from").val()

@@ -4,6 +4,7 @@
         <div id="priority_display">
           <%= render partial: 'priority' %>
         </div>
+        <%= f.input :shortlist, label: 'Short list', as: :boolean,  disabled: (f.object and f.object.persisted? and !current_user.is_role(User::ADMINISTRATOR)) %>
         <%= f.input :listing_status, collection: Constants::STATUS %>
         <div id="information_display">
           <%= render partial: 'information' %>

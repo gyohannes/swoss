@@ -30,6 +30,10 @@ class PatientsController < ApplicationController
     @admissions = Admission.where('status = ?', Constants::ADMITTED)
   end
 
+  def shortlist
+    @admissions = Admission.shortlisted
+  end
+
   def load_age_or_dob
     @selected_method = params[:selected_method]
     render partial: 'age_or_dob'

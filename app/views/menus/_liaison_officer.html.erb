@@ -25,12 +25,19 @@
   <% end %>
 </li>
 
-    <li class="nav-item active">
-      <%= link_to admitted_list_patients_path, class: 'nav-link' do %>
-          <i class="fas fa-fw fa-bed"></i>
-          <span>Admitted List</span>
-      <% end %>
-    </li>
+<li class="nav-item active">
+  <%= link_to admitted_list_patients_path, class: 'nav-link' do %>
+    <i class="fas fa-fw fa-bed"></i>
+      <span>Admitted List</span>
+  <% end %>
+</li>
+
+<li class="nav-item active">
+  <%= link_to shortlist_patients_path, class: 'nav-link' do %>
+    <i class="fas fa-fw fa-list"></i>
+      <span>Shortlist</span>
+  <% end %>
+</li>
 
 <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reports" aria-expanded="true" aria-controls="reports">

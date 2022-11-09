@@ -101,9 +101,11 @@ class Admission < ApplicationRecord
   end
 
   def self.admitted_list
-    admissions = []
-      admissions = where('status = ?', Constants::ADMITTED)
-    return admissions
+      where('status = ?', Constants::ADMITTED)
+  end
+
+  def self.shortlisted
+    where('shortlist = ? and status = ?', true, Constants::ON_WAITING_LIST)
   end
 
 

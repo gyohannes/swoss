@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get 'appointment_list'
       get 'load_appointments'
       get 'admitted_list'
+      get 'shortlist'
       get 'load_age'
       get 'load_age_or_dob'
       get 'load_patients'

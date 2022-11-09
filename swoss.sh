@@ -2,7 +2,7 @@
 # git clone git@repo.moh.gov.et:gebreyohannes/swoss.git
 sudo apt-get install git-core curl
 # Adding Node.js repository
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 # Adding Yarn repository
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list

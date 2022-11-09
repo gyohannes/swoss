@@ -22,7 +22,7 @@ sudo apt install virtualenvwrapper
 # Cloning project
 #git clone https://github.com/gyohannes/swoss.git
 cd swoss
-exec bash
+#exec bash
 rbenv install 2.7.2
 rbenv global 2.7.2
 gem install bundler

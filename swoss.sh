@@ -10,25 +10,22 @@ sudo add-apt-repository ppa:chris-lea/redis-server
 # Refresh our packages list with the new repositories
 sudo apt-get update
 # Install our dependencies for compiiling Ruby along with Node.js and Yarn
-sudo apt-get install zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev dirmngr gnupg apt-transport-https ca-certificates redis-server redis-tools nodejs yarn
-#installing rbenv
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev dirmngr gnupg apt-transport-https ca-certificates redis-server redis-tools nodejs yarn
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
-sudo apt install virtualenvwrapper
-# Cloning project
-#git clone https://github.com/gyohannes/swoss.git
-cd swoss
-#exec bash
+exec $SHELL
 rbenv install 2.7.2
 rbenv global 2.7.2
+ruby -v
+# ruby 2.7.2
+cd swoss
 gem install bundler
 bundle install
 sudo apt install libpq-dev
-#Installing NGINX and passenger
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
 sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger focal main > /etc/apt/sources.list.d/passenger.list'
 sudo apt-get update
@@ -44,11 +41,11 @@ echo "Congratulations! Please continue setting up server manually as described b
       sudo rm /etc/nginx/sites-enabled/default
       --- Creating a PostgreSQL Database ---
       sudo su - postgres
-      createuser --superuser --createdb --createrole --replication --pwprompt deploy
+      createuser --superuser --createdb --createrole --replication --pwprompt swoss
       --- set password to be: postgres
-      createdb -O deploy swmoss_prod
+      createdb -O swoss swmoss_prod
       -- add the following line in ~/.profile
-      export DATABASE_URL="postgres://deploy:postgres@127.0.0.1/swmoss_prod"
+      export DATABASE_URL="postgres://swoss:postgres@127.0.0.1/swmoss_prod"
       RAILS_ENV=production bundle exec rake db:migrate
       RAILS_ENV=production bundle exec rake db:seed
     "

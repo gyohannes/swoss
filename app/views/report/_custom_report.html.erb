@@ -2,8 +2,10 @@
   <thead>
   <tr>
     <th>MRN</th>
+    <th>Name</th>
     <th>Age</th>
     <th>Sex</th>
+    <th>Phone</th>
     <th>Region</th>
     <th>Registration date</th>
     <th>Referring Facility</th>
@@ -36,8 +38,10 @@
   <% @admissions.each do |admission| %>
       <tr>
         <td><%= admission.patient.mrn %></td>
+        <td><%= admission.patient.full_name %></td>
         <td><%= set_age(admission.patient.date_of_birth) %></td>
         <td><%= admission.patient.sex %></td>
+        <td><%= admission.patient.primary_telephone_number %></td>
         <td><%= admission.patient.region %></td>
         <td><%= admission.date_of_registration %></td>
         <td><%= admission.referring_facility %></td>

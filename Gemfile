@@ -7,7 +7,7 @@ gem 'rails', '~> 5.2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'devise'
 gem 'cancancan', '~> 2.0'
-gem 'simple_form', '~> 4.0', '>= 4.0.1'
+gem 'simple_form', '~> 5.1'
 gem "nested_form"
 gem 'ethiopic_date'
 gem "chartkick"
@@ -15,8 +15,6 @@ gem "highcharts-rails"
 gem 'data-confirm-modal'
 gem "select2-rails"
 gem 'fastercsv'
-# Use Puma as the app server
-gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

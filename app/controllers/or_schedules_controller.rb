@@ -57,7 +57,7 @@ class OrSchedulesController < ApplicationController
   # POST /or_schedules.json
   def create
     @or_schedule = OrSchedule.new(or_schedule_params)
-    @or_tables = or_schedule.or_block.or_tables
+    @or_tables = @or_schedule.or_block.or_tables
     @procedure_type = @or_schedule.procedure_type
     respond_to do |format|
       if @or_schedule.save

@@ -54,8 +54,8 @@
       <tfoot>
       <tr>
         <th>Overall</th>
-        <td><%= total_surgeon_eff/Department.count %></td>
-        <td><%= total_ave_duration/Department.count %></td>
+        <td><%= total_surgeon_eff/Department.count rescue nil %></td>
+        <td><%= total_ave_duration/Department.count rescue nil %></td>
       </tr>
       </tfoot>
     </table>

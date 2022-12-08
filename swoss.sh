@@ -1,5 +1,4 @@
 #! /bin/sh
-# git clone git@repo.moh.gov.et:gebreyohannes/swoss.git
 sudo apt-get install git-core curl
 # Adding Node.js repository
 curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
@@ -10,6 +9,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 # Install our dependencies for compiiling Ruby along with Node.js and Yarn
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev dirmngr gnupg apt-transport-https ca-certificates nodejs yarn
+sudo rm -rf $HOME/.rbenv
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
@@ -18,7 +18,6 @@ echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
 rbenv install 2.7.2
 rbenv global 2.7.2
-cd swoss
 sudo apt install libpq-dev
 gem install bundler
 bundle install
@@ -27,20 +26,19 @@ sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger foc
 sudo apt-get update
 sudo apt-get install -y nginx-extras libnginx-mod-http-passenger
 if [ ! -f /etc/nginx/modules-enabled/50-mod-http-passenger.conf ]; then sudo ln -s /usr/share/nginx/modules-available/mod-http-passenger.load /etc/nginx/modules-enabled/50-mod-http-passenger.conf ; fi
-sudo ls /etc/nginx/conf.d/mod-http-passenger.conf
 sudo apt-get install -y postgresql postgresql-contrib
-current_user=$(whoami)	
-echo "Congratulations! Please continue setting up server manually as described below
+echo "Congratulations! Please continue setting up database and virtual server as described below
       sudo nano /etc/nginx/conf.d/mod-http-passenger.conf
       --- change the passenger_ruby line to match the following ---
-      passenger_ruby /home/$current_user/.rbenv/shims/ruby;
+      passenger_ruby $HOME/.rbenv/shims/ruby;
       sudo rm /etc/nginx/sites-enabled/default
       --- Creating a PostgreSQL Database ---
       sudo su - postgres
       createuser --superuser --createdb --createrole --replication --pwprompt swoss
-      --- set password to be: postgres
       createdb -O swoss swmoss_prod
-      RAILS_ENV=production bundle exec rake db:create
+      -- Set DATABASE_URL
+      Note: replace <password> with the password you set above for swoss
+      export DATABASE_URL=postgresql://swoss:<password>@localhost:5432/swmoss_prod
       RAILS_ENV=production bundle exec rake db:migrate
       RAILS_ENV=production bundle exec rake db:seed
     "
@@ -52,7 +50,7 @@ echo "sudo nano /etc/nginx/sites-enabled/swmoss
         listen [::]:80;
         
         server_name swmoss.com;
-        root /home/$current_user/swoss/public;
+        root $HOME/swoss/public;
         
         passenger_enabled on;
         passenger_app_env production;
@@ -64,7 +62,7 @@ echo "sudo nano /etc/nginx/sites-enabled/swmoss
        
         # Allow uploads up to 100MB in size
         client_max_body_size 100m;
-        \n
+
         location ~ ^/(assets|packs) {
             expires max;
             gzip_static on;

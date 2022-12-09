@@ -39,6 +39,7 @@ echo "Congratulations! Please continue setting up database and virtual server as
       -- Set DATABASE_URL
       Note: replace <password> with the password you set above for swoss
       export DATABASE_URL=postgresql://swoss:<password>@localhost:5432/swmoss_prod
+      RAILS_ENV=production bundle exec rake db:create
       RAILS_ENV=production bundle exec rake db:migrate
       RAILS_ENV=production bundle exec rake db:seed
     "
@@ -54,6 +55,7 @@ echo "sudo nano /etc/nginx/sites-enabled/swmoss
         
         passenger_enabled on;
         passenger_app_env production;
+        passenger_env_var DATABASE_URL $DATABASE_URL;
         
         location /cable { 
             passenger_app_group_name myapp_websocket;

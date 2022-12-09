@@ -78,6 +78,4 @@ test:
 # You can use this database configuration with:
 #
 production:
-  <<: *default
-  database: swmoss_prod
   url: <%= ENV['DATABASE_URL'] %>

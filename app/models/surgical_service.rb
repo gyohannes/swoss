@@ -121,7 +121,7 @@ class SurgicalService < ApplicationRecord
   end
 
   def self.month_surgeon_efficiency(month)
-    surgeries(month).count/(Surgeon.count * 30)
+    surgeries(month).count/(Surgeon.count * 30) rescue nil
   end
 
   def self.surgeries(month)
@@ -148,7 +148,7 @@ class SurgicalService < ApplicationRecord
   end
 
   def self.month_average_procedure_duration(month)
-    return surgeries(month).blank? ? 0 : total_surgery_minutes(month)/surgeries(month).count
+    return surgeries(month).blank? ? 0 : total_surgery_minutes(month)/surgeries(month).count rescue nil
   end
 
   def self.total_surgery_minutes(month)

@@ -9,7 +9,7 @@ class Department < ApplicationRecord
   end
 
   def category_waiting_total(status, category)
-    total = admissions.where('status = ? and procedure_category_id = ?', status, category).count
+    total = admissions.where('status = ? and procedure_category_id = ?', status, category.id).count
     return status == Constants::ON_WAITING_LIST ? total - missing_total(category) : total
   end
 
@@ -18,7 +18,7 @@ class Department < ApplicationRecord
   end
 
   def surgeon_efficiency(from,to)
-    surgeries(from, to).count/(Surgeon.count * 30)
+    surgeries(from, to).count/(Surgeon.count * 30) rescue nil
   end
 
   def total_surgery_minutes(from, to)
@@ -35,8 +35,8 @@ class Department < ApplicationRecord
   end
 
   def missing_total(category)
-    admissions.where('procedure_category_id = ? and appointment_date_gr < ? and status = ?',
-                     category, Date.today, Constants::ON_WAITING_LIST).count
+    admissions.where("procedure_category_id = ? and appointment_date_gr > ? and status = ?",
+                     category.id, Date.today - category.max_appointment_days, Constants::ON_WAITING_LIST).count
   end
 
   def to_s

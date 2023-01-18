@@ -43,6 +43,15 @@ class Admission < ApplicationRecord
     return admissions
   end
 
+  def latest_appointment_date
+    new_app_dates = phone_calls.where(new_appointment: !nil)
+    unless new_app_dates.blank?
+      return new_app_dates.order('created_at DESC').first
+    else
+      return appointment_date
+    end
+  end
+
   def occupy_bed
     if !bed.blank? and status == Constants::ADMITTED
       bed.update_attribute('status', true)

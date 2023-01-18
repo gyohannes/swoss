@@ -1,14 +1,24 @@
 <%= simple_fields_for :phone_call, @phone_call do |f| %>
-    <% if [Constants::PATIENT_DECLINED_SURGERY, Constants::PATIENT_TREATED_ELSEWHERE].include?(@response) %>
+    <% if @response == Constants::PATIENT_DECLINED_SURGERY %>
         <%= f.input :action, collection: Constants::ACTIONS %>
         <div id="date_display">
           <%= render partial: 'appointment_date' %>
         </div>
+    <% elsif @response == Constants::AGREED_TO_BE_TRANSFERED %>
+        <%= f.input :action, collection: [Constants::REFERRED_TO_OTHER_HOSPITAL] %>
+    <% elsif @response == Constants::PATIENT_TREATED_ELSEWHERE %>
+        <%= f.input :action, collection: [Constants::REMOVE_FROM_WAITLIST] %>
     <% elsif [Constants::NOT_READY_CLINICAL_CONDITIONS, Constants::NOT_READY_STAGED_PATIENT, Constants::NOT_READY_HOSPITAL_REASONS, Constants::NOT_READY_PHYSICIAN_REASONS].include?(@response)  %>
         <%= f.input :new_appointment, input_html: {class: 'ethiopian_date_picker'} %>
-    <% elsif @not_ready or @didnt_respond %>
+    <% elsif @not_ready %>
       <%= f.input :information, as: :text, readonly: true, input_html: {rows: 5, value: @information} %>
         <%= f.input :action, collection: Constants::ACTIONS %>
+        <div id="date_display">
+          <%= render partial: 'appointment_date' %>
+        </div>
+    <% elsif @didnt_respond %>
+      <%= f.input :information, as: :text, readonly: true, input_html: {rows: 5, value: @information} %>
+        <%= f.input :action, collection: Constants::ACTIONS - [Constants::REFERRED_TO_OTHER_HOSPITAL] %>
         <div id="date_display">
           <%= render partial: 'appointment_date' %>
         </div>

@@ -13,10 +13,15 @@ class AdmissionsController < ApplicationController
   # GET /admissions.json
   def index
     unless params[:department].blank? and params[:category].blank?
-      @admissions = Admission.where('procedure_category_id = ? and department_id = ? and appointment_date_gr < ? and status = ?', 
-        params[:category], params[:department], Date.today, Constants::ON_WAITING_LIST)
+      category = ProcedureCategory.find_by(id: params[:category])
+      @admissions = Admission.where('procedure_category_id = ? and department_id = ? and appointment_date_gr > ? and status = ?', 
+        category.id, params[:department], Date.today - category.max_appointment_days, Constants::ON_WAITING_LIST)
     else
-      @admissions = Admission.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST)
+      @admissions = []
+      ProcedureCategory.all.each do |pc|
+        @admissions << Admission.where('appointment_date_gr > ? and status = ?', Date.today - pc.max_appointment_days, Constants::ON_WAITING_LIST)
+        @admissions = @admissions.flatten.uniq
+      end
     end
   end
 
@@ -63,8 +68,9 @@ class AdmissionsController < ApplicationController
     procedure = Procedure.find_by(id: params[:procedure])
     priority = params[:priority]
     category = priority == 'true' ? ProcedureCategory.find_by(code: 1) : procedure.procedure_category
-    @information = params[:listing_status].blank? ? '' : ( params[:listing_status] == Constants::READY ? "For this patient the Maximum appointment period should not exceed #{category.max_appointment_days} days" :
-                       "For this patient the Maximum appointment period should not exceed #{category.max_appointment_days} days and the Maximum postponment days should not exceed #{category.max_postponment_days} days ")
+    @information = params[:listing_status].blank? ? '' : (params[:listing_status] == Constants::READY ? "For this patient the Maximum appointment period should not exceed #{category.max_appointment_days} days" : 
+    ([Constants::NOT_READY_STAGED_PATIENT, Constants::NOT_READY_PENDING_CLINICAL_IMPROVEMENT].include?(params[:listing_status]) ? "The pateint is #{params[:listing_status]}, please follow surgeon's advice to assign an appointment date" :
+                       "For this patient the Maximum appointment period should not exceed #{category.max_appointment_days} days and the Maximum postponment days should not exceed #{category.max_postponment_days} days "))
 
     render partial: 'information'
   end
@@ -148,7 +154,7 @@ class AdmissionsController < ApplicationController
   # PATCH/PUT /admissions/1
   # PATCH/PUT /admissions/1.json
   def update
-    @free_beds = @admission.ward.beds.where(status: nil, status: false) + + [@admission.bed] rescue nil
+    @free_beds = @admission.ward.beds.where(status: nil, status: false) + [@admission.bed] rescue nil
     @admission_type = admission_params[:admission_type]
     @category = @admission.procedure_category
     respond_to do |format|

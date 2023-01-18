@@ -20,7 +20,7 @@
             <% Department.all.each do |d| %>
                 <td><%= d %></td>
                 <th>
-                  <% dt = d.missing_total(pc.id) %>
+                  <% dt = d.missing_total(pc) %>
                   <% if dt > 0 %>
                     <%= link_to dt, admissions_path(department: d.id, category: pc.id) %>
                   <% else %>

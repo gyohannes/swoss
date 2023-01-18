@@ -12,13 +12,15 @@
           <% end %>
         </tr>
         </thead>
+        <% totalw = 0 %>
         <% @procedure_categories.each do |pc| %>
             <tr>
               <td rowspan="<%= Department.count %>"><%= pc %></td>
               <% Department.all.each do |d| %>
                   <td><%= d %></td>
                   <% Constants::PATIENT_STATUS.each do |s| %>
-                      <th><%= d.category_waiting_total(s, pc.id) %></th>
+                      <th><%= dw = d.category_waiting_total(s, pc) %></th>
+                      <% totalw += dw %>
                   <% end %>
                   </tr>
               <% end %>
@@ -27,7 +29,7 @@
           <th colspan="2">Total</th>
           <% Constants::PATIENT_STATUS.each do |s| %>
               <th>
-                <%= Admission.waiting_total(s) %><br/>
+                <%= totalw %><br/>
               </th>
           <% end %>
         </tr>
@@ -51,7 +53,7 @@
               <td rowspan="<%= Department.count %>"><%= pc %></td>
               <% Department.all.each do |d| %>
                   <td><%= d %></td>
-                  <% dt = d.missing_total(pc.id) %>
+                  <% dt = d.missing_total(pc) %>
                   <th><% if dt > 0 %>
                     <%= link_to dt, admissions_path(department: d.id, category: pc.id) %>
                   <% else %>

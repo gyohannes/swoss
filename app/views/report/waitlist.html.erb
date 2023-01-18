@@ -12,20 +12,22 @@
               <th><%= Constants::ON_WAITING_LIST %></th>
             </tr>
             </thead>
+            <% totalw = 0 %>
             <% ProcedureCategory.all.each do |pc| %>
                 <tr>
                 <td rowspan="<%= Department.count %>"><%= pc %></td>
               <% Department.all.each do |d| %>
-              <% dw = d.category_waiting_total(Constants::ON_WAITING_LIST, pc.id) %>
+              <% dw = d.category_waiting_total(Constants::ON_WAITING_LIST, pc) %>
                   <td><%= d %></td>
                   <th><%= dw %></th>
+                <% totalw += dw %>
               </tr>
             <% end %>
             <% end %>
              <tfoot>
             <tr>
                 <th colspan='2'>Total</th>
-                <th><%= Admission.waiting_total(Constants::ON_WAITING_LIST) %></th>
+                <th><%= totalw %></th>
             </tr>
              </tfoot>
           </table>

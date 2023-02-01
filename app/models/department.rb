@@ -5,7 +5,8 @@ class Department < ApplicationRecord
   validates :name, presence: true
 
   def waiting_total(status)
-    admissions.where('status = ?', status).count
+    total = admissions.where('status = ?', status).count
+    return status == Constants::ON_WAITING_LIST ? total - dep_missing_total : total
   end
 
   def category_waiting_total(status, category)
@@ -32,6 +33,14 @@ class Department < ApplicationRecord
   def surgeries(from, to)
     SurgicalService.joins(:or_schedule=>:admission).where('admissions.department_id = ? and post_schedule_status = ? and scheduled_date_gr >= ? and scheduled_date_gr <= ?',
                                                           self.id, Constants::OPERATED, from, to)
+  end
+
+  def dep_missing_total
+    total = 0
+    ProcedureCategory.all.each do |pc|
+      total += missing_total(pc)
+    end
+    return total
   end
 
   def missing_total(category)

@@ -27,7 +27,7 @@
              <tfoot>
             <tr>
                 <th colspan='2'>Total</th>
-                <th><%= totalw %></th>
+                <th><%= Admission.waiting_total(Constants::ON_WAITING_LIST) %></th>
             </tr>
              </tfoot>
           </table>

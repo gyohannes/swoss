@@ -86,7 +86,12 @@ class Admission < ApplicationRecord
   end
 
   def self.missing_total(status)
-    Admission.where('date_of_registration_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST).count
+    total = 0
+    ProcedureCategory.all.each do |pc|
+      total += Admission.select('procedure_category_id, date_of_registration_gr, status').where('procedure_category_id = ? and date_of_registration_gr < ? and status = ?', 
+        pc.id, Date.today - pc.max_appointment_days, Constants::ON_WAITING_LIST).size
+    end
+    return total
   end
 
   def self.waiting_month_total(status, month)

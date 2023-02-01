@@ -86,7 +86,7 @@ class Admission < ApplicationRecord
   end
 
   def self.missing_total(status)
-    Admission.where('appointment_date_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST).count
+    Admission.where('date_of_registration_gr < ? and status = ?', Date.today, Constants::ON_WAITING_LIST).count
   end
 
   def self.waiting_month_total(status, month)

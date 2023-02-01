@@ -14,14 +14,15 @@ class AdmissionsController < ApplicationController
   def index
     unless params[:department].blank? and params[:category].blank?
       category = ProcedureCategory.find_by(id: params[:category])
-      @admissions = Admission.where('procedure_category_id = ? and department_id = ? and appointment_date_gr > ? and status = ?', 
+      @admissions = Admission.where('procedure_category_id = ? and department_id = ? and date_of_registration_gr < ? and status = ?', 
         category.id, params[:department], Date.today - category.max_appointment_days, Constants::ON_WAITING_LIST)
     else
       @admissions = []
       ProcedureCategory.all.each do |pc|
-        @admissions << Admission.where('appointment_date_gr > ? and status = ?', Date.today - pc.max_appointment_days, Constants::ON_WAITING_LIST)
-        @admissions = @admissions.flatten.uniq
+        @admissions << Admission.where('procedure_category_id = ? and date_of_registration_gr < ? and status = ?', 
+        pc.id, Date.today - pc.max_appointment_days, Constants::ON_WAITING_LIST)
       end
+      @admissions = @admissions.flatten.uniq
     end
   end
 

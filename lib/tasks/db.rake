@@ -4,7 +4,7 @@ namespace :db do
   task :dump => :environment do
     cmd = nil
     with_config do |app, host, db, user, passwrd|
-      cmd = "export PGPASSWORD='#{passwrd}' && pg_dump --username #{user} -w --verbose --clean --no-owner --no-acl --format=c #{db} > /tmp/swmoss_db.dump"
+      cmd = "export PGPASSWORD='#{passwrd}' && pg_dump --username #{user} -w --verbose --clean --no-owner --no-acl --format=c #{db} > /tmp/backups/swmoss_db.dump"
     end
     puts cmd
     exec cmd

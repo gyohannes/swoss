@@ -36,7 +36,7 @@ class BackupsController < ApplicationController
 
     respond_to do |format|
       if @backup.save
-        @backup.attachment.attach(io: File.open("/tmp/swmoss_db.dump"), filename: "swmoss_db.dump")
+        @backup.attachment.attach(io: File.open("/tmp/backups/swmoss_db.dump"), filename: "swmoss_db.dump")
         format.html { redirect_to backups_path, notice: 'Backup was successfully Saved.' }
         format.json { render :show, status: :created, location: @backup }
       else
